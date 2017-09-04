@@ -1,0 +1,29 @@
+{
+	"name": "kossmoss/yii2-google-maps-api",
+	"description": "Easy access to Google API functions from Yii2 application",
+	"license": "MIT",
+	"type": "library",
+	"authors": [
+		{
+			"name":      "Monte Ohrt"
+		},
+		{
+			"name":      "Brad Wedell",
+			"homepage":  "https://github.com/streetlogics/php-google-map-api"
+		},
+		{
+			"name":      "Konstantin Petrov",
+			"email":     "radiokoss@gmail.com"
+		}
+	],
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": ">=2.0.6"
+    },
+	"autoload": {
+		"classmap": [
+			"src/",
+			"GoogleMaps.php"
+		]
+	}
+}

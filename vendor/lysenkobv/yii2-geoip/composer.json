@@ -1,0 +1,28 @@
+{
+  "name": "lysenkobv/yii2-geoip",
+  "description": "Yii 2 GeoIP extension. Returns country, city, lat, lng of current or specified IP (uses MaxMind's GeoIP2 databases)",
+  "keywords": ["geoip", "geolocation", "maxmind", "yii2"],
+  "type": "yii2-extension",
+  "version": "1.0.4",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bohdan Lysenko",
+      "email": "lysenkobv@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": ">=2.0.0",
+    "maxmind-db/reader": "~1.0",
+    "lysenkobv/maxmind-geolite2-database": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "lysenkobv\\GeoIP\\": "src/"
+    }
+  }
+}
