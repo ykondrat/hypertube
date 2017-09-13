@@ -7,5 +7,21 @@
  */
 
 ?>
+<script>
+    function getShowOptionsFromName () {
+
+        $.ajax({
+            url: "imdb",
+            method: "GET",
+            data: {q: $("#test").val()},
+            dataType: "json"
+        }).done(function(data){
+            console.log(data);
+        });
+    }
+</script>
 
 <h1>HELLO =)</h1>
+
+<input type="text" id="test">
+<button onclick="getShowOptionsFromName()"></button>

@@ -235,4 +235,9 @@ class SiteController extends Controller
         }
     }
 
+    public function actionImdb(){
+        $q = urlencode($_GET["q"]);
+        echo file_get_contents("http://www.imdb.com/xml/find?json=1&nr=1&tt=on&q=$q");
+    }
 }
+
