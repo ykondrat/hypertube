@@ -10,8 +10,8 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
     );
@@ -19,6 +19,7 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
     public static $prefixLengthsPsr4 = array (
         'y' => 
         array (
+            'yiidreamteam\\upload\\' => 20,
             'yii\\swiftmailer\\' => 16,
             'yii\\jui\\' => 8,
             'yii\\httpclient\\' => 15,
@@ -30,6 +31,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
             'yii\\authclient\\' => 15,
             'yii\\' => 4,
         ),
+        's' => 
+        array (
+            'sintret\\chat\\' => 13,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -37,11 +42,16 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         'l' => 
         array (
             'lysenkobv\\GeoIP\\' => 16,
+            'linslin\\yii2\\curl\\' => 18,
         ),
         'k' => 
         array (
             'kotchuprik\\authclient\\' => 22,
+            'kop\\y2sp\\' => 9,
             'kmarenov\\instagram\\' => 19,
+            'kartik\\slider\\' => 14,
+            'kartik\\helpers\\' => 15,
+            'kartik\\base\\' => 12,
         ),
         'd' => 
         array (
@@ -51,6 +61,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
+        ),
+        'b' => 
+        array (
+            'bubasuma\\simplechat\\' => 20,
         ),
         'W' => 
         array (
@@ -102,6 +116,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
     );
 
     public static $prefixDirsPsr4 = array (
+        'yiidreamteam\\upload\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yii-dream-team/yii2-upload-behavior/src',
+        ),
         'yii\\swiftmailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2-swiftmailer',
@@ -142,23 +160,47 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
+        'sintret\\chat\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sintret/yii2-chat-adminlte',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
-            0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            0 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
         ),
         'lysenkobv\\GeoIP\\' => 
         array (
             0 => __DIR__ . '/..' . '/lysenkobv/yii2-geoip/src',
         ),
+        'linslin\\yii2\\curl\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/linslin/yii2-curl',
+        ),
         'kotchuprik\\authclient\\' => 
         array (
             0 => __DIR__ . '/..' . '/kotchuprik/yii2-instagram-authclient',
         ),
+        'kop\\y2sp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kop/yii2-scroll-pager',
+        ),
         'kmarenov\\instagram\\' => 
         array (
             0 => __DIR__ . '/..' . '/kmarenov/yii2-instagram-widget',
+        ),
+        'kartik\\slider\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-slider',
+        ),
+        'kartik\\helpers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-helpers',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base',
         ),
         'dosamigos\\google\\maps\\' => 
         array (
@@ -171,6 +213,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         'cebe\\markdown\\' => 
         array (
             0 => __DIR__ . '/..' . '/cebe/markdown',
+        ),
+        'bubasuma\\simplechat\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/bubasuma/yii2-simplechat',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -272,6 +318,14 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+            'PHPThumb\\Tests' => 
+            array (
+                0 => __DIR__ . '/..' . '/masterexploder/phpthumb/tests',
+            ),
+            'PHPThumb' => 
+            array (
+                0 => __DIR__ . '/..' . '/masterexploder/phpthumb/src',
             ),
         ),
         'H' => 

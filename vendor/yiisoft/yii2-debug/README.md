@@ -1,5 +1,10 @@
-Debug Extension for Yii 2
-=========================
+<p align="center">
+    <a href="https://github.com/yiisoft" target="_blank">
+        <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
+    </a>
+    <h1 align="center">Debug Extension for Yii 2</h1>
+    <br>
+</p>
 
 This extension provides a debugger for [Yii framework 2.0](http://www.yiiframework.com) applications. When this extension is used,
 a debugger toolbar will appear at the bottom of every page. The extension also provides
@@ -11,6 +16,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-debug/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-debug)
 [![Total Downloads](https://poser.pugx.org/yiisoft/yii2-debug/downloads.png)](https://packagist.org/packages/yiisoft/yii2-debug)
+[![Build Status](https://travis-ci.org/yiisoft/yii2-debug.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-debug)
 
 
 Installation
@@ -44,6 +50,8 @@ return [
     'modules' => [
         'debug' => [
             'class' => 'yii\debug\Module',
+            // uncomment and adjust the following to add your IP if you are not connecting from localhost.
+            //'allowedIPs' => ['127.0.0.1', '::1'],
         ],
         // ...
     ],
@@ -67,6 +75,8 @@ return [
         'debug' => [
             'class' => 'yii\debug\Module',
             'traceLine' => '<a href="phpstorm://open?url={file}&line={line}">{file}:{line}</a>',
+            // uncomment and adjust the following to add your IP if you are not connecting from localhost.
+            //'allowedIPs' => ['127.0.0.1', '::1'],
         ],
         // ...
     ],

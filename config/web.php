@@ -64,7 +64,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
 //                'site/success_login' => 'user/profiledata',
-                '<alias:index|about|contact|signup|login|forgot>' => 'site/<alias>',
+                '<alias:index|main|intra|intratest>' => 'site/<alias>',
             ],
         ],
         'facebook' => [
@@ -83,8 +83,8 @@ $config = [
                 ],
                 'google' => [
                     'class'        => 'dektrium\user\clients\Google',
-                    'clientId'     => '295617776206-eg8ht00ilj1su2231h5jequh35rq9p7t.apps.googleusercontent.com',
-                    'clientSecret' => 'beAXxolPM2_ebrswtUHBjA2-',
+                    'clientId'     => '1072446690896-368icm6fs1jc368qjbr0trnbl2cqbu9l.apps.googleusercontent.com',
+                    'clientSecret' => '4B0F_6y73dGKB9EDCBnR8Rlq',
                 ],
                 // etc.
             ],

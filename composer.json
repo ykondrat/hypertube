@@ -26,7 +26,13 @@
         "yiisoft/yii2-jui": "*",
         "lysenkobv/yii2-geoip": "~1.0",
         "2amigos/yii2-google-maps-library": "*",
-        "kossmoss/yii2-google-maps-api": "^0.2"
+        "kossmoss/yii2-google-maps-api": "^0.2",
+        "yii-dream-team/yii2-upload-behavior": "*",
+        "kartik-v/yii2-slider": "dev-master",
+        "kop/yii2-scroll-pager": "dev-master",
+        "bubasuma/yii2-simplechat": "^2.0",
+        "sintret/yii2-chat-adminlte": "^1.0",
+        "linslin/yii2-curl": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
