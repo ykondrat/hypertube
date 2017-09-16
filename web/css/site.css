@@ -217,3 +217,6 @@ a{color:inherit;text-decoration:none}
 .foot-lnk .btn:hover {
 	cursor: pointer;
 }
+.btn-edit {
+	text-align: center;
+}

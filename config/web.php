@@ -46,7 +46,10 @@ $config = [
             'showScriptName' => false,
             'rules' => [
 //                'site/success_login' => 'user/profiledata',
-                '<alias:index|main|intra|imdb>' => 'site/<alias>',
+                '<alias:index|intra|imdb>' => 'site/<alias>',
+                'main' => 'main/main',
+                'settings' => 'main/settings',
+                'logout' => 'main/logout',
             ],
         ],
         'facebook' => [

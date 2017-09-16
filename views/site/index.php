@@ -14,9 +14,6 @@ $this->title = 'Hypertube';
 
     <div class="login-html">
 
-        <button onclick="">ua</button>
-        <button id="en">ua</button>
-
         <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
         <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
         <div class="login-form">
