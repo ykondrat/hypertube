@@ -50,6 +50,7 @@ $config = [
                 'main' => 'main/main',
                 'settings' => 'main/settings',
                 'logout' => 'main/logout',
+
             ],
         ],
         'facebook' => [

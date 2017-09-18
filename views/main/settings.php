@@ -28,11 +28,11 @@ use yii\bootstrap\ActiveForm;
 		    <div class="login-form">
 		        <div class="sign-up-htm" style="transform: rotateY(0);">
                     <?php $settingsform = ActiveForm::begin() ?>
-					<div class="group">
+					<div class="group user-avatar-block" >
 						<label for="user-file" class="label">Set avatar</label>
                         <?= $settingsform->field($user, 'user_avatar')->fileInput(['class' => 'input', 'id' => 'user-file'])->label(false); ?>
 
-						<img src="<?= $user->user_avatar?>" alt="" class="img-fluid">
+						<img src="<?= $user->user_avatar?>" alt="" class="user-img-avatar img-fluid">
 		            </div>
 		            <div class="group">
 		                <label for="user-signup" class="label" >User login</label>

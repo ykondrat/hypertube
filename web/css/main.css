@@ -40,7 +40,7 @@ body {
     left: 17px;
     font-size: 40px;
     padding-bottom: 4px;
-    /*margin-right: 50px;*/
+    margin-top: 15px;
     color: #55E2CD;
     font-weight: bold;
 }
@@ -161,11 +161,16 @@ input[type=text]:focus {
 }
 .pag-btn .prev {
     display: none;
+    color: black;
 }
 .pag-btn .next {
-    display: flex;
+    display: block;
     position: absolute;
     right: 0;
+    color: black;
+}
+.pag-btn .next:focus, .pag-btn .prev:focus {
+    outline: none;
 }
 .back-btn {
     background-color: #A7A7A7 !important;

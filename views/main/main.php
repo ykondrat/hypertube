@@ -28,7 +28,7 @@ use yii\widgets\Pjax;
 </div>
 <nav class="navbar navbar-inverse bg-inverse">
     <div class="nav-container">
-        <span style="font-size:30px;cursor:pointer" onclick="openNav()" class="open-nav">&#9776;</span>
+        <span style="font-size:30px;cursor:pointer; margin-top: 10px" onclick="openNav()" class="open-nav">&#9776;</span>
         <input type="text" style="background-image: url('search-icon.png');" name="search" id="search-film" placeholder="Search..">
         <div class="right-nav">
             <a class="user-login dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php

@@ -20,6 +20,18 @@ $this->title = 'Hypertube';
 
             <div class="sign-in-htm">
                 <?php $loginform = ActiveForm::begin() ?>
+                <?php if (Yii::$app->session->hasFlash('success')): ?>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::$app->session->getFlash('success'); ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (Yii::$app->session->hasFlash('error')): ?>
+                    <div class="alert alert-danger alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::$app->session->getFlash('error'); ?>
+                    </div>
+                <?php endif; ?>
                 <div class="group">
                     <label for="user" class="label">User login</label>
                     <?= $loginform->field($login, 'user_login')->textInput(['class' => 'input'])->label(false); ?>
@@ -42,18 +54,6 @@ $this->title = 'Hypertube';
                     <a href="https://api.intra.42.fr/oauth/authorize?client_id=ab8c761b24b12bf91cee7442ff17068180783358189e8239f102a5b149ae812c&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fhypertube%2Fweb%2Fintra&response_type=code
 " class="btn btn-info">Intra 42 <img src="https://signin.intra.42.fr/assets/42_logo_black-684989d43d629b3c0ff6fd7e1157ee04db9bb7a73fba8ec4e01543d650a1c607.png" alt="Intra 42 logo"></a>
                 </div>
-                <?php if (Yii::$app->session->hasFlash('success')): ?>
-                    <div class="alert alert-success alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <?php echo Yii::$app->session->getFlash('success'); ?>
-                    </div>
-                <?php endif; ?>
-                <?php if (Yii::$app->session->hasFlash('error')): ?>
-                    <div class="alert alert-danger alert-dismissible" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <?php echo Yii::$app->session->getFlash('error'); ?>
-                    </div>
-                <?php endif; ?>
                 <div class="hr"></div>
                 <div class="foot-lnk">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#forgot-password">

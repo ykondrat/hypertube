@@ -8,4 +8,4 @@
 
 ?>
 
-<li><?= $model?></li>
+<li onclick="setGenre(this)"><?= $model?></li>

@@ -46,6 +46,7 @@ a{color:inherit;text-decoration:none}
 	text-transform:uppercase;
 	font-weight: bold;
 }
+
 .login-form .group .button:hover{
 	cursor: pointer;
 	background-color: #27C1AA;
@@ -219,4 +220,7 @@ a{color:inherit;text-decoration:none}
 }
 .btn-edit {
 	text-align: center;
+}
+.label {
+	text-align: left;
 }

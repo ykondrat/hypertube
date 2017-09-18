@@ -25,27 +25,74 @@ class MainController extends Controller
 {
     public $layout = 'my_main';
 
-
-
-    public function actionMain()
-    {
+    public function get_Genre(){
         $genre_string = '';
         $genres = Imdb::find()->select('Genre')->all();
-        $session = Yii::$app->session;
-        $user = User::findOne(['user_email' => $session['loged_email']]);
-
         foreach ($genres as $genre){
             $genre_string = $genre_string.', '.$genre->Genre;
         }
         $genre_array = explode(', ', $genre_string);
         $genre_array = array_unique($genre_array);
         sort($genre_array, SORT_STRING);
-        $dataProvider = new ArrayDataProvider([
-            'allModels' => $genre_array,
-            'pagination' => false,
-        ]);
+        unset($genre_array[0]);
+        array_unshift($genre_array, "All");
+        return $genre_array;
+}
 
-        return $this->render('main', compact('user', 'dataProvider'));
+    public function actionMain()
+    {
+        $session = Yii::$app->session;
+        if (!(isset($session['loged_email']))){
+            $this->actionLogout();
+        }else {
+            $user = User::findOne(['user_email' => $session['loged_email']]);
+
+            $dataProvider = new ArrayDataProvider([
+                'allModels' => $this->get_Genre(),
+                'pagination' => false,
+            ]);
+
+            return $this->render('main', compact('user', 'dataProvider'));
+        }
+    }
+
+    public function actionReturngenre(){
+
+        $post = Yii::$app->request->post('Genre');
+        $offset = Yii::$app->request->post('limit') * 10;
+
+        if ($post != "All") {
+            $films = Imdb::find()->where(['like', 'Genre', $post])->asArray()->limit(10)->offset($offset)->all();
+            $if_end = Imdb::find()->where(['like', 'Genre', $post])->asArray()->limit(11)->offset($offset)->all();
+        } else {
+            $films = Imdb::find()->asArray()->limit(10)->offset($offset)->all();
+            $if_end = Imdb::find()->asArray()->limit(11)->offset($offset)->all();
+        }
+
+        $films[] = (count($if_end) > count($films)) ? "OK" : "END";
+
+        echo json_encode($films);
+    }
+
+    public function actionGet_look_for()
+    {
+        $session = Yii::$app->session;
+        $look_for = array();
+        $look_for[] = (isset($session['limit'])) ? ['limit' => $session['limit']] : ['limit' => '1'];
+        $look_for[] = (isset($session['genre'])) ? ['genre' => $session['genre']] : ['genre' => 'All'];
+        $look_for[] = (isset($session['searchValue'])) ? ['searchValue' => $session['searchValue']] : ['searchValue' => ''];
+
+        echo json_encode($look_for);
+    }
+
+    public function actionSend_look_for()
+    {
+        $post = Yii::$app->request->post();
+        $session = Yii::$app->session;
+        $session['genre'] = $post['genre'];
+        $session['searchValue'] = $post['searchValue'];
+        $session['limit'] = $post['limit'];
+
     }
 
     public function actionSettings()
@@ -127,6 +174,7 @@ class MainController extends Controller
     {
         $session = Yii::$app->session;
         $session->destroy();
+        $session->close();
         $this->redirect('http://localhost:8080/hypertube/web/index');
     }
 }

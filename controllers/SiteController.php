@@ -25,7 +25,6 @@ use yii\helpers\FileHelper;
 class SiteController extends Controller
 {
 
-
     public function behaviors()
     {
         return [
@@ -98,7 +97,7 @@ class SiteController extends Controller
             $this->redirect('http://localhost:8080/hypertube/web/main');
         } else {
             $session['loged_email'] = $user->user_email;
-            $session->close();
+
             $this->redirect('http://localhost:8080/hypertube/web/main');
         }
     }
@@ -126,7 +125,7 @@ class SiteController extends Controller
 
         $imdb_id_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `imdb_id` (
-          `number` INT (4) ,
+          `number` INT (4) UNSIGNED NOT NULL AUTO_INCREMENT,
           `imdbID` VARCHAR (15),
           `Title` VARCHAR (255),
           `Year` VARCHAR (5),
@@ -261,7 +260,7 @@ class SiteController extends Controller
 
                 $user->save(false);
             }
-            $session['user_email'] = $data->email;
+            $session['loged_email'] = $data->email;
             $this->redirect('http://localhost:8080/hypertube/web/main');
         }
     }
@@ -282,7 +281,7 @@ class SiteController extends Controller
     public function actionImdb()
     {
 
-//        $ch = curl_init('http://www.imdb.com/list/ls000028602/?start=251&view=compact&sort=user_rating:desc&defaults=1&scb=0.3989732901021126');
+//        $ch = curl_init('http://www.imdb.com/search/title?count=1000&groups=top_1000&sort=user_rating');
 //        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 //        $htmlString = curl_exec($ch);
 //        curl_close($ch);
@@ -296,16 +295,16 @@ class SiteController extends Controller
 //                    $ids[] = substr($url, 9, 7);
 //                }
 //            }
-//                      $ids = array_slice($ids, 24);
+////                      $ids = array_slice($ids, 24);
 //            foreach ($ids as $film) {
 //                $i = 0;
-//                while ($i < 1000000) {
+//                while ($i < 10000000) {
 //                    $i++;
 //                }
 //                $film = $this->getFullInformation($film);
 //                Yii::$app->db->createCommand()->insert('imdb_id', $film)->execute();
 //                $i = 0;
-//                while ($i < 1000000) {
+//                while ($i < 10000000) {
 //                    $i++;
 //                }
 //            }

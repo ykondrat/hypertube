@@ -1,0 +1,102 @@
+.film-view {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+}
+.film-poster {
+    margin-bottom: 20px;
+}
+.user-avatar-block {
+    text-align: center;
+}
+.user-img-avatar {
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+}
+.header-film h1 {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #F0F0F0;
+}
+.header-film h4 {
+    position: absolute;
+    right: 0;
+    top: 3px;
+    font-weight: bold;
+    color: #55E2CD;
+}
+.header-film h6 {
+    font-weight: bold;
+    color: #55E2CD;
+}
+.plot {
+    color: #F0F0F0;
+}
+.second-info {
+    color: #F0F0F0;
+}
+.second-info span{
+    font-weight: bold;
+    color: #C6C6C6;
+}
+.list-group-item {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.sid {
+    margin-left: 10px;
+    color: #FC72A8;
+}
+.pid {
+    margin-left: 10px;
+    color: #72B7FC;
+}
+.play {
+    font-weight: bold;
+    color: #C6C6C6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.ready {
+    color: #55E2CD;
+}
+.torrent-list p {
+    color: #CEFFF1;
+    font-weight: bold;
+}
+#progress {
+    width: 100%;
+    background-color: #ddd;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 7px;
+}
+
+#bar {
+    width: 20%;
+    height: 30px;
+    background-color: #55E2CD;
+    border-radius: 7px;
+}
+
+@media screen and (max-width: 991px) {
+    .plot, .second-info, .second-info span {
+        font-size: 14px;
+    }
+}
+.btn-film-view {
+    font-size: 18px;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    color: #55E2CD;
+    font-weight: bold;
+}
+.btn-film-view:hover {
+    text-decoration: none;
+    color: #55E2CD;
+}

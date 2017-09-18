@@ -1,9 +1,13 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * Created by PhpStorm.
+ * User: sandruse
+ * Date: 17.09.17
+ * Time: 15:25
  */
+
+
+
 
 namespace app\assets;
 
@@ -13,18 +17,16 @@ use yii\web\AssetBundle;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class MainAsset extends AssetBundle
+class FilmAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-        'css/site.css',
         'css/main.css',
         'css/film_page.css'
     ];
     public $js = [
-        'js/site.js',
-        'js/main.js',
+        'js/film.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -1,9 +1,57 @@
 let searchValue;
 let limit = 1;
-let genre = 'all';
+let genre = "All";
 
 $(document).ready(function(){
-    console.log('take film from server');
+    $.ajax({
+        url: 'main/get_look_for',
+        type: 'post',
+        dataType: 'json',
+        success: function (response) {
+            if (response[2].searchValue != "") {
+                $('#search-film').val(response[2].searchValue);
+                searchValue = response[2].searchValue;
+                limit = parseInt(response[0].limit);
+                openPrev();
+                getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿response[2].searchValue + '&page=' + response[0].limit)
+                .then(movies => {
+                    if (movies) {
+                        if (movies.length < 10) {
+                            $('.next').css('display', 'none');
+                        } else {
+                            $('.next').css('display', 'block');
+                        }
+                        movies.forEach(movie => {
+                            if (movie) {
+                                addMovie(movie);
+                            }
+                        })
+                    }
+                })
+                .catch(error => console.error(error))
+            } else {
+                genre = response[1].genre;
+                limit = parseInt(response[0].limit);
+                openPrev();
+                $.ajax({
+                    url: 'main/returngenre',
+                    type: 'post',
+                    data: { Genre: response[1].genre, limit: parseInt(response[0].limit) - 1},
+                    dataType: 'json',
+                    success: function(response) {
+                        let end = response[response.length - 1];
+                        if (end == "END") {
+                            $('.next').css('display', 'none');
+                        }
+                        let movies = response.slice(0, response.length - 1);
+                        movies.forEach(movie => {
+                            addMovie(movie);
+                        });
+                    }
+                });
+            }
+        }
+    });
 });
 
 $('.btn-edit').on('click', function(){
@@ -21,31 +69,9 @@ $('.btn-save').on('click', function() {
     $('.btn-save').attr('visibility', 'hidden');
 });
 
-// function openFilm(elem) {
-//     $.ajax({
-//         type: 'POST',
-//         url: 'localhost',
-//         dataType: 'json',
-//         data: {id: elem.dataset.id}
-//         success: function(response) {
-//             if (response == 'Error') {
-//                 $.ajax({
-//                     type: 'GET',
-//                     url: 'http://www.omdbapi.com/?apikey=8f911d74&i=' + elem.dataset.id,
-//                     dataType: 'json',
-//                     success: function(response) {
-//                         $.ajax({
-//                             type: 'POST',
-//                             url: 'localhost',
-//                             dataType: 'json',
-//                             data: response
-//                         });
-//                     }
-//                 });
-//             }
-//         }
-//     });
-// }
+function openFilm(elem) {
+    location.href = 'http://localhost:8080/hypertube/web/film/film_page?id=' + elem.dataset.id;
+}
 
 function openPrev() {
     if (limit > 1) {
@@ -102,17 +128,27 @@ function getData(url) {
     });
 }
 
+function sendData(genre, search, limit) {
+    $.ajax({
+        url: 'main/send_look_for',
+        type: 'post',
+        data: {genre: genre, searchValue: search,limit: limit},
+        dataType: 'json'
+    });
+}
+
 $('#search-film').on('keyup', function(event){
     if (event.keyCode == 13) {
         $('#movies div').remove();
         searchValue = this.value;
+        sendData('', this.value, limit);
         getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿this.value)
     .then(movies => {
-            if (movies) {
+        if (movies) {
                 if (movies.length < 10) {
                     $('.next').css('display', 'none');
                 } else {
-                    $('.next').css('display', 'flex');
+                    $('.next').css('display', 'block');
                 }
                 movies.forEach(movie => {
                     if (movie) {
@@ -128,26 +164,48 @@ $('#search-film').on('keyup', function(event){
 $('.next').on('click', function(){
     if (searchValue) {
         limit++;
+        sendData('', searchValue, limit);
         openPrev();
         $('#movies div').remove();
         getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿searchValue + '&page=' + limit)
-    .then(movies => {
-            if (movies) {
-                let counter = 0;
-                movies.forEach(movie => {
-                    if (movie) {
-                        addMovie(movie);
+        .then(movies => {
+                if (movies) {
+                    let counter = 0;
+                    movies.forEach(movie => {
+                        if (movie) {
+                            addMovie(movie);
+                        }
+                        if (movie.Poster == 'N/A') {
+                        counter++;
                     }
-                    if (movie.Poster == 'N/A') {
-                    counter++;
+                })
+                    if (counter > 8) {
+                        $('.next').css('display', 'none');
+                    }
                 }
             })
-                if (counter > 8) {
+        .catch(error => console.error(error))
+    } else {
+        $('#movies div').remove();
+        limit++;
+        sendData(genre, '', limit);
+        openPrev();
+        $.ajax({
+            url: 'main/returngenre',
+            type: 'post',
+            data: {Genre: genre, limit: limit - 1},
+            dataType: 'json',
+            success: function(response) {
+                let end = response[response.length - 1];
+                if (end == "END") {
                     $('.next').css('display', 'none');
                 }
+                let movies = response.slice(0, response.length - 1);
+                movies.forEach(movie => {
+                    addMovie(movie);
+                });
             }
-        })
-    .catch(error => console.error(error))
+        });
     }
 });
 
@@ -156,11 +214,12 @@ $('.prev').on('click', function(){
         $('#movies div').remove();
         if (limit > 1) {
             limit--;
+            sendData('', searchValue, limit);
             openPrev();
             getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿searchValue + '&page=' + limit)
         .then(movies => {
                 if (movies) {
-                    $('.next').css('display', 'flex');
+                    $('.next').css('display', 'block');
                     movies.forEach(movie => {
                         if (movie) {
                             addMovie(movie);
@@ -170,8 +229,55 @@ $('.prev').on('click', function(){
             })
         .catch(error => console.error(error))
         }
+    } else {
+        $('.next').css('display', 'block');
+        if (limit > 1) {
+            $('#movies div').remove();
+            limit--;
+            sendData(genre, '', limit);
+            openPrev();
+            $.ajax({
+                url: 'main/returngenre',
+                type: 'post',
+                data: {Genre: genre, limit: limit - 1},
+                dataType: 'json',
+                success: function (response) {
+                    let end = response[response.length - 1];
+                    if (end == "END") {
+                        $('.next').css('display', 'none');
+                    }
+                    let movies = response.slice(0, response.length - 1);
+                    movies.forEach(movie => {
+                        addMovie(movie);
+                    });
+                }
+            });
+        }
     }
 });
 
+function setGenre(Genre) {
+    $('#movies div').remove();
+    $('.next').css('display', 'block');
+    limit = 1;
+    genre = Genre.innerHTML;
+    sendData(genre, '', limit);
+    $('#search-film').val('');
 
-
+    $.ajax({
+        url: 'main/returngenre',
+        type: 'post',
+        data: {Genre: Genre.innerHTML, limit: limit - 1},
+        dataType: 'json',
+        success: function(response) {
+            let end = response[response.length - 1];
+            if (end == "END") {
+                $('.next').css('display', 'none');
+            }
+            let movies = response.slice(0, response.length - 1);
+            movies.forEach(movie => {
+                addMovie(movie);
+            });
+        }
+    });
+}
