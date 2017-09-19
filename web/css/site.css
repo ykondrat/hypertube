@@ -224,3 +224,6 @@ a{color:inherit;text-decoration:none}
 .label {
 	text-align: left;
 }
+.close {
+	margin-top: -8px;
+}
