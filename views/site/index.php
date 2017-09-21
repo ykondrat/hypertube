@@ -33,8 +33,8 @@ $this->title = 'Hypertube';
                     </div>
                 <?php endif; ?>
                 <div class="group">
-                    <label for="user" class="label">User login</label>
-                    <?= $loginform->field($login, 'user_login')->textInput(['class' => 'input'])->label(false); ?>
+                    <label for="user" class="label">Email Address</label>
+                    <?= $loginform->field($login, 'user_email')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
                     <label for="pass" class="label">Password</label>
@@ -64,15 +64,11 @@ $this->title = 'Hypertube';
             <div class="sign-up-htm">
                 <?php $signupform = ActiveForm::begin() ?>
                 <div class="group">
-                    <label for="user-signup" class="label">User login</label>
-                    <?= $signupform->field($signup, 'user_login')->textInput(['class' => 'input'])->label(false); ?>
-                </div>
-                <div class="group">
-                    <label for="username-signup" class="label">User first name</label>
+                    <label for="username-signup" class="label">User name</label>
                     <?= $signupform->field($signup, 'user_name')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="usersecondname-signup" class="label">User last name</label>
+                    <label for="usersecondname-signup" class="label">User Second name</label>
                     <?= $signupform->field($signup, 'user_secondname')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">

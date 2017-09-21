@@ -7,11 +7,9 @@ use yii\bootstrap\ActiveForm;
 		<div class="nav-container">
 			<div class="right-nav">
 				<a class="user-login dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
-                    if ($user->user_login != NULL):
-                        echo $user->user_login;
-                    else :
+
                         echo $user->user_name;
-                    endif;
+
                     ?></a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<img src="<?= $user->user_avatar?>" alt="user_avatar" class="avatar-drop img-fluid" />
@@ -33,10 +31,6 @@ use yii\bootstrap\ActiveForm;
                         <?= $settingsform->field($user, 'user_avatar')->fileInput(['class' => 'input', 'id' => 'user-file'])->label(false); ?>
 
 						<img src="<?= $user->user_avatar?>" alt="" class="user-img-avatar img-fluid">
-		            </div>
-		            <div class="group">
-		                <label for="user-signup" class="label" >User login</label>
-                        <?= $settingsform->field($user, 'user_login')->textInput(['class' => 'input', 'id' => 'user-signup', 'readonly' => true])->label(false); ?>
 		            </div>
 					<div class="group">
 		                <label for="user-first-signup" class="label">First name</label>

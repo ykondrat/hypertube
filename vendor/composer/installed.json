@@ -3442,56 +3442,6 @@
         ]
     },
     {
-        "name": "kop/yii2-scroll-pager",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kop/yii2-scroll-pager.git",
-            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/9b9727ce441fbfc487044535ab6ce0b7694d810b",
-            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0",
-            "webcreate/jquery-ias": "^2.2.1",
-            "yiisoft/yii2": "*"
-        },
-        "time": "2016-07-06T19:56:33+00:00",
-        "type": "yii2-extension",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "kop\\y2sp\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Ivan Koptiev",
-                "email": "ivan.koptiev@codex.systems",
-                "role": "Developer"
-            }
-        ],
-        "description": "Infinite AJAX scrolling for Yii2 ListView widget",
-        "homepage": "http://kop.github.io/yii2-scroll-pager/",
-        "keywords": [
-            "pager",
-            "pagination",
-            "scroll",
-            "scrolling",
-            "yii",
-            "yii2"
-        ]
-    },
-    {
         "name": "kartik-v/yii2-krajee-base",
         "version": "v1.8.8",
         "version_normalized": "1.8.8.0",
@@ -3850,6 +3800,104 @@
         ]
     },
     {
+        "name": "mashape/unirest-php",
+        "version": "v3.0.4",
+        "version_normalized": "3.0.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/Mashape/unirest-php.git",
+            "reference": "842c0f242dfaaf85f16b72e217bf7f7c19ab12cb"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/842c0f242dfaaf85f16b72e217bf7f7c19ab12cb",
+            "reference": "842c0f242dfaaf85f16b72e217bf7f7c19ab12cb",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.4.0"
+        },
+        "require-dev": {
+            "codeclimate/php-test-reporter": "0.1.*",
+            "phpunit/phpunit": "~4.4"
+        },
+        "suggest": {
+            "ext-json": "Allows using JSON Bodies for sending and parsing requests"
+        },
+        "time": "2016-08-11T17:49:21+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Unirest\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "description": "Unirest PHP",
+        "homepage": "https://github.com/Mashape/unirest-php",
+        "keywords": [
+            "client",
+            "curl",
+            "http",
+            "https",
+            "rest"
+        ]
+    },
+    {
+        "name": "kop/yii2-scroll-pager",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kop/yii2-scroll-pager.git",
+            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/9b9727ce441fbfc487044535ab6ce0b7694d810b",
+            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "webcreate/jquery-ias": "^2.2.1",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2016-07-06T19:56:33+00:00",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "kop\\y2sp\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ivan Koptiev",
+                "email": "ivan.koptiev@codex.systems",
+                "role": "Developer"
+            }
+        ],
+        "description": "Infinite AJAX scrolling for Yii2 ListView widget",
+        "homepage": "http://kop.github.io/yii2-scroll-pager/",
+        "keywords": [
+            "pager",
+            "pagination",
+            "scroll",
+            "scrolling",
+            "yii",
+            "yii2"
+        ]
+    },
+    {
         "name": "dektrium/yii2-user",
         "version": "dev-master",
         "version_normalized": "9999999-dev",
@@ -3907,54 +3955,6 @@
             "dektrium",
             "yii2",
             "yii2-user"
-        ]
-    },
-    {
-        "name": "mashape/unirest-php",
-        "version": "v3.0.4",
-        "version_normalized": "3.0.4.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/Mashape/unirest-php.git",
-            "reference": "842c0f242dfaaf85f16b72e217bf7f7c19ab12cb"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/Mashape/unirest-php/zipball/842c0f242dfaaf85f16b72e217bf7f7c19ab12cb",
-            "reference": "842c0f242dfaaf85f16b72e217bf7f7c19ab12cb",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "php": ">=5.4.0"
-        },
-        "require-dev": {
-            "codeclimate/php-test-reporter": "0.1.*",
-            "phpunit/phpunit": "~4.4"
-        },
-        "suggest": {
-            "ext-json": "Allows using JSON Bodies for sending and parsing requests"
-        },
-        "time": "2016-08-11T17:49:21+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Unirest\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "description": "Unirest PHP",
-        "homepage": "https://github.com/Mashape/unirest-php",
-        "keywords": [
-            "client",
-            "curl",
-            "http",
-            "https",
-            "rest"
         ]
     }
 ]

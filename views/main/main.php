@@ -31,13 +31,7 @@ use yii\widgets\Pjax;
         <span style="font-size:30px;cursor:pointer; margin-top: 10px" onclick="openNav()" class="open-nav">&#9776;</span>
         <input type="text" style="background-image: url('search-icon.png');" name="search" id="search-film" placeholder="Search..">
         <div class="right-nav">
-            <a class="user-login dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
-                if ($user->user_login != NULL):
-                echo $user->user_login;
-                else :
-                echo $user->user_name;
-                endif;
-                ?></a>
+            <a class="user-login dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $user->user_name; ?></a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <img src="<?= $user->user_avatar?>" alt="user_avatar" class="avatar-drop img-fluid" />
                 <p class="dropdown-item"><?= $user->user_name." ".$user->user_secondname?></p>

@@ -9,6 +9,7 @@
 namespace app\controllers;
 
 use app\models\Forgot;
+use app\models\Genre;
 use app\models\Imdb;
 use app\models\Login;
 use app\models\Settings;
@@ -26,6 +27,7 @@ class MainController extends Controller
     public $layout = 'my_main';
 
     public function get_Genre(){
+
         $genre_string = '';
         $genres = Imdb::find()->select('Genre')->all();
         foreach ($genres as $genre){
@@ -36,6 +38,7 @@ class MainController extends Controller
         sort($genre_array, SORT_STRING);
         unset($genre_array[0]);
         array_unshift($genre_array, "All");
+
         return $genre_array;
 }
 
@@ -105,14 +108,10 @@ class MainController extends Controller
 
             $post = Yii::$app->request->post('Settings');
 
-            $my_request = Settings::find()->asArray()->where(['user_login' => $post['user_login']])->one();
+
             $my_request1 = Settings::find()->asArray()->where(['user_email' => $post['user_email']])->one();
 
-            if ($my_request != NULL) {
-                $user_login = $my_request['user_login'];
-            } else {
-                $user_login = '';
-            }
+
             if ($my_request1 != NULL) {
                 $user_email = $my_request1['user_email'];
             } else {
@@ -121,42 +120,35 @@ class MainController extends Controller
 
             if ($user->validate()) {
 
-                if ($my_request == NULL || $user_login == $user->user_login) {
+                if ($my_request1 == NULL || $user_email == $user->user_email) {
 
-                    if ($my_request1 == NULL || $user_email == $user->user_email) {
+                    if ($post['user_password'] != '' && $flag == 0) {
+                        $user->user_password = Yii::$app->getSecurity()->generatePasswordHash($post['user_password']);
+                        $user->user_rep_password = $user->user_password;
+                    } elseif ($user->user_password == '' && $flag == 1){
+                        $user->user_password = $user->user_rep_password;
+                    }
 
+                    if (array_key_exists( "Settings" , $_FILES) && $_FILES['Settings']['name']['user_avatar']) {
 
-                        if ($post['user_password'] != '' && $flag == 0) {
-                            $user->user_password = Yii::$app->getSecurity()->generatePasswordHash($post['user_password']);
-                            $user->user_rep_password = $user->user_password;
-                        } elseif ($user->user_password == '' && $flag == 1){
-                            $user->user_password = $user->user_rep_password;
-                        }
+                        $user->user_avatar = UploadedFile::getInstance($user, 'user_avatar');
 
-                        if (array_key_exists( "Settings" , $_FILES) && $_FILES['Settings']['name']['user_avatar']) {
-
-                            $user->user_avatar = UploadedFile::getInstance($user, 'user_avatar');
-
-                            $user->user_avatar->saveAs('photo/' . $user->user_id . "." . $user->user_avatar->extension);
-                            $user->user_avatar = 'photo/' . $user->user_id . "." . $user->user_avatar->extension;
-                            $user->user_avatar2 = $user->user_avatar;
-
-                        }
-                        else{
-                            $user->user_avatar = $user->user_avatar2;
-                        }
-
-                        $session['loged_email'] = $user->user_email;
-                        $user->save(false);
-                        return $this->refresh();
+                        $user->user_avatar->saveAs('photo/' . $user->user_id . "." . $user->user_avatar->extension);
+                        $user->user_avatar = 'photo/' . $user->user_id . "." . $user->user_avatar->extension;
+                        $user->user_avatar2 = $user->user_avatar;
 
                     }
-                    else {
-                        Yii::$app->session->setFlash('error', 'Such email already registered');
+                    else{
+                        $user->user_avatar = $user->user_avatar2;
                     }
+
+                    $session['loged_email'] = $user->user_email;
+                    $user->save(false);
+                    return $this->refresh();
+
                 }
                 else {
-                    Yii::$app->session->setFlash('error', 'Such login already registered');
+                    Yii::$app->session->setFlash('error', 'Such email already registered');
                 }
             }
             else {

@@ -13,11 +13,9 @@
     <div class="nav-container">
         <div class="right-nav">
             <a class="user-login dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php
-                if ($user->user_login != NULL):
-                    echo $user->user_login;
-                else :
+
                     echo $user->user_name;
-                endif;
+
                 ?></a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <img src="<?= $user->user_avatar?>" alt="user_avatar" class="avatar-drop img-fluid" />

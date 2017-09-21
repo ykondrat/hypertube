@@ -22,7 +22,7 @@ class Login extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_login' => 'Login',
+            'user_email' => 'Email',
             'user_password' => 'Password',
         ];
     }
@@ -30,10 +30,9 @@ class Login extends ActiveRecord
     public function rules()
     {
         return [
-            [ ['user_email', 'user_login', 'user_password'], 'required'],
-            [ ['user_login', 'user_password'], 'trim'],
+            [ ['user_email',  'user_password'], 'required'],
+            [ [ 'user_password'], 'trim'],
             [ 'user_password', 'string', 'min' => 8],
-            ['user_login', 'string' , 'length' => [6 , 16] ],
             ['user_email', 'email'],
         ];
     }

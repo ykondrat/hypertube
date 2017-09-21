@@ -2,7 +2,9 @@
 
 namespace app\controllers;
 
+
 use app\models\Forgot;
+use app\models\Genre;
 use app\models\Imdb;
 use app\models\Login;
 use app\models\Signup;
@@ -21,9 +23,18 @@ use yii\helpers\Url;
 use linslin\yii2\curl;
 use Unirest;
 use yii\helpers\FileHelper;
+use Composer\Autoload;
+
 
 class SiteController extends Controller
 {
+
+    public function actionTest(){
+
+
+
+
+    }
 
     public function behaviors()
     {
@@ -102,17 +113,13 @@ class SiteController extends Controller
         }
     }
 
-    public function actionIndex()
-    {
-        $session = Yii::$app->session;
-
+    public function Dbcreat(){
         $user_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `user` (
           `user_id` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
           `user_name` VARCHAR (100) NOT NULL ,
           `user_secondname` VARCHAR (100) NOT NULL,
           `user_email` VARCHAR (100) NOT NULL,
-          `user_login` VARCHAR (20) ,
           `user_avatar` VARCHAR (255),
           `user_avatar2` VARCHAR (255),
           `user_facebook_id` BIGINT (30) UNSIGNED,
@@ -147,6 +154,44 @@ class SiteController extends Controller
         ');
         $imdb_id_table->query();
 
+        $genre_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `genre` (
+          `genre` VARCHAR (100) NOT NULL ,
+          PRIMARY KEY (`genre`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        ');
+        $genre_table->query();
+
+        if (Genre::find()->asArray()->all() == NULL){
+
+            require_once Yii::$app->basePath . '/web/imdb_id(top 250).php';
+
+            $imdb_add = Yii::$app->db->createCommand()->batchInsert('imdb_id', ['number' ,'imdbID','Title','Year','Runtime','Released','Genre','Director','Writer','Actors'
+            ,'Plot','Language','Country','Awards','Poster','Metascore','imdbRating','Production',], $imdb_id_array)->execute();
+
+            $genre_string = '';
+            $genres = Imdb::find()->select('Genre')->all();
+            foreach ($genres as $genre){
+                $genre_string = $genre_string.', '.$genre->Genre;
+            }
+            $genre_array = explode(', ', $genre_string);
+            $genre_array = array_unique($genre_array);
+            sort($genre_array, SORT_STRING);
+            unset($genre_array[0]);
+            array_unshift($genre_array, "All");
+            $i = 0;
+            while (array_key_exists($i,$genre_array) ){
+                $genre_add = Yii::$app->db->createCommand()->insert('genre', ['genre' => $genre_array[$i]])->execute();
+                $i++;
+            }
+        }
+    }
+
+    public function actionIndex()
+    {
+        $session = Yii::$app->session;
+
+        $this->Dbcreat();
+
         $login = new Login();
         $signup = new Signup();
         $forgot = new Forgot();
@@ -156,7 +201,7 @@ class SiteController extends Controller
 
         if ($login->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post('Login');
-            $my_request = Login::find()->asArray()->where(['user_login' => $post['user_login']])->all();
+            $my_request = Login::find()->asArray()->where(['user_email' => $post['user_email']])->all();
             if ($my_request) {
                 if (Yii::$app->getSecurity()->validatePassword($post['user_password'], $my_request[0]['user_password'])) {
                     $session['user_email'] = $post['user_email'];
@@ -165,16 +210,16 @@ class SiteController extends Controller
                     Yii::$app->session->setFlash('error', 'The password you entered is invalid. Please try again');
                 }
             } else {
-                Yii::$app->session->setFlash('error', 'No such registered login');
+                Yii::$app->session->setFlash('error', 'No such registered email address');
             }
         }
         //        ------------------SIGNUP-------------------------
 
         elseif ($signup->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post('Signup');
-            $my_request = Signup::find()->asArray()->where(['user_login' => $post['user_login']])->all();
+
             $my_request1 = Signup::find()->asArray()->where(['user_email' => $post['user_email']])->all();
-            if ($my_request == NULL && $my_request1 == NULL) {
+            if ($my_request1 == NULL) {
                 if ($signup->validate()) {
                     $signup->user_password = Yii::$app->getSecurity()->generatePasswordHash($signup->user_password);
                     $signup->user_rep_password = $signup->user_password;
@@ -188,12 +233,8 @@ class SiteController extends Controller
                 } else {
                     Yii::$app->session->setFlash('error', 'Please fill in all the fields correctly');
                 }
-            } else {
-                if ($my_request != NULL) {
-                    Yii::$app->session->setFlash('error', 'Such login already registered');
-                } else {
+            } else  {
                     Yii::$app->session->setFlash('error', 'Such email already registered');
-                }
             }
         }
         //      --------------------------FORGOT_PASSWORD--------------
@@ -201,7 +242,7 @@ class SiteController extends Controller
         elseif ($forgot->load(Yii::$app->request->post())) {
             $post = Yii::$app->request->post('Forgot');
             $post = $post['user_email'];
-            $my_request = User::find()->asArray()->where(['user_email' => $post])->all();
+            $my_request = User::find()->asArray()->where(['user_email' => $post])->one();
             if ($my_request) {
                 $new_pass = Login::passwordGenerate();
                 $user = User::findOne(['user_email' => $post]);
@@ -212,7 +253,7 @@ class SiteController extends Controller
                     ->setFrom('andrusechko@gmail.com')
                     ->setTo($post)
                     ->setSubject('Reset Password')
-                    ->setTextBody("Your new password for Matchaff is - " . $new_pass)
+                    ->setTextBody("Your new password for Matcha is - " . $new_pass)
                     ->send();
                 Yii::$app->session->setFlash('success', 'We send you an e-mail message. Please check your email for further instructions');
                 return $this->refresh();

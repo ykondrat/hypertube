@@ -26,7 +26,7 @@ class Settings extends ActiveRecord
             'user_name' => 'Your name',
             'user_secondname' => 'Your surname',
             'user_email' => 'Your email',
-            'user_login' => 'Login',
+
             'user_password' => 'Password',
             'user_rep_password' => 'Repeat password',
         ];
@@ -36,12 +36,12 @@ class Settings extends ActiveRecord
     {
         return [
             [['user_avatar'], 'file', 'extensions'=>'jpg, gif, png','skipOnEmpty' => true ],
-            [ ['user_name', 'user_secondname', 'user_email',  'user_login'], 'required'],
-            [ ['user_name', 'user_secondname', 'user_email', 'user_login', 'user_password'], 'trim'],
+            [ ['user_name', 'user_secondname', 'user_email'], 'required'],
+            [ ['user_name', 'user_secondname', 'user_email',  'user_password'], 'trim'],
             [ 'user_email' , 'email'],
             [ ['user_name', 'user_secondname'] , 'string', 'length' => [2, 20]],
             [ 'user_password' , 'string', 'min' => 8],
-            ['user_login', 'string' , 'length' => [6 , 12] ],
+
         ];
     }
 }
