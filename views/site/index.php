@@ -68,11 +68,11 @@ $this->title = 'Hypertube';
                     <?= $signupform->field($signup, 'user_login')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="username-signup" class="label">User name</label>
+                    <label for="username-signup" class="label">User first name</label>
                     <?= $signupform->field($signup, 'user_name')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="usersecondname-signup" class="label">User Second name</label>
+                    <label for="usersecondname-signup" class="label">User last name</label>
                     <?= $signupform->field($signup, 'user_secondname')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
