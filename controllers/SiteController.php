@@ -30,10 +30,26 @@ class SiteController extends Controller
 {
 
     public function actionTest(){
+        $imdb_ids = Imdb::find()->select('imdbID')->asArray()->all();
+        $array = array();
+        foreach ($imdb_ids as $id){
+            $data = file_get_contents('https://yts.ag/api/v2/list_movies.json?query_term='.$id['imdbID']);
+            $data = json_decode($data);
 
+            $test = $data->data;
 
+        if (property_exists($test, 'movies')){
 
+            $torrent_arr = $data->data->movies[0]->torrents;
 
+            foreach ($torrent_arr as $torrent) {
+
+                $array[] = array("imdbID" => $id['imdbID'], "url" => $torrent->url,"hash" => $torrent->hash,"quality" => $torrent->quality,"seeds" => $torrent->seeds,"peers" => $torrent->peers,
+                    "size" => $torrent->size,"size_bytes" => $torrent->size_bytes,"date_uploaded" => $torrent->date_uploaded,"date_uploaded_unix" => $torrent->date_uploaded_unix);
+            }
+        }
+        }
+        $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $array)->execute();
     }
 
     public function behaviors()
@@ -160,6 +176,23 @@ class SiteController extends Controller
           PRIMARY KEY (`genre`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $genre_table->query();
+
+        $torrent_link_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `torrent_link` (
+          `number` INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+          `imdbID` VARCHAR (15) NOT NULL ,
+          `url` VARCHAR (300) NOT NULL ,
+          `hash` VARCHAR (100) NOT NULL ,
+          `quality` VARCHAR (20) NOT NULL ,
+          `seeds` VARCHAR (6) NOT NULL ,
+          `peers` VARCHAR (6) NOT NULL ,
+          `size` VARCHAR (20) NOT NULL ,
+          `size_bytes` VARCHAR (20) NOT NULL ,
+          `date_uploaded` VARCHAR (100) NOT NULL ,
+          `date_uploaded_unix` VARCHAR (100) NOT NULL ,
+          PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        ');
+        $torrent_link_table->query();
 
         if (Genre::find()->asArray()->all() == NULL){
 
