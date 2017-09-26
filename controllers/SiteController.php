@@ -2,12 +2,12 @@
 
 namespace app\controllers;
 
-
 use app\models\Forgot;
 use app\models\Genre;
 use app\models\Imdb;
 use app\models\Login;
 use app\models\Signup;
+use app\models\Torrent;
 use DOMDocument;
 use phpDocumentor\Reflection\Location;
 use Symfony\Component\BrowserKit\Request;
@@ -26,14 +26,53 @@ use yii\helpers\FileHelper;
 use Composer\Autoload;
 use DOMXPath;
 
-
-
 class SiteController extends Controller
 {
-
-    public function actionTwo()
+    public function behaviors()
     {
-        $ids = unserialize(file_get_contents('id(top 1000).php'));
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    public function actions()
+    {
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+            'captcha' => [
+                'class' => 'yii\captcha\CaptchaAction',
+                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+            ],
+            'auth' => [
+                'class' => 'yii\authclient\AuthAction',
+                'successCallback' => [$this, 'successCallback'],
+            ],
+        ];
+    }
+
+/**     PARSE "thepiratebay.org"   */
+
+    public function parseThepiratebay()
+    {
+        $ids = unserialize(file_get_contents('db_data/id(top 1000).php'));
         foreach ($ids as $id) {
             $ch = curl_init('https://thepiratebay.org/search/tt' . $id);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -62,8 +101,15 @@ class SiteController extends Controller
                         }
                         if ($i == 1) {
                             foreach ($td->getElementsByTagName('div') as $div) {
-                                $p = (strstr($div->getElementsByTagName('a')[0]->nodeValue, '720p')) ? 4 : 5;
-                                $quality = substr($div->getElementsByTagName('a')[0]->nodeValue, strripos($div->getElementsByTagName('a')[0]->nodeValue, "0p") - $p + 2, $p);
+                                if (strstr($div->getElementsByTagName('a')[0]->nodeValue, '720p')){
+                                    $quality = '720p';
+                                }
+                                elseif (strstr($div->getElementsByTagName('a')[0]->nodeValue, '1080p')){
+                                    $quality = '720p';
+                                }
+                                else{
+                                    $quality = 'HD';
+                                }
                             }
 
                             foreach ($td->getElementsByTagName('font') as $font) {
@@ -109,11 +155,14 @@ class SiteController extends Controller
         }
     }
 
+/**     PARSE "yts.ag"    */
 
-    public function actionTest(){
+    public function parseYTS(){
         $imdb_ids = Imdb::find()->select('imdbID')->asArray()->all();
         $array = array();
-        foreach ($imdb_ids as $id){
+        $i = 900;
+        while ($i < 1000){
+            $id = $imdb_ids[$i];
             $data = file_get_contents('https://yts.ag/api/v2/list_movies.json?query_term='.$id['imdbID']);
             $data = json_decode($data);
 
@@ -129,49 +178,13 @@ class SiteController extends Controller
                     "size" => $torrent->size,"size_bytes" => $torrent->size_bytes,"date_uploaded" => $torrent->date_uploaded,"date_uploaded_unix" => $torrent->date_uploaded_unix);
             }
         }
+        var_dump($i);
+        $i++;
         }
         $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $array)->execute();
     }
 
-    public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
-                ],
-            ],
-        ];
-    }
-
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
-            'auth' => [
-                'class' => 'yii\authclient\AuthAction',
-                'successCallback' => [$this, 'successCallback'],
-            ],
-        ];
-    }
+/**     CALLBACK FROM GOOGLE AND FACEBOOK    */
 
     public function successCallback($client)
     {
@@ -210,7 +223,12 @@ class SiteController extends Controller
         }
     }
 
+/**     CREATE TABLE AND INSERT DATA   */
+
     public function Dbcreat(){
+
+/**        CREATE TABLE "USER"         */
+
         $user_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `user` (
           `user_id` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -226,6 +244,8 @@ class SiteController extends Controller
           PRIMARY KEY (`user_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $user_table->query();
+
+/**        CREATE TABLE "IMDB_ID"      */
 
         $imdb_id_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `imdb_id` (
@@ -251,6 +271,8 @@ class SiteController extends Controller
         ');
         $imdb_id_table->query();
 
+/**         CREATE TABLE "GENRE"       */
+
         $genre_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `genre` (
           `genre` VARCHAR (100) NOT NULL ,
@@ -258,9 +280,11 @@ class SiteController extends Controller
         ');
         $genre_table->query();
 
+/**         CREATE TABLE "TORRENT_LINK" */
+
         $torrent_link_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `torrent_link` (
-          `number` INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
+          `number` INT (10) UNSIGNED NOT NULL ,
           `imdbID` VARCHAR (15) NOT NULL ,
           `url` VARCHAR (600) NOT NULL ,
           `hash` VARCHAR (100)  ,
@@ -275,13 +299,36 @@ class SiteController extends Controller
         ');
         $torrent_link_table->query();
 
+        /**        CREATE TABLE "SUBTITLE"         */
+
+        $subtitle_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `subtitle` (
+          `number` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
+          `user_name` VARCHAR (100) NOT NULL ,
+          `user_secondname` VARCHAR (100) NOT NULL,
+          `user_email` VARCHAR (100) NOT NULL,
+          `user_avatar` VARCHAR (255),
+          `user_avatar2` VARCHAR (255),
+          `user_facebook_id` BIGINT (30) UNSIGNED,
+          `user_google_id` VARCHAR (30) ,
+          `user_password` VARCHAR (1000) ,
+          `user_rep_password` VARCHAR (1000),
+          PRIMARY KEY (`user_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        ');
+        $subtitle_table->query();
+
+/**         INSERT DATA TO "IMDB_ID"    */
+
         if (Imdb::find()->asArray()->all() == NULL){
-            require_once Yii::$app->basePath . '/web/imdb_id(1000).php';
+            require_once Yii::$app->basePath . '/web/db_data/imdb_id(1000).php';
 
             $imdb_add = Yii::$app->db->createCommand()->batchInsert('imdb_id', ['number' ,'imdbID','Title','Year','Runtime','Released','Genre','Director','Writer','Actors'
                 ,'Plot','Language','Country','Awards','Poster','Metascore','imdbRating','Production',], $imdb_id_array)->execute();
 
         }
+
+/**         INSERT DATA TO "GENRE"      */
+
         if (Genre::find()->asArray()->all() == NULL){
 
             $genre_string = '';
@@ -299,7 +346,21 @@ class SiteController extends Controller
                 $i++;
             }
         }
+
+/**         INSERT DATA TO "TORRENT_ID"   */
+
+        if (Torrent::find()->asArray()->all() == NULL){
+            $torrents1 = unserialize(file_get_contents(Yii::$app->basePath . '/web/db_data/torrent_array1.txt'));
+            $torrents2 = unserialize(file_get_contents(Yii::$app->basePath . '/web/db_data/torrent_array2.txt'));
+
+            $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['number', 'imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $torrents1)->execute();
+            $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['number', 'imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $torrents2)->execute();
+
+        }
+
     }
+
+/**     MAIN PAGE , LOGIN , SIGNUP , FORGOT PASSWORD   */
 
     public function actionIndex()
     {
@@ -380,6 +441,8 @@ class SiteController extends Controller
         return $this->render('index', compact('login', 'signup', 'forgot'));
     }
 
+/**     LOGIN WITH INTRA 42 API    */
+
     public function actionIntra()
     {
         $get = $_GET['code'];
@@ -421,6 +484,8 @@ class SiteController extends Controller
         }
     }
 
+/**     GET FULL INFORMATION FROM OMDB   */
+
     function getFullInformation($Imdb_id){
 
         $test =  file_get_contents("http://www.omdbapi.com/?apikey=8f911d74&i=tt".$Imdb_id);
@@ -434,39 +499,28 @@ class SiteController extends Controller
 
     }
 
-    public function actionImdb()
+/**     PARSE IMDB TOP 1000   */
+
+    public function getTOP1000IMDB()
     {
-
-//        $ch = curl_init('http://www.imdb.com/search/title?count=1000&groups=top_1000&sort=user_rating');
-//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-//        $htmlString = curl_exec($ch);
-//        curl_close($ch);
-//        if (isset($htmlString)) {
-//            $html = new DOMDocument();
-//            @ $html->loadHTML($htmlString);
-//            $ids = array();
-//            foreach ($html->getElementsByTagName('a') as $link) {
-//                $url = $link->getAttribute('href');
-//                if (strstr($url, '/title/tt') && !(in_array(substr($url, 9, 7), $ids))) {
-//                    $ids[] = substr($url, 9, 7);
-//                }
-//            }
-////                      $ids = array_slice($ids, 24);
-//            foreach ($ids as $film) {
-//                $i = 0;
-//                while ($i < 10000000) {
-//                    $i++;
-//                }
-//                $film = $this->getFullInformation($film);
-//                Yii::$app->db->createCommand()->insert('imdb_id', $film)->execute();
-//                $i = 0;
-//                while ($i < 10000000) {
-//                    $i++;
-//                }
-//            }
-//        }
-
-
-
+        $ch = curl_init('http://www.imdb.com/search/title?count=1000&groups=top_1000&sort=user_rating');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $htmlString = curl_exec($ch);
+        curl_close($ch);
+        if (isset($htmlString)) {
+            $html = new DOMDocument();
+            @ $html->loadHTML($htmlString);
+            $ids = array();
+            foreach ($html->getElementsByTagName('a') as $link) {
+                $url = $link->getAttribute('href');
+                if (strstr($url, '/title/tt') && !(in_array(substr($url, 9, 7), $ids))) {
+                    $ids[] = substr($url, 9, 7);
+                }
+            }
+            foreach ($ids as $film) {
+                $film = $this->getFullInformation($film);
+                Yii::$app->db->createCommand()->insert('imdb_id', $film)->execute();
+            }
+        }
     }
 }

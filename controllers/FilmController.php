@@ -20,13 +20,25 @@ use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
 
-
-
-
-
 class FilmController extends Controller
 {
+
+
+    public function actionTest(){
+        $title_array = array();
+        $titles = Imdb::find()->select('Title')->asArray()->all();
+        foreach ($titles as $title){
+
+            $title_array[] = str_replace(' ', '-', mb_strtolower( $title['Title']));
+
+        }
+        var_dump($title_array);
+        die();
+    }
+
     public $layout = 'film';
+
+    /** RETURN JSON OBJECT OF FILM */
 
     function getFullInformation($Imdb_id){
 
@@ -40,6 +52,9 @@ class FilmController extends Controller
         return $film;
 
     }
+
+    /** OPEN PAGE OF FILM */
+
     public function actionFilm_page($id)
     {
         $session = Yii::$app->session;
