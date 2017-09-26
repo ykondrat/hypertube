@@ -304,16 +304,11 @@ class SiteController extends Controller
         $subtitle_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `subtitle` (
           `number` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
-          `user_name` VARCHAR (100) NOT NULL ,
-          `user_secondname` VARCHAR (100) NOT NULL,
-          `user_email` VARCHAR (100) NOT NULL,
-          `user_avatar` VARCHAR (255),
-          `user_avatar2` VARCHAR (255),
-          `user_facebook_id` BIGINT (30) UNSIGNED,
-          `user_google_id` VARCHAR (30) ,
-          `user_password` VARCHAR (1000) ,
-          `user_rep_password` VARCHAR (1000),
-          PRIMARY KEY (`user_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+          `imdb_id` VARCHAR (100) ,
+          `language` VARCHAR (100) ,
+          `path_url` VARCHAR (100) ,
+          `path_folder` VARCHAR (255),
+          PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $subtitle_table->query();
 
@@ -373,6 +368,8 @@ class SiteController extends Controller
         $forgot = new Forgot();
 
         FileHelper::createDirectory("./photo");
+        FileHelper::createDirectory("./films");
+
 //        ----------------LOGIN-------------------------
 
         if ($login->load(Yii::$app->request->post())) {
