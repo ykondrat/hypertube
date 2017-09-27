@@ -6,6 +6,7 @@
  * Time: 14:25
  */
 
+
 ?>
 
 <nav class="navbar navbar-inverse bg-inverse">
@@ -68,5 +69,9 @@
                 </div>
             </div>
         </div>
+
     </div>
+
+
 </div>
+

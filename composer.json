@@ -25,6 +25,8 @@
         "kartik-v/yii2-slider": "dev-master",
         "yii-dream-team/yii2-upload-behavior": "*",
         "mashape/unirest-php": "^3.0"
+
+
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

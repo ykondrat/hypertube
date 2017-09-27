@@ -57,4 +57,6 @@ class FilmController extends Controller
         }
         return $this->render('film_page', compact('film', 'user'));
     }
+
+
 }

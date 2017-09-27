@@ -25,6 +25,27 @@ use yii\widgets\Pjax;
             Pjax::end();?>
         </ul>
     </div>
+    <h4>Sort Film</h4>
+    <div class="film-sort">
+        <ul>
+            <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <li>Year <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
+            <hr />
+            <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <li>Rating <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
+            <hr />
+            <li>Alphabetical <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></li>
+            <li>Alphabetical <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></li>
+        </ul>
+    </div>
+    <h4>Filter Film</h4>
+    <div class="film-sort">
+        <ul>
+            <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <hr />
+            <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+        </ul>
+    </div>
 </div>
 <nav class="navbar navbar-inverse bg-inverse">
     <div class="nav-container">

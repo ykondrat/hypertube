@@ -28,6 +28,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
             'yii\\authclient\\' => 15,
             'yii\\' => 4,
         ),
+        's' => 
+        array (
+            'sintret\\chat\\' => 13,
+        ),
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
@@ -40,6 +44,7 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         array (
             'kop\\y2sp\\' => 9,
             'kartik\\slider\\' => 14,
+            'kartik\\helpers\\' => 15,
             'kartik\\base\\' => 12,
         ),
         'd' => 
@@ -133,6 +138,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         array (
             0 => __DIR__ . '/..' . '/yiisoft/yii2',
         ),
+        'sintret\\chat\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sintret/yii2-chat-adminlte',
+        ),
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
@@ -150,6 +159,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         'kartik\\slider\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-slider',
+        ),
+        'kartik\\helpers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-helpers',
         ),
         'kartik\\base\\' => 
         array (

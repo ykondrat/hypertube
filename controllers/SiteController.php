@@ -164,6 +164,23 @@ class SiteController extends Controller
         ');
         $genre_table->query();
 
+        //id INT(11) NOT NULL AUTO_INCREMENT,
+//        userId INT(11) DEFAULT NULL,
+//  message TEXT,
+//  updateDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+//  PRIMARY KEY (id)
+        $comment_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `chat` (
+            `id` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
+            `userId`  INT (11) DEFAULT NULL,
+            `message` TEXT ,
+            `updateDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+            PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+    ');
+        $comment_table->query();
+
+
+
 /**         CREATE TABLE "TORRENT_LINK" */
 
         $torrent_link_table = Yii::$app->db->createCommand('

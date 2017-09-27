@@ -190,3 +190,6 @@ label[for="user-file"] {
 .btn-save {
     visibility: hidden;
 }
+.film-sort hr {
+    margin-right: 20px;
+}

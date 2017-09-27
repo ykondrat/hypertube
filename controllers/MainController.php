@@ -26,21 +26,18 @@ class MainController extends Controller
 {
     public $layout = 'my_main';
 
+    /** RETURN ARRAY OF ALL GENRE */
+
     public function get_Genre(){
-
-        $genre_string = '';
-        $genres = Imdb::find()->select('Genre')->all();
+        $genre_array = array();
+        $genres = Genre::find()->asArray()->all();
         foreach ($genres as $genre){
-            $genre_string = $genre_string.', '.$genre->Genre;
+            $genre_array[] = $genre['genre'];
         }
-        $genre_array = explode(', ', $genre_string);
-        $genre_array = array_unique($genre_array);
-        sort($genre_array, SORT_STRING);
-        unset($genre_array[0]);
         array_unshift($genre_array, "All");
-
         return $genre_array;
 }
+
 
     public function actionMain()
     {
@@ -59,6 +56,8 @@ class MainController extends Controller
         }
     }
 
+    /** RETURN 10 FILMS OF SOME GENRE */
+
     public function actionReturngenre(){
 
         $post = Yii::$app->request->post('Genre');
@@ -71,6 +70,22 @@ class MainController extends Controller
             $films = Imdb::find()->asArray()->limit(10)->offset($offset)->all();
             $if_end = Imdb::find()->asArray()->limit(11)->offset($offset)->all();
         }
+
+        $films[] = (count($if_end) > count($films)) ? "OK" : "END";
+
+        echo json_encode($films);
+    }
+
+    /** RETURN 10 FILMS OF SAME TITLE */
+
+    public function actionReturntitle(){
+
+        $title = Yii::$app->request->post('searchValue');
+        $offset = Yii::$app->request->post('limit') * 10;
+
+        $films = Imdb::find()->where(['like', 'Title', $title])->asArray()->limit(10)->offset($offset)->all();
+        $if_end = Imdb::find()->where(['like', 'Title', $title])->asArray()->limit(11)->offset($offset)->all();
+
 
         $films[] = (count($if_end) > count($films)) ? "OK" : "END";
 
@@ -171,8 +186,12 @@ class MainController extends Controller
     public function actionLogout()
     {
         $session = Yii::$app->session;
-        $session->destroy();
+        foreach ($session as $name => $value ){
+           unset($session[$name]);
+        }
         $session->close();
+        $session->destroy();
+
         $this->redirect('http://localhost:8080/hypertube/web/index');
     }
 }

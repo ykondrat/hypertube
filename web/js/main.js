@@ -13,22 +13,24 @@ $(document).ready(function(){
                 searchValue = response[2].searchValue;
                 limit = parseInt(response[0].limit);
                 openPrev();
-                getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿response[2].searchValue + '&page=' + response[0].limit)
-                .then(movies => {
-                    if (movies) {
-                        if (movies.length < 10) {
+                $.ajax({
+                    url: 'main/returntitle',
+                    type: 'post',
+                    data: {searchValue: searchValue,limit: limit - 1},
+                    dataType: 'json',
+                    success: function(response){
+                        let end = response[response.length - 1];
+                        if (end == "END") {
                             $('.next').css('display', 'none');
                         } else {
                             $('.next').css('display', 'block');
                         }
+                        let movies = response.slice(0, response.length - 1);
                         movies.forEach(movie => {
-                            if (movie) {
-                                addMovie(movie);
-                            }
-                        })
+                            addMovie(movie);
+                        });
                     }
                 })
-                .catch(error => console.error(error))
             } else {
                 genre = response[1].genre;
                 limit = parseInt(response[0].limit);
@@ -42,6 +44,8 @@ $(document).ready(function(){
                         let end = response[response.length - 1];
                         if (end == "END") {
                             $('.next').css('display', 'none');
+                        } else {
+                            $('.next').css('display', 'block');
                         }
                         let movies = response.slice(0, response.length - 1);
                         movies.forEach(movie => {
@@ -141,23 +145,28 @@ $('#search-film').on('keyup', function(event){
     if (event.keyCode == 13) {
         $('#movies div').remove();
         searchValue = this.value;
+        limit = 1;
+        openPrev();
         sendData('', this.value, limit);
-        getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿this.value)
-    .then(movies => {
-        if (movies) {
-                if (movies.length < 10) {
+        $.ajax({
+            url: 'main/returntitle',
+            type: 'post',
+            data: {searchValue: searchValue,limit: limit - 1},
+            dataType: 'json',
+            success: function(response){
+                console.log(response);
+                let end = response[response.length - 1];
+                if (end == "END") {
                     $('.next').css('display', 'none');
                 } else {
                     $('.next').css('display', 'block');
                 }
+                let movies = response.slice(0, response.length - 1);
                 movies.forEach(movie => {
-                    if (movie) {
-                        addMovie(movie);
-                    }
-                })
+                    addMovie(movie);
+                });
             }
         })
-    .catch(error => console.error(error))
     }
 });
 
@@ -167,24 +176,24 @@ $('.next').on('click', function(){
         sendData('', searchValue, limit);
         openPrev();
         $('#movies div').remove();
-        getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿searchValue + '&page=' + limit)
-        .then(movies => {
-                if (movies) {
-                    let counter = 0;
-                    movies.forEach(movie => {
-                        if (movie) {
-                            addMovie(movie);
-                        }
-                        if (movie.Poster == 'N/A') {
-                        counter++;
-                    }
-                })
-                    if (counter > 8) {
-                        $('.next').css('display', 'none');
-                    }
+        $.ajax({
+            url: 'main/returntitle',
+            type: 'post',
+            data: {searchValue: searchValue,limit: limit - 1},
+            dataType: 'json',
+            success: function(response){
+                let end = response[response.length - 1];
+                if (end == "END") {
+                    $('.next').css('display', 'none');
+                } else {
+                    $('.next').css('display', 'block');
                 }
-            })
-        .catch(error => console.error(error))
+                let movies = response.slice(0, response.length - 1);
+                movies.forEach(movie => {
+                    addMovie(movie);
+                });
+            }
+        })
     } else {
         $('#movies div').remove();
         limit++;
@@ -199,6 +208,8 @@ $('.next').on('click', function(){
                 let end = response[response.length - 1];
                 if (end == "END") {
                     $('.next').css('display', 'none');
+                } else {
+                    $('.next').css('display', 'block');
                 }
                 let movies = response.slice(0, response.length - 1);
                 movies.forEach(movie => {
@@ -216,18 +227,24 @@ $('.prev').on('click', function(){
             limit--;
             sendData('', searchValue, limit);
             openPrev();
-            getData('http://www.omdbapi.com/?apikey=8f911d74&type=movie&s=' + ﻿searchValue + '&page=' + limit)
-        .then(movies => {
-                if (movies) {
-                    $('.next').css('display', 'block');
+            $.ajax({
+                url: 'main/returngenre',
+                type: 'post',
+                data: {Genre: genre, limit: limit - 1},
+                dataType: 'json',
+                success: function(response) {
+                    let end = response[response.length - 1];
+                    if (end == "END") {
+                        $('.next').css('display', 'none');
+                    } else {
+                        $('.next').css('display', 'block');
+                    }
+                    let movies = response.slice(0, response.length - 1);
                     movies.forEach(movie => {
-                        if (movie) {
-                            addMovie(movie);
-                        }
-                    })
+                        addMovie(movie);
+                    });
                 }
-            })
-        .catch(error => console.error(error))
+            });
         }
     } else {
         $('.next').css('display', 'block');
@@ -245,6 +262,8 @@ $('.prev').on('click', function(){
                     let end = response[response.length - 1];
                     if (end == "END") {
                         $('.next').css('display', 'none');
+                    } else {
+                        $('.next').css('display', 'block');
                     }
                     let movies = response.slice(0, response.length - 1);
                     movies.forEach(movie => {
@@ -273,6 +292,8 @@ function setGenre(Genre) {
             let end = response[response.length - 1];
             if (end == "END") {
                 $('.next').css('display', 'none');
+            } else {
+                $('.next').css('display', 'block');
             }
             let movies = response.slice(0, response.length - 1);
             movies.forEach(movie => {
