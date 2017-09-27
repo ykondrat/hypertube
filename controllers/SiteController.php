@@ -68,122 +68,6 @@ class SiteController extends Controller
         ];
     }
 
-/**     PARSE "thepiratebay.org"   */
-
-    public function parseThepiratebay()
-    {
-        $ids = unserialize(file_get_contents('db_data/id(top 1000).php'));
-        foreach ($ids as $id) {
-            $ch = curl_init('https://thepiratebay.org/search/tt' . $id);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            $htmlString = curl_exec($ch);
-            curl_close($ch);
-            $magnet = '';
-            $seeds = '';
-            $peers = '';
-            $size = '';
-            $quality = '';
-            $uploaded = '';
-            if (isset($htmlString)) {
-                $html = new DOMDocument();
-                @ $html->loadHTML($htmlString);
-                $k = 0;
-                $array = array();
-                foreach ($html->getElementsByTagName('tr') as $link) {
-
-                    $i = 0;
-                    foreach ($link->getElementsByTagName('td') as $td) {
-
-                        if ($i == 0) {
-                            if (!strstr($td->getElementsByTagName('a')[1]->nodeValue, "HD")) {
-                                break;
-                            }
-                        }
-                        if ($i == 1) {
-                            foreach ($td->getElementsByTagName('div') as $div) {
-                                if (strstr($div->getElementsByTagName('a')[0]->nodeValue, '720p')){
-                                    $quality = '720p';
-                                }
-                                elseif (strstr($div->getElementsByTagName('a')[0]->nodeValue, '1080p')){
-                                    $quality = '720p';
-                                }
-                                else{
-                                    $quality = 'HD';
-                                }
-                            }
-
-                            foreach ($td->getElementsByTagName('font') as $font) {
-                                $size_string = $font->nodeValue;
-                                $size_array = explode(',', $size_string);
-                                $size = substr($size_array[1], 5);
-                                $uploaded = substr($size_array[0], 9);
-                            }
-                            foreach ($td->getElementsByTagName('a') as $a) {
-                                if (strstr($a->getAttribute('href'), 'magnet')) {
-
-                                }
-                                if (strstr($a->getAttribute('href'), 'magnet')) {
-                                    $magnet = $a->getAttribute('href');
-                                }
-                            }
-                            if ($magnet == NULL) {
-                                break;
-                            }
-                        }
-                        if ($i == 2) {
-                            $seeds = $td->nodeValue;
-                        }
-                        if ($i == 3) {
-                            $peers = $td->nodeValue;
-                        }
-                        $i++;
-                        if ($magnet && $quality && $seeds && $peers && $size && $uploaded) {
-                            $array[] = array("imdbID" => 'tt' . $id, "url" => $magnet, "quality" => $quality, "seeds" => $seeds, "peers" => $peers,
-                                "size" => $size, "date_uploaded" => $uploaded);
-                            $k++;
-                            $magnet = '';$seeds = '';$peers = '';$size = '';$quality = '';$uploaded = '';
-                        }
-                    }
-                    if ($k > 3) {
-                        break;
-                    }
-                }
-                unset($array[0]);
-                $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['imdbID' ,'url','quality','seeds','peers','size','date_uploaded'], $array)->execute();
-
-            }
-        }
-    }
-
-/**     PARSE "yts.ag"    */
-
-    public function parseYTS(){
-        $imdb_ids = Imdb::find()->select('imdbID')->asArray()->all();
-        $array = array();
-        $i = 900;
-        while ($i < 1000){
-            $id = $imdb_ids[$i];
-            $data = file_get_contents('https://yts.ag/api/v2/list_movies.json?query_term='.$id['imdbID']);
-            $data = json_decode($data);
-
-            $test = $data->data;
-
-        if (property_exists($test, 'movies')){
-
-            $torrent_arr = $data->data->movies[0]->torrents;
-
-            foreach ($torrent_arr as $torrent) {
-
-                $array[] = array("imdbID" => $id['imdbID'], "url" => $torrent->url,"hash" => $torrent->hash,"quality" => $torrent->quality,"seeds" => $torrent->seeds,"peers" => $torrent->peers,
-                    "size" => $torrent->size,"size_bytes" => $torrent->size_bytes,"date_uploaded" => $torrent->date_uploaded,"date_uploaded_unix" => $torrent->date_uploaded_unix);
-            }
-        }
-        var_dump($i);
-        $i++;
-        }
-        $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $array)->execute();
-    }
-
 /**     CALLBACK FROM GOOGLE AND FACEBOOK    */
 
     public function successCallback($client)
@@ -373,15 +257,21 @@ class SiteController extends Controller
 //        ----------------LOGIN-------------------------
 
         if ($login->load(Yii::$app->request->post())) {
+
             $post = Yii::$app->request->post('Login');
             $my_request = Login::find()->asArray()->where(['user_email' => $post['user_email']])->all();
+
             if ($my_request) {
+
                 if (Yii::$app->getSecurity()->validatePassword($post['user_password'], $my_request[0]['user_password'])) {
+
                     $session['user_email'] = $post['user_email'];
                     $this->redirect('http://localhost:8080/hypertube/web/main');
+
                 } else {
                     Yii::$app->session->setFlash('error', 'The password you entered is invalid. Please try again');
                 }
+
             } else {
                 Yii::$app->session->setFlash('error', 'No such registered email address');
             }
@@ -389,11 +279,15 @@ class SiteController extends Controller
         //        ------------------SIGNUP-------------------------
 
         elseif ($signup->load(Yii::$app->request->post())) {
+
             $post = Yii::$app->request->post('Signup');
 
             $my_request1 = Signup::find()->asArray()->where(['user_email' => $post['user_email']])->all();
+
             if ($my_request1 == NULL) {
+
                 if ($signup->validate()) {
+
                     $signup->user_password = Yii::$app->getSecurity()->generatePasswordHash($signup->user_password);
                     $signup->user_rep_password = $signup->user_password;
                     $signup->user_avatar = "ninja.png";
@@ -403,6 +297,7 @@ class SiteController extends Controller
                     $signup->save(false);
 
                     $this->redirect('http://localhost:8080/hypertube/web/main');
+
                 } else {
                     Yii::$app->session->setFlash('error', 'Please fill in all the fields correctly');
                 }
@@ -413,23 +308,29 @@ class SiteController extends Controller
         //      --------------------------FORGOT_PASSWORD--------------
 
         elseif ($forgot->load(Yii::$app->request->post())) {
+
             $post = Yii::$app->request->post('Forgot');
             $post = $post['user_email'];
             $my_request = User::find()->asArray()->where(['user_email' => $post])->one();
+
             if ($my_request) {
+
                 $new_pass = Login::passwordGenerate();
                 $user = User::findOne(['user_email' => $post]);
                 $user->user_password = Yii::$app->getSecurity()->generatePasswordHash($new_pass);
                 $user->user_rep_password = $user->user_password;
                 $user->save();
+
                 Yii::$app->mailer->compose()
                     ->setFrom('andrusechko@gmail.com')
                     ->setTo($post)
                     ->setSubject('Reset Password')
                     ->setTextBody("Your new password for Matcha is - " . $new_pass)
                     ->send();
+
                 Yii::$app->session->setFlash('success', 'We send you an e-mail message. Please check your email for further instructions');
                 return $this->refresh();
+
             } else {
                 Yii::$app->session->setFlash('error', 'No such registered E-mail address');
             }
@@ -445,6 +346,7 @@ class SiteController extends Controller
         $get = $_GET['code'];
 
         $curl = new curl\Curl();
+
         $response = $curl->setGetParams([
             'grant_type' => 'authorization_code',
             'client_id' => 'ab8c761b24b12bf91cee7442ff17068180783358189e8239f102a5b149ae812c',
@@ -452,7 +354,9 @@ class SiteController extends Controller
             'code' => $get,
             'redirect_uri' => 'http://localhost:8080/hypertube/web/intra',
         ])->post('https://api.intra.42.fr/oauth/token');
+
         $key = json_decode($response);
+
         $accessToken = $key->access_token;
 
         $apiUrl = 'https://api.intra.42.fr/v2/me';
@@ -461,7 +365,9 @@ class SiteController extends Controller
         curl_setopt($curl, CURLOPT_HTTPHEADER, ['Authorization: Bearer ' . $accessToken]);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $json = curl_exec($curl);
+
         if ($json) {
+
             $session = Yii::$app->session;
             $data = json_decode($json);
 
@@ -481,43 +387,4 @@ class SiteController extends Controller
         }
     }
 
-/**     GET FULL INFORMATION FROM OMDB   */
-
-    function getFullInformation($Imdb_id){
-
-        $test =  file_get_contents("http://www.omdbapi.com/?apikey=8f911d74&i=tt".$Imdb_id);
-        $json_film = json_decode($test);
-        $film = array("Title" => $json_film->Title, "Year" => $json_film->Year, "Released" => $json_film->Released, "Runtime" => $json_film->Runtime,
-            "Genre" => $json_film->Genre, "Director" => $json_film->Director, "Writer" => $json_film->Writer, "Actors" => $json_film->Actors,
-            "Plot" =>  $json_film->Plot, "Language" => $json_film->Language, "Country" => $json_film->Country, "Awards" => $json_film->Awards,
-            "Poster" => $json_film->Poster, "Metascore" => $json_film->Metascore, "imdbRating" => $json_film->imdbRating, "imdbID" => $json_film->imdbID,
-            "Production" => $json_film->Production);
-        return $film;
-
-    }
-
-/**     PARSE IMDB TOP 1000   */
-
-    public function getTOP1000IMDB()
-    {
-        $ch = curl_init('http://www.imdb.com/search/title?count=1000&groups=top_1000&sort=user_rating');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        $htmlString = curl_exec($ch);
-        curl_close($ch);
-        if (isset($htmlString)) {
-            $html = new DOMDocument();
-            @ $html->loadHTML($htmlString);
-            $ids = array();
-            foreach ($html->getElementsByTagName('a') as $link) {
-                $url = $link->getAttribute('href');
-                if (strstr($url, '/title/tt') && !(in_array(substr($url, 9, 7), $ids))) {
-                    $ids[] = substr($url, 9, 7);
-                }
-            }
-            foreach ($ids as $film) {
-                $film = $this->getFullInformation($film);
-                Yii::$app->db->createCommand()->insert('imdb_id', $film)->execute();
-            }
-        }
-    }
 }

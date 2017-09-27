@@ -77,6 +77,8 @@ class MainController extends Controller
         echo json_encode($films);
     }
 
+    /** SEND DATA OF SEARCH PARAM TO JS */
+
     public function actionGet_look_for()
     {
         $session = Yii::$app->session;
@@ -88,6 +90,8 @@ class MainController extends Controller
         echo json_encode($look_for);
     }
 
+    /** GET DATA OF SEARCH PARAM FROM JS */
+
     public function actionSend_look_for()
     {
         $post = Yii::$app->request->post();
@@ -97,6 +101,8 @@ class MainController extends Controller
         $session['limit'] = $post['limit'];
 
     }
+
+    /** CHANGE USER PROFILE DATA */
 
     public function actionSettings()
     {
@@ -108,9 +114,7 @@ class MainController extends Controller
 
             $post = Yii::$app->request->post('Settings');
 
-
             $my_request1 = Settings::find()->asArray()->where(['user_email' => $post['user_email']])->one();
-
 
             if ($my_request1 != NULL) {
                 $user_email = $my_request1['user_email'];
@@ -161,6 +165,8 @@ class MainController extends Controller
 
         return $this->render('settings',compact('user'));
     }
+
+    /** MAKE LOGOUT AND DESTROY SESSION */
 
     public function actionLogout()
     {
