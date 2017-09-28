@@ -164,23 +164,6 @@ class SiteController extends Controller
         ');
         $genre_table->query();
 
-        //id INT(11) NOT NULL AUTO_INCREMENT,
-//        userId INT(11) DEFAULT NULL,
-//  message TEXT,
-//  updateDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-//  PRIMARY KEY (id)
-        $comment_table = Yii::$app->db->createCommand('
-          CREATE TABLE IF NOT EXISTS `chat` (
-            `id` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
-            `userId`  INT (11) DEFAULT NULL,
-            `message` TEXT ,
-            `updateDate` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-            PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
-    ');
-        $comment_table->query();
-
-
-
 /**         CREATE TABLE "TORRENT_LINK" */
 
         $torrent_link_table = Yii::$app->db->createCommand('
@@ -212,6 +195,21 @@ class SiteController extends Controller
           PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $subtitle_table->query();
+
+        /**        CREATE TABLE "Comment"         */
+
+        $comment_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `comment` (
+          `id` INT (11) UNSIGNED NOT NULL AUTO_INCREMENT,
+          `user_name` VARCHAR (100) NOT NULL ,
+          `user_secondname` VARCHAR (100) NOT NULL,
+          `user_avatar` VARCHAR (255),
+          `imdbID` VARCHAR (100) NOT NULL,
+          `time` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+          `text` VARCHAR (1000) NOT NULL,
+          PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        ');
+        $comment_table->query();
 
 /**         INSERT DATA TO "IMDB_ID"    */
 
