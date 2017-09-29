@@ -7,6 +7,7 @@
  */
 use yii\widgets\ListView;
 use yii\widgets\Pjax;
+
 ?>
 
 <div id="search-nav" class="sidenav">
@@ -28,22 +29,41 @@ use yii\widgets\Pjax;
     <h4>Sort Film</h4>
     <div class="film-sort">
         <ul>
-            <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
-            <li>Year <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
+            <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
             <hr />
-            <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
-            <li>Rating <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
+            <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>  <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
             <hr />
-            <li>Alphabetical <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i></li>
-            <li>Alphabetical <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></li>
+            <li>Alphabetical <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></li>
         </ul>
     </div>
     <h4>Filter Film</h4>
     <div class="film-sort">
         <ul>
             <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <?php echo kartik\slider\Slider::widget([
+                'name'=>'Year',
+                'value'=>'1920,2017',
+                'sliderColor'=>kartik\slider\Slider::TYPE_GREY,
+                'pluginOptions'=>[
+                    'min'=>1920,
+                    'max'=>2017,
+                    'step'=>1,
+                    'range'=>true,
+                    'tooltip'=>'always'
+                ]]);?>
             <hr />
             <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <?php echo kartik\slider\Slider::widget([
+                'name'=>'Rating',
+                'value'=>'1.4,9.3',
+                'sliderColor'=>kartik\slider\Slider::TYPE_GREY,
+                'pluginOptions'=>[
+                    'min'=>1.4,
+                    'max'=>9.3,
+                    'step'=>0.1,
+                    'range'=>true,
+                    'tooltip'=>'always'
+                ]]);?>
         </ul>
     </div>
 </div>

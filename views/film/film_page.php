@@ -52,21 +52,16 @@ use yii\widgets\Pjax;
             <div class="torrent-list">
                 <p class="lead ">Click on link to start download and watch film</p>
                 <div class="list-group">
-                    <div>
-                        <a href="#" class="list-group-item list-group-item-action list-group-item-success">torrent tracker 1 <span class="sid">sid: 42</span> <span class="pid">pid: 42</span></a>
-                        <span class="play ready">Watch &#9658;</span>
-                        <div id="progress">
-                            <div id="bar"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <a href="#" class="list-group-item list-group-item-action list-group-item-success">torrent tracker 2 <span class="sid">sid: 42</span> <span class="pid">pid: 42</span></a>
-                        <span class="play">Watch &#9658;</span>
-                    </div>
-                    <div>
-                        <a href="#" class="list-group-item list-group-item-action list-group-item-success">torrent tracker 3 <span class="sid">sid: 42</span> <span class="pid">pid: 42</span></a>
-                        <span class="play">Watch &#9658;</span>
-                    </div>
+                    <?php Pjax::begin() ?>
+                    <?= ListView::widget([
+                        'dataProvider' => $torrents,
+                        'itemOptions' => ['class' => 'item'],
+                        'summary'=>'',
+                        'itemView' => 'torrent_list',
+                        'pager' => ['class' => \kop\y2sp\ScrollPager::className()]
+                    ]); ?>
+                    <?php Pjax::end();?>
+
                 </div>
             </div>
         </div>

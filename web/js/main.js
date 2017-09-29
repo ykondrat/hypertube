@@ -86,7 +86,7 @@ function openPrev() {
 }
 
 function openNav() {
-    $("#search-nav").css('width', '250px');
+    $("#search-nav").css('width', '265px');
 }
 
 function closeNav() {

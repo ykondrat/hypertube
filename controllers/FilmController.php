@@ -15,13 +15,13 @@ use app\models\Imdb;
 use app\models\Login;
 use app\models\Settings;
 use app\models\Signup;
+use app\models\Torrent;
 use app\models\User;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
 use DOMDocument;
-//use app\controllers\ErrorController;
 
 class FilmController extends Controller
 {
@@ -48,8 +48,14 @@ class FilmController extends Controller
     }
 
     public function get_comments($id){
-        return    Comment::find()->where(['imdbID' => $id])->all();
+        return    Comment::find()->orderBy(['id'=>SORT_DESC])->where(['imdbID' => $id])->all();
     }
+
+    public function get_torrents($id){
+        return    Torrent::find()->orderBy(['seeds'=>SORT_DESC])->where(['imdbID' => $id])->all();
+    }
+
+
 
     public function actionFilm_page($id)
     {
@@ -61,11 +67,15 @@ class FilmController extends Controller
             'pagination' => false,
         ]);
 
+        $torrents = new ArrayDataProvider([
+            'allModels' => $this->get_torrents($id),
+            'pagination' => false,
+        ]);
+
         if (Imdb::find()->where(['imdbID' => $id])->one()){
+
             $film = Imdb::find()->where(['imdbID' => $id])->one();
-
-
-            return $this->render('film_page', compact('film', 'user', 'comments'));
+            return $this->render('film_page', compact('film', 'user', 'comments', 'torrents'));
         }
         else {
             return $this->render('//error/404');

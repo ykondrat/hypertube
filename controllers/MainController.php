@@ -26,19 +26,6 @@ class MainController extends Controller
 {
     public $layout = 'my_main';
 
-    /** RETURN ARRAY OF ALL GENRE */
-
-    public function get_Genre(){
-        $genre_array = array();
-        $genres = Genre::find()->asArray()->all();
-        foreach ($genres as $genre){
-            $genre_array[] = $genre['genre'];
-        }
-        array_unshift($genre_array, "All");
-        return $genre_array;
-}
-
-
     public function actionMain()
     {
         $session = Yii::$app->session;
@@ -56,16 +43,60 @@ class MainController extends Controller
         }
     }
 
+
+    public function sort_filter(){
+        $session = Yii::$app->session;
+        $like = (isset($session['searchValue']) && $session['searchValue'] != '') ? 'Title' : 'Genre';
+        $like_value = (isset($session['searchValue']) && $session['searchValue'] != '') ? $session['searchValue'] : $session['genre'];
+        $offset = Yii::$app->request->post('limit') * 10;
+        $like_array = ($like == 'GENRE' && $like_value == 'All') ? "number>0" : array('like',$like, $like_value );
+        if (Yii::$app->request->post('sort') != ''){
+            $sort_set = Yii::$app->request->post('sort');  // "Year,desc"
+            $sort_by = explode(',', $sort_set)[0];
+            $sort_how = explode(',', $sort_set)[1];
+            $sort_array = ($sort_how == "desc") ? array($sort_by => SORT_DESC) : array($sort_by => SORT_ASC);
+        }
+        else{
+            $sort_array = array('imdbRating' => SORT_DESC);
+        }
+        if (Yii::$app->request->post('filter') != ''){
+            $filter_set = Yii::$app->request->post('filter'); // "Year,1970,2000,Rating,0,10"
+            $filter_year = explode(',', $filter_set)[0];
+            $filter_year_from = explode(',', $filter_set)[1];
+            $filter_year_to = explode(',', $filter_set)[2];
+            $year_from_string = "$filter_year>=$filter_year_from";
+            $year_to_string = "$filter_year<=$filter_year_to";
+
+            $filter_rating = explode(',', $filter_set)[3];
+            $filter_rating_from = explode(',', $filter_set)[4];
+            $filter_rating_to = explode(',', $filter_set)[5];
+            $rating_from_string = "$filter_rating>=$filter_rating_from";
+            $rating_to_string = "$filter_rating<=$filter_rating_to";
+        }
+        else{
+            $rating_from_string = "imdbRating>=0";
+            $rating_to_string = "imdbRating>=10";
+            $year_from_string = "Year>=1920";
+            $year_to_string = "Year<=2017";
+        }
+        $film = Imdb::find()->orderBy($sort_array)->where($like_array)->andWhere($year_from_string)->andWhere($year_to_string)->andWhere($rating_from_string)->andWhere($rating_to_string)->asArray()->limit(10)->offset($offset)->all();
+        $if_end = Imdb::find()->orderBy($sort_array)->where($like_array)->andWhere($year_from_string)->andWhere($year_to_string)->andWhere($rating_from_string)->andWhere($rating_to_string)->asArray()->limit(11)->offset($offset)->all();
+        $film[] = (count($if_end) > count($film)) ? "OK" : "END";
+        echo json_encode($film);
+    }
+
+
+
     /** RETURN 10 FILMS OF SOME GENRE */
 
     public function actionReturngenre(){
 
-        $post = Yii::$app->request->post('Genre');
+        $genre = Yii::$app->request->post('Genre');
         $offset = Yii::$app->request->post('limit') * 10;
 
-        if ($post != "All") {
-            $films = Imdb::find()->where(['like', 'Genre', $post])->asArray()->limit(10)->offset($offset)->all();
-            $if_end = Imdb::find()->where(['like', 'Genre', $post])->asArray()->limit(11)->offset($offset)->all();
+        if ($genre != "All") {
+            $films = Imdb::find()->where(['like', 'Genre', $genre])->asArray()->limit(10)->offset($offset)->all();
+            $if_end = Imdb::find()->where(['like', 'Genre', $genre])->asArray()->limit(11)->offset($offset)->all();
         } else {
             $films = Imdb::find()->asArray()->limit(10)->offset($offset)->all();
             $if_end = Imdb::find()->asArray()->limit(11)->offset($offset)->all();
@@ -85,7 +116,6 @@ class MainController extends Controller
 
         $films = Imdb::find()->where(['like', 'Title', $title])->asArray()->limit(10)->offset($offset)->all();
         $if_end = Imdb::find()->where(['like', 'Title', $title])->asArray()->limit(11)->offset($offset)->all();
-
 
         $films[] = (count($if_end) > count($films)) ? "OK" : "END";
 
@@ -114,7 +144,18 @@ class MainController extends Controller
         $session['genre'] = $post['genre'];
         $session['searchValue'] = $post['searchValue'];
         $session['limit'] = $post['limit'];
+    }
 
+    /** RETURN ARRAY OF ALL GENRE */
+
+    public function get_Genre(){
+        $genre_array = array();
+        $genres = Genre::find()->asArray()->all();
+        foreach ($genres as $genre){
+            $genre_array[] = $genre['genre'];
+        }
+        array_unshift($genre_array, "All");
+        return $genre_array;
     }
 
     /** CHANGE USER PROFILE DATA */
