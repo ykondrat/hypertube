@@ -63,11 +63,11 @@ $config = [
                 'main' => 'main/main',
                 'settings' => 'main/settings',
                 'logout' => 'main/logout',
-                [
-                    'class' => 'yii\rest\UrlRule',
-                    'pluralize' => false,
-                    'controller' => 'api/user'
-                ]
+                '<controller:(api/call)>/<rout:.*>' => '<controller>/index',
+                '<controller:(api/info)>/<rout:.*>' => '<controller>/index',
+
+
+
             ],
         ],
         'facebook' => [

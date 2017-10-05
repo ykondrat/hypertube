@@ -4,33 +4,15 @@ namespace app\modules\api\models;
 
 use Yii;
 
-/**
- * This is the model class for table "user".
- *
- * @property integer $user_id
- * @property string $user_name
- * @property string $user_secondname
- * @property string $user_email
- * @property string $user_avatar
- * @property string $user_avatar2
- * @property string $user_facebook_id
- * @property string $user_google_id
- * @property string $user_password
- * @property string $user_rep_password
- */
+
 class User extends \yii\db\ActiveRecord
 {
-    /**
-     * @inheritdoc
-     */
+
     public static function tableName()
     {
         return 'user';
     }
 
-    /**
-     * @inheritdoc
-     */
     public function rules()
     {
         return [
@@ -43,9 +25,6 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
     public function attributeLabels()
     {
         return [
@@ -61,4 +40,114 @@ class User extends \yii\db\ActiveRecord
             'user_rep_password' => 'User Rep Password',
         ];
     }
+
+
+
+    function Test(array $args, $check){
+        if ($check == true) {
+            return (count($args) == 1 && is_string($args[0])) ? true : false;
+        }
+        else {
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['like', 'user_name', $args[0]])->all();
+        }
+    }
+
+    /** Return list of all users (`user_id`, `user_name`, `user_secondname`, `user_email`, `user_avatar`). Parameter $args = [NULL] */
+
+    function GetUserList(array $args, $check){
+        if ($check == true) {
+            return (count($args) == 0 ) ? true : false;
+        }
+        else {
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->all();
+        }
+    }
+
+    /** Return users information (`user_id`, `user_name`, `user_secondname`, `user_email`, `user_avatar`) by `user_id`. Parameter $args = [<ids of users>] */
+
+    function GetUserById(array $args, $check){
+        if ($check == true) {
+            $int = 0;
+            foreach ($args as $id){
+                $int = (is_int($id)) ? $int + 1 : $int;
+            }
+            return (count($args) > 0 && $int == count($args)) ? true : false;
+        }
+        else {
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['user_id' => $args])->all();
+        }
+    }
+
+    /** Search users by name and return information about them (`user_id`, `user_name`, `user_secondname`, `user_email`, `user_avatar`) . Parameter $args = [<name of user or part of it>] */
+
+    function SearchUserByName(array $args, $check){
+        if ($check == true) {
+            return (count($args) == 1 && is_string($args[0])) ? true : false;
+        }
+        else {
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['like', 'user_name', $args[0]])->all();
+        }
+    }
+
+    /** Search users by surname and return information about them (`user_id`, `user_name`, `user_secondname`, `user_email`, `user_avatar`). Parameter $args = [<surname of user or part of it>] */
+
+    function SerchUserBySecondname(array $args, $check){
+        if ($check == true) {
+            return (count($args) == 1 && is_string($args[0])) ? true : false;
+        }
+        else {
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['like', 'user_secondname', $args[0]])->all();
+        }
+    }
+
+    /** Search user by email and return information about him (`user_id`, `user_name`, `user_secondname`, `user_email`, `user_avatar`). Parameter $args = [<email of user or part of it>] */
+
+    function SerchUserByEmail(array $args, $check){
+        if ($check == true) {
+            return (count($args) == 1 && is_string($args[0])) ? true : false;
+        }
+        else {
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['like', 'user_email', $args[0]])->all();
+        }
+    }
+
+    /** Update user information by `user_id` . Parameter $args = [ <id of user>, [ <parameters that you want to change> ] , [ <values ​​of these parameters> ] ] */
+    /** valid name of parameters : user_name , user_secondname  */
+    function UpdateUserData(array $args, $check){
+        $parameters = $args[1];
+        if ($check == true) {
+            $flag = 1;
+            foreach ($parameters as $parameter){
+               $flag =  (strlen( $parameter) >= 2 && strlen( $parameter) <= 20) ? $flag : 0;
+            }
+            return (count($args) == 3 && is_int($args[0]) && is_array($args[1]) && count($args[1]) > 0 && is_array($args[2]) && count($args[2]) > 0 && count($args[2]) == count($args[1]) && $flag) ? true : false;
+        }
+        else {
+            foreach ($parameters as $key => $parameter){
+                $user = self::updateAll([$key => $parameter, ['user_id' => $args[0]]]);
+            }
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['user_id' => $args[0]])->all();
+        }
+    }
+
+    /** Delete user by `user_id` . Parameter $args = [ <id of user> ] */
+    function DeleteUser(array $args, $check){
+        if ($check == true) {
+            $int = 0;
+            foreach ($args as $id){
+                $int = (is_int($id)) ? $int + 1 : $int;
+            }
+            return (count($args) > 0 && $int == count($args)) ? true : false;
+        }
+        else {
+//            $user = self::
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->all();
+        }
+    }
+
+    /** Create new user . Parameter $args = [ `user_name`, `user_secondname`, `user_email`, `user_password` ] */
+    function CreateUser(){
+
+    }
+
 }
