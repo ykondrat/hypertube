@@ -29,11 +29,11 @@ use yii\widgets\Pjax;
     <h4>Sort Film</h4>
     <div class="film-sort">
         <ul>
-            <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
+            <li class="sort-list">Year <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('Year,asc')" aria-hidden="true"></i> <i onclick="setSort('Year,desc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
             <hr />
-            <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i>  <i class="fa fa-sort-numeric-desc" aria-hidden="true"></i></li>
+            <li class="sort-list">Rating <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('Rating,asc')" aria-hidden="true"></i>  <i onclick="setSort('Rating,desc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
             <hr />
-            <li>Alphabetical <i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i></li>
+            <li class="sort-list">Alphabetical <i class="fa fa-sort-alpha-asc sort-btn" onclick="setSort('Title,asc')" aria-hidden="true"></i> <i onclick="setSort('Title,desc')" class="fa fa-sort-alpha-desc sort-btn" aria-hidden="true"></i></li>
         </ul>
     </div>
     <h4>Filter Film</h4>
@@ -64,6 +64,9 @@ use yii\widgets\Pjax;
                     'range'=>true,
                     'tooltip'=>'always'
                 ]]);?>
+            <li class="sort-list filter-btn">
+                Filter
+            </li>
         </ul>
     </div>
 </div>

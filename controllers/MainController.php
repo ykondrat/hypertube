@@ -44,14 +44,14 @@ class MainController extends Controller
     }
 
 
-    public function sort_filter(){
+    public function actionSort_filter(){
         $session = Yii::$app->session;
         $like = (isset($session['searchValue']) && $session['searchValue'] != '') ? 'Title' : 'Genre';
         $like_value = (isset($session['searchValue']) && $session['searchValue'] != '') ? $session['searchValue'] : $session['genre'];
         $offset = Yii::$app->request->post('limit') * 10;
         $like_array = ($like == 'GENRE' && $like_value == 'All') ? "number>0" : array('like',$like, $like_value );
         if (Yii::$app->request->post('sort') != ''){
-            $sort_set = Yii::$app->request->post('sort');  // "Year,desc"
+            $sort_set = Yii::$app->request->post('sort');  // "Year|Rating|Title , desc|asc"
             $sort_by = explode(',', $sort_set)[0];
             $sort_how = explode(',', $sort_set)[1];
             $sort_array = ($sort_how == "desc") ? array($sort_by => SORT_DESC) : array($sort_by => SORT_ASC);
@@ -60,7 +60,7 @@ class MainController extends Controller
             $sort_array = array('imdbRating' => SORT_DESC);
         }
         if (Yii::$app->request->post('filter') != ''){
-            $filter_set = Yii::$app->request->post('filter'); // "Year,1970,2000,Rating,0,10"
+            $filter_set = Yii::$app->request->post('filter'); // "Year, 1970, 2000, Rating, 0, 10"
             $filter_year = explode(',', $filter_set)[0];
             $filter_year_from = explode(',', $filter_set)[1];
             $filter_year_to = explode(',', $filter_set)[2];

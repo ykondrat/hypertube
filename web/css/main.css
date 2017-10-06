@@ -33,6 +33,33 @@ body {
     color: #55E2CD;
 }
 
+.sort-list {
+    color: #818181 !important;
+}
+.sort-list:hover {
+    color: #818181 !important;
+}
+.sort-btn:hover {
+    color: #55E2CD !important;
+}
+.slider-handle {
+    background-color: #55E2CD !important;
+    background-image: none !important;
+}
+.filter-btn {
+    background-color: #55E2CD;
+    color: #121212;
+    text-align: center;
+    padding: 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 80%;
+    margin-top: 10px;
+    transition: .3s;
+}
+.filter-btn:hover {
+    background-color: #4BC3B1;
+}
 .sidenav .closebtn {
     position: absolute;
     text-decoration: none;

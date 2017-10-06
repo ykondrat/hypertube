@@ -13,46 +13,20 @@ $(document).ready(function(){
                 searchValue = response[2].searchValue;
                 limit = parseInt(response[0].limit);
                 openPrev();
-                $.ajax({
-                    url: 'main/returntitle',
-                    type: 'post',
-                    data: {searchValue: searchValue,limit: limit - 1},
-                    dataType: 'json',
-                    success: function(response){
-                        let end = response[response.length - 1];
-                        if (end == "END") {
-                            $('.next').css('display', 'none');
-                        } else {
-                            $('.next').css('display', 'block');
-                        }
-                        let movies = response.slice(0, response.length - 1);
-                        movies.forEach(movie => {
-                            addMovie(movie);
-                        });
-                    }
-                })
+                var data = {
+                    searchValue: searchValue,
+                    limit: limit - 1
+                };
+                sendDataAndGet('main/returntitle', data);
             } else {
                 genre = response[1].genre;
                 limit = parseInt(response[0].limit);
                 openPrev();
-                $.ajax({
-                    url: 'main/returngenre',
-                    type: 'post',
-                    data: { Genre: response[1].genre, limit: parseInt(response[0].limit) - 1},
-                    dataType: 'json',
-                    success: function(response) {
-                        let end = response[response.length - 1];
-                        if (end == "END") {
-                            $('.next').css('display', 'none');
-                        } else {
-                            $('.next').css('display', 'block');
-                        }
-                        let movies = response.slice(0, response.length - 1);
-                        movies.forEach(movie => {
-                            addMovie(movie);
-                        });
-                    }
-                });
+                var data = {
+                    Genre: response[1].genre,
+                    limit: parseInt(response[0].limit) - 1
+                };
+                sendDataAndGet('main/returngenre', data);
             }
         }
     });
@@ -86,7 +60,7 @@ function openPrev() {
 }
 
 function openNav() {
-    $("#search-nav").css('width', '265px');
+    $("#search-nav").css('width', '285px');
 }
 
 function closeNav() {
@@ -148,25 +122,11 @@ $('#search-film').on('keyup', function(event){
         limit = 1;
         openPrev();
         sendData('', this.value, limit);
-        $.ajax({
-            url: 'main/returntitle',
-            type: 'post',
-            data: {searchValue: searchValue,limit: limit - 1},
-            dataType: 'json',
-            success: function(response){
-                console.log(response);
-                let end = response[response.length - 1];
-                if (end == "END") {
-                    $('.next').css('display', 'none');
-                } else {
-                    $('.next').css('display', 'block');
-                }
-                let movies = response.slice(0, response.length - 1);
-                movies.forEach(movie => {
-                    addMovie(movie);
-                });
-            }
-        })
+        var data = {
+            searchValue: searchValue,
+            limit: limit - 1
+        };
+        sendDataAndGet('main/returntitle', data);
     }
 });
 
@@ -176,75 +136,37 @@ $('.next').on('click', function(){
         sendData('', searchValue, limit);
         openPrev();
         $('#movies div').remove();
-        $.ajax({
-            url: 'main/returntitle',
-            type: 'post',
-            data: {searchValue: searchValue,limit: limit - 1},
-            dataType: 'json',
-            success: function(response){
-                let end = response[response.length - 1];
-                if (end == "END") {
-                    $('.next').css('display', 'none');
-                } else {
-                    $('.next').css('display', 'block');
-                }
-                let movies = response.slice(0, response.length - 1);
-                movies.forEach(movie => {
-                    addMovie(movie);
-                });
-            }
-        })
+        var data = {
+            Genre: genre,
+            limit: limit - 1
+        };
+        sendDataAndGet('main/returntitle', data);
     } else {
         $('#movies div').remove();
         limit++;
         sendData(genre, '', limit);
         openPrev();
-        $.ajax({
-            url: 'main/returngenre',
-            type: 'post',
-            data: {Genre: genre, limit: limit - 1},
-            dataType: 'json',
-            success: function(response) {
-                let end = response[response.length - 1];
-                if (end == "END") {
-                    $('.next').css('display', 'none');
-                } else {
-                    $('.next').css('display', 'block');
-                }
-                let movies = response.slice(0, response.length - 1);
-                movies.forEach(movie => {
-                    addMovie(movie);
-                });
-            }
-        });
+        var data = {
+            Genre: genre,
+            limit: limit - 1
+        };
+        sendDataAndGet('main/returngenre', data);
     }
 });
 
 $('.prev').on('click', function(){
     if (searchValue) {
         $('#movies div').remove();
+
         if (limit > 1) {
             limit--;
             sendData('', searchValue, limit);
             openPrev();
-            $.ajax({
-                url: 'main/returngenre',
-                type: 'post',
-                data: {Genre: genre, limit: limit - 1},
-                dataType: 'json',
-                success: function(response) {
-                    let end = response[response.length - 1];
-                    if (end == "END") {
-                        $('.next').css('display', 'none');
-                    } else {
-                        $('.next').css('display', 'block');
-                    }
-                    let movies = response.slice(0, response.length - 1);
-                    movies.forEach(movie => {
-                        addMovie(movie);
-                    });
-                }
-            });
+            var data = {
+                Genre: genre,
+                limit: limit - 1
+            };
+            sendDataAndGet('main/returntitle', data);
         }
     } else {
         $('.next').css('display', 'block');
@@ -253,24 +175,11 @@ $('.prev').on('click', function(){
             limit--;
             sendData(genre, '', limit);
             openPrev();
-            $.ajax({
-                url: 'main/returngenre',
-                type: 'post',
-                data: {Genre: genre, limit: limit - 1},
-                dataType: 'json',
-                success: function (response) {
-                    let end = response[response.length - 1];
-                    if (end == "END") {
-                        $('.next').css('display', 'none');
-                    } else {
-                        $('.next').css('display', 'block');
-                    }
-                    let movies = response.slice(0, response.length - 1);
-                    movies.forEach(movie => {
-                        addMovie(movie);
-                    });
-                }
-            });
+            var data = {
+                Genre: genre,
+                limit: limit - 1
+            };
+            sendDataAndGet('main/returngenre', data);
         }
     }
 });
@@ -283,13 +192,41 @@ function setGenre(Genre) {
     sendData(genre, '', limit);
     $('#search-film').val('');
 
+    var data = {
+        Genre: Genre.innerHTML,
+        limit: limit - 1
+    };
+    sendDataAndGet('main/returngenre', data);
+}
+
+
+/** Sort films */
+
+function setSort(str){
+    var data = {
+      sort: str,
+      limit: limit - 1
+    };
+
+    sendDataAndGet('main/sort_filter', data);
+}
+
+/** End of sort */
+
+
+
+
+/** Sender function */
+
+function sendDataAndGet(url, data) {
     $.ajax({
-        url: 'main/returngenre',
+        url: url,
         type: 'post',
-        data: {Genre: Genre.innerHTML, limit: limit - 1},
+        data: data,
         dataType: 'json',
         success: function(response) {
             let end = response[response.length - 1];
+
             if (end == "END") {
                 $('.next').css('display', 'none');
             } else {
@@ -302,3 +239,5 @@ function setGenre(Genre) {
         }
     });
 }
+
+/** End of Sender */
