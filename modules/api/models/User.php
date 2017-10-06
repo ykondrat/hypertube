@@ -41,17 +41,6 @@ class User extends \yii\db\ActiveRecord
         ];
     }
 
-
-
-    function Test(array $args, $check){
-        if ($check == true) {
-            return (count($args) == 1 && is_string($args[0])) ? true : false;
-        }
-        else {
-            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['like', 'user_name', $args[0]])->all();
-        }
-    }
-
     /** Return list of all users (`user_id`, `user_name`, `user_secondname`, `user_email`, `user_avatar`). Parameter $args = [NULL] */
 
     function GetUserList(array $args, $check){
@@ -111,43 +100,72 @@ class User extends \yii\db\ActiveRecord
         }
     }
 
-    /** Update user information by `user_id` . Parameter $args = [ <id of user>, [ <parameters that you want to change> ] , [ <values ​​of these parameters> ] ] */
-    /** valid name of parameters : user_name , user_secondname  */
+    /** Update user information by `user_id` . Parameter $args = [ <id of user>, <parameter that you want to change> , <value ​​of this parameter>  ] */
+    /** valid name of parameter : user_name , user_secondname  */
+
     function UpdateUserData(array $args, $check){
-        $parameters = $args[1];
+
         if ($check == true) {
-            $flag = 1;
-            foreach ($parameters as $parameter){
-               $flag =  (strlen( $parameter) >= 2 && strlen( $parameter) <= 20) ? $flag : 0;
-            }
-            return (count($args) == 3 && is_int($args[0]) && is_array($args[1]) && count($args[1]) > 0 && is_array($args[2]) && count($args[2]) > 0 && count($args[2]) == count($args[1]) && $flag) ? true : false;
+
+            return (count($args) == 3 && is_int($args[0])
+                    && is_string($args[1]) && is_string($args[2])
+                    && strstr('user_name user_secondname', $args[1])
+                    && strlen($args[2]) >= 2 && strlen($args[2]) <= 20)
+                    ? true : false;
         }
         else {
-            foreach ($parameters as $key => $parameter){
-                $user = self::updateAll([$key => $parameter, ['user_id' => $args[0]]]);
+
+            $user = self::find()->where(['user_id' => $args[0]])->one();
+            if ($user != NULL) {
+                if ($args[1] == 'user_name') {
+                    $user->user_name = $args[2];
+                } else {
+                    $user->user_secondname = $args[2];
+                }
+                $user->save(false);
+                return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['user_id' => $args[0]])->one();
             }
-            return self::find()->select('user_id, user_name, user_secondname , user_email')->where(['user_id' => $args[0]])->all();
+            else{
+                return array('status' => false, 'data' => 'A user with `user_id` = '.$args[0].' does not exist');
+            }
         }
     }
 
     /** Delete user by `user_id` . Parameter $args = [ <id of user> ] */
+
     function DeleteUser(array $args, $check){
         if ($check == true) {
-            $int = 0;
-            foreach ($args as $id){
-                $int = (is_int($id)) ? $int + 1 : $int;
-            }
-            return (count($args) > 0 && $int == count($args)) ? true : false;
+            return (count($args) == 1 && is_int($args[0]) ) ? true : false;
         }
         else {
-//            $user = self::
+            Yii::$app->db->createCommand()->delete('user', ['user_id' => $args[0]])->execute();
             return self::find()->select('user_id, user_name, user_secondname , user_email')->all();
         }
     }
 
     /** Create new user . Parameter $args = [ `user_name`, `user_secondname`, `user_email`, `user_password` ] */
-    function CreateUser(){
 
+    function CreateUser(array $args, $check){
+        if ($check == true) {
+            $flag = true;
+            $flag = (count($args) == 4) ? $flag : false;
+            $flag = (is_string($args[0]) && strlen($args[0]) >= 2 && strlen($args[0]) <= 20 ) ? $flag : false;
+            $flag = (is_string($args[1]) && strlen($args[1]) >= 2 && strlen($args[1]) <= 20 ) ? $flag : false;
+            $flag = (is_string($args[2]) && strlen($args[2]) >= 1 &&  filter_var($args[2], FILTER_VALIDATE_EMAIL)) ? $flag : false;
+            $flag = (is_string($args[3]) && strlen($args[3]) >= 8 ) ? $flag : false;
+            return $flag;
+        }
+        else{
+            $user = new User();
+            $user->user_name = $args[0];
+            $user->user_secondname = $args[1];
+            $user->user_email = $args[2];
+            $user->user_password = Yii::$app->getSecurity()->generatePasswordHash($args[3]);
+            $user->user_rep_password = $user->user_password;
+            $user->user_avatar = "ninja.png";
+            $user->save(false);
+            return self::find()->select('user_id, user_name, user_secondname , user_email')->all();
+        }
     }
 
 }
