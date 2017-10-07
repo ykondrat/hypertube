@@ -20,9 +20,39 @@ use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
 use DOMDocument;
+use Buzz\Browser;
+use MatthiasNoback\MicrosoftOAuth\AzureTokenProvider;
+use MatthiasNoback\MicrosoftTranslator\MicrosoftTranslator;
 
 class FunctionController extends Controller
 {
+
+
+    public function actionTest(){
+        $browser = new Browser();
+
+        $azureKey = '797be17c8efd43c4b5bb0277db5b8fc9';
+
+        $accessTokenProvider = new AzureTokenProvider($browser, $azureKey);
+
+        $translator = new MicrosoftTranslator($browser, $accessTokenProvider);
+
+        $imdb_en = Imdb::find()->asArray()->all();
+
+        $i = 0;
+        while ($i < 1000){
+
+            $film_array = array("Title" => $translator->translate($imdb_en[$i]['Title'], 'uk', ''), "Year" => $imdb_en[$i]['Year'], "Released" => $imdb_en[$i]['Released'], "Runtime" => $imdb_en[$i]['Runtime'],
+                "Genre" => $imdb_en[$i]['Genre'], "Director" => $imdb_en[$i]['Director'], "Writer" => $imdb_en[$i]['Writer'], "Actors" => $imdb_en[$i]['Actors'],
+                "Plot" =>  $translator->translate($imdb_en[$i]['Plot'], 'uk', ''), "Language" => $imdb_en[$i]['Language'], "Country" => $imdb_en[$i]['Country'], "Awards" => $imdb_en[$i]['Awards'],
+                "Poster" => $imdb_en[$i]['Poster'], "Metascore" => $imdb_en[$i]['Metascore'], "imdbRating" => $imdb_en[$i]['imdbRating'], "imdbID" => $imdb_en[$i]['imdbID'],
+                "Production" => $imdb_en[$i]['Production']);
+
+            Yii::$app->db->createCommand()->insert('imdb_id_ua', $film_array)->execute();
+            $i++;
+        }
+
+    }
 
     /** GET TBODY FROM DOM_DOCUMENT */
 

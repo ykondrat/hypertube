@@ -155,10 +155,45 @@ class SiteController extends Controller
         ');
         $imdb_id_table->query();
 
+        /**        CREATE TABLE "IMDB_ID_ua"      */
+
+        $imdb_id_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `imdb_id_ua` (
+          `number` INT (4) UNSIGNED NOT NULL AUTO_INCREMENT,
+          `imdbID` VARCHAR (15),
+          `Title` VARCHAR (255),
+          `Year` VARCHAR (5),
+          `Runtime` VARCHAR (15),
+          `Released` VARCHAR (255),
+          `Genre` VARCHAR (50),
+          `Director` VARCHAR (500),
+          `Writer` VARCHAR (1000),
+          `Actors` VARCHAR (255),
+          `Plot` VARCHAR (1000),
+          `Language` VARCHAR (1000),
+          `Country` VARCHAR (500),
+          `Awards` VARCHAR (1000),
+          `Poster` VARCHAR (500),
+          `Metascore` VARCHAR (5),
+          `imdbRating` VARCHAR (10),
+          `Production` VARCHAR (1000),         
+          PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        ');
+        $imdb_id_table->query();
+
 /**         CREATE TABLE "GENRE"       */
 
         $genre_table = Yii::$app->db->createCommand('
           CREATE TABLE IF NOT EXISTS `genre` (
+          `genre` VARCHAR (100) NOT NULL ,
+          PRIMARY KEY (`genre`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        ');
+        $genre_table->query();
+
+        /**         CREATE TABLE "GENRE_ua"       */
+
+        $genre_table = Yii::$app->db->createCommand('
+          CREATE TABLE IF NOT EXISTS `genre_ua` (
           `genre` VARCHAR (100) NOT NULL ,
           PRIMARY KEY (`genre`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
@@ -215,10 +250,12 @@ class SiteController extends Controller
 
         if (Imdb::find()->asArray()->all() == NULL){
             require_once Yii::$app->basePath . '/web/db_data/imdb_id(1000).php';
+            require_once Yii::$app->basePath . '/web/db_data/imdb_id_ua(1000).php';
 
             $imdb_add = Yii::$app->db->createCommand()->batchInsert('imdb_id', ['number' ,'imdbID','Title','Year','Runtime','Released','Genre','Director','Writer','Actors'
                 ,'Plot','Language','Country','Awards','Poster','Metascore','imdbRating','Production',], $imdb_id_array)->execute();
-
+            $imdb_add2 = Yii::$app->db->createCommand()->batchInsert('imdb_id_ua', ['number' ,'imdbID','Title','Year','Runtime','Released','Genre','Director','Writer','Actors'
+            ,'Plot','Language','Country','Awards','Poster','Metascore','imdbRating','Production',], $imdb_id_ua)->execute();
         }
 
 /**         INSERT DATA TO "GENRE"      */

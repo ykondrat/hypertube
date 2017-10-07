@@ -24,7 +24,8 @@
         "kop/yii2-scroll-pager": "dev-master",
         "kartik-v/yii2-slider": "dev-master",
         "yii-dream-team/yii2-upload-behavior": "*",
-        "mashape/unirest-php": "^3.0"
+        "mashape/unirest-php": "^3.0",
+        "matthiasnoback/microsoft-translator": "dev-master"
 
 
     },
