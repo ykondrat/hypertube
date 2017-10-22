@@ -9,7 +9,23 @@ use yii\widgets\ListView;
 use yii\widgets\Pjax;
 
 ?>
+<?php
+$session = Yii::$app->session;
 
+if (isset($session['filter_value']) && $session['filter_value'] != '') {
+    $filter_val = explode(',', $session['filter_value']);
+    $year_from = $filter_val[1];
+    $year_to = $filter_val[2];
+    $rat_from = $filter_val[4];
+    $rat_to = $filter_val[5];
+}else{
+    $year_from = '1920';
+    $year_to = '2017';
+    $rat_from = '1.4';
+    $rat_to = '9.3';
+}
+
+?>
 <div id="search-nav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <h4>Film Genres</h4>
@@ -31,7 +47,7 @@ use yii\widgets\Pjax;
         <ul>
             <li class="sort-list">Year <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('Year,asc')" aria-hidden="true"></i> <i onclick="setSort('Year,desc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
             <hr />
-            <li class="sort-list">Rating <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('Rating,asc')" aria-hidden="true"></i>  <i onclick="setSort('Rating,desc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
+            <li class="sort-list">Rating <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('imdbRating,desc')" aria-hidden="true"></i>  <i onclick="setSort('imdbRating,asc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
             <hr />
             <li class="sort-list">Alphabetical <i class="fa fa-sort-alpha-asc sort-btn" onclick="setSort('Title,asc')" aria-hidden="true"></i> <i onclick="setSort('Title,desc')" class="fa fa-sort-alpha-desc sort-btn" aria-hidden="true"></i></li>
         </ul>
@@ -39,10 +55,11 @@ use yii\widgets\Pjax;
     <h4>Filter Film</h4>
     <div class="film-sort">
         <ul>
-            <li>Year <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <li>Year </li>
+
             <?php echo kartik\slider\Slider::widget([
                 'name'=>'Year',
-                'value'=>'1920,2017',
+                'value'=>"$year_from,$year_to",
                 'sliderColor'=>kartik\slider\Slider::TYPE_GREY,
                 'pluginOptions'=>[
                     'min'=>1920,
@@ -52,10 +69,10 @@ use yii\widgets\Pjax;
                     'tooltip'=>'always'
                 ]]);?>
             <hr />
-            <li>Rating <i class="fa fa-sort-numeric-asc" aria-hidden="true"></i></li>
+            <li>Rating </li>
             <?php echo kartik\slider\Slider::widget([
                 'name'=>'Rating',
-                'value'=>'1.4,9.3',
+                'value'=>"$rat_from,$rat_to",
                 'sliderColor'=>kartik\slider\Slider::TYPE_GREY,
                 'pluginOptions'=>[
                     'min'=>1.4,
@@ -64,7 +81,7 @@ use yii\widgets\Pjax;
                     'range'=>true,
                     'tooltip'=>'always'
                 ]]);?>
-            <li class="sort-list filter-btn">
+            <li class="sort-list filter-btn" onclick="setFilter()">
                 Filter
             </li>
         </ul>
