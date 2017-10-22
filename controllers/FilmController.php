@@ -66,7 +66,7 @@ class FilmController extends Controller
             'allModels' => $this->get_comments($id),
             'pagination' => false,
         ]);
-
+        $session['film_id'] = $id;
         $torrents = new ArrayDataProvider([
             'allModels' => $this->get_torrents($id),
             'pagination' => false,

@@ -19,12 +19,31 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
-
+use linslin\yii2\curl;
 use yii\web\UploadedFile;
+use app\models\Torrent;
 
 class MainController extends Controller
 {
     public $layout = 'my_main';
+
+    public function actionTest(){
+        echo sha1(file_get_contents('https://yts.ag/torrent/download/FFA501CDB8239F6975D8EAAB3D9C07B7A48E6D04'));
+    }
+
+    public function actionGamno(){
+        $session = Yii::$app->session;
+        $user = User::find()->where(['user_email' => $session['loged_email']])->asArray()->one();
+        $film = Imdb::find()->where(['imdbID' => 'tt0103064'])->asArray()->one();
+        $torrent = Torrent::find()->orderBy(['seeds'=>SORT_DESC])->where(['imdbID' => 'tt0103064'])->asArray()->all();
+        $data = json_encode( array($user, $film, $torrent));
+
+        $curl = new curl\Curl();
+        $response = $curl->setPostParams([
+            'data' => $data,
+        ])
+            ->post('http://localhost:8000/get_info');
+    }
 
     public function actionMain()
     {
@@ -44,31 +63,22 @@ class MainController extends Controller
     }
 
     public function actionSort_filter(){
-
         $session = Yii::$app->session;
-
         $like = (isset($session['searchValue']) && $session['searchValue'] != '') ? 'Title' : 'Genre';
         $like_value = (isset($session['searchValue']) && $session['searchValue'] != '') ? $session['searchValue'] : $session['genre'];
         $offset = Yii::$app->request->post('limit') * 10;
-
         $like_array = ($like == 'Genre' && ($like_value == 'All' || $like_value == '') ) ? "number>0" : array('like',$like, $like_value);
-
         $sort_set = (Yii::$app->request->post('sort_value') != '') ? Yii::$app->request->post('sort_value') : Yii::$app->request->post('sort');
         $filter_set = (Yii::$app->request->post('filter_value') != '') ? Yii::$app->request->post('filter_value') : Yii::$app->request->post('filter');
-
         if ($sort_set != ''){
-//
             $sort_by = explode(',', $sort_set)[0];
-
             $sort_how = explode(',', $sort_set)[1];
             $sort_array = ($sort_how == "desc") ? array($sort_by => SORT_DESC) : array($sort_by => SORT_ASC);
         }
         else{
             $sort_array = array('imdbRating' => SORT_DESC);
         }
-
         if ( $filter_set != '' ){
-//
             $filter_year = explode(',', $filter_set)[0];
             $filter_year_from = explode(',', $filter_set)[1];
             $filter_year_to = explode(',', $filter_set)[2];
@@ -95,43 +105,6 @@ class MainController extends Controller
 
         echo json_encode($film);
     }
-
-
-
-    /** RETURN 10 FILMS OF SOME GENRE */
-
-//    public function actionReturngenre(){
-//
-//        $genre = Yii::$app->request->post('Genre');
-//        $offset = Yii::$app->request->post('limit') * 10;
-//
-//        if ($genre != "All") {
-//            $films = Imdb::find()->orderBy(['imdbRating' => SORT_DESC])->where(['like', 'Genre', $genre])->asArray()->limit(10)->offset($offset)->all();
-//            $if_end = Imdb::find()->orderBy(['imdbRating' => SORT_DESC])->where(['like', 'Genre', $genre])->asArray()->limit(11)->offset($offset)->all();
-//        } else {
-//            $films = Imdb::find()->orderBy(['imdbRating' => SORT_DESC])->asArray()->limit(10)->offset($offset)->all();
-//            $if_end = Imdb::find()->orderBy(['imdbRating' => SORT_DESC])->asArray()->limit(11)->offset($offset)->all();
-//        }
-//
-//        $films[] = (count($if_end) > count($films)) ? "OK" : "END";
-//
-//        echo json_encode($films);
-//    }
-
-    /** RETURN 10 FILMS OF SAME TITLE */
-
-//    public function actionReturntitle(){
-//
-//        $title = Yii::$app->request->post('searchValue');
-//        $offset = Yii::$app->request->post('limit') * 10;
-//
-//        $films = Imdb::find()->orderBy(['imdbRating' => SORT_DESC])->where(['like', 'Title', $title])->asArray()->limit(10)->offset($offset)->all();
-//        $if_end = Imdb::find()->orderBy(['imdbRating' => SORT_DESC])->where(['like', 'Title', $title])->asArray()->limit(11)->offset($offset)->all();
-//
-//        $films[] = (count($if_end) > count($films)) ? "OK" : "END";
-//
-//        echo json_encode($films);
-//    }
 
     /** SEND DATA OF SEARCH PARAM TO JS */
 
