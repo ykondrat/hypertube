@@ -2,6 +2,7 @@ body {
     background:#434343 !important;
     font-family:'Open Sans',sans-serif;
 }
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -13,6 +14,17 @@ body {
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
+    overflow: scroll;
+}
+.sidenav::-webkit-scrollbar {
+    width: .3em;
+}
+.sidenav::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);*/
+}
+.sidenav::-webkit-scrollbar-thumb {
+    background-color: #55E2CD;
+    /*outline: none;*/
 }
 .sidenav h4 {
     font-weight: bold;
@@ -48,7 +60,7 @@ body {
 }
 .filter-btn {
     background-color: #55E2CD;
-    color: #121212;
+    color: #000 !important;
     text-align: center;
     padding: 10px;
     border-radius: 7px;
@@ -59,6 +71,7 @@ body {
 }
 .filter-btn:hover {
     background-color: #4BC3B1;
+    color: #000 !important;
 }
 .sidenav .closebtn {
     position: absolute;
@@ -129,7 +142,7 @@ body {
 input[type=text] {
     width: 130px;
     box-sizing: border-box;
-    border: 2px solid #ccc;
+    border: none;
     border-radius: 30px;
     font-size: 16px;
     background-color: white;
@@ -145,8 +158,8 @@ input[type=text] {
 
 input[type=text]:focus {
     outline: none !important;
-    box-shadow: 1px 1px 3px 2px #55E2CD;
-    border-radius: 15px;
+    box-shadow: 0 0 0 2pt #55E2CD;
+    border-radius: 30px;
     width: 30%;
 }
 .film-list {

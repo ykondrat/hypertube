@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,18 +8,22 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit\Framework;
-
-class TestImplementorTest extends TestCase
+/**
+ * @since      Class available since Release 2.0.0
+ */
+class Framework_TestImplementorTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * @covers PHPUnit_Framework_TestCase
+     */
     public function testSuccessfulRun()
     {
-        $result = new TestResult;
+        $result = new PHPUnit_Framework_TestResult;
 
-        $test = new \DoubleTestCase(new \Success);
+        $test = new DoubleTestCase(new Success);
         $test->run($result);
 
-        $this->assertCount(\count($test), $result);
+        $this->assertEquals(count($test), count($result));
         $this->assertEquals(0, $result->errorCount());
         $this->assertEquals(0, $result->failureCount());
     }

@@ -1,7 +1,5 @@
 <?php
-use PHPUnit\Framework\TestCase;
-
-class DataProviderSkippedTest extends TestCase
+class DataProviderSkippedTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider skippedTestProviderMethod
@@ -23,17 +21,17 @@ class DataProviderSkippedTest extends TestCase
     {
         $this->markTestSkipped('skipped');
 
-        return [
-          [0, 0, 0],
-          [0, 1, 1],
-        ];
+        return array(
+          array(0, 0, 0),
+          array(0, 1, 1),
+        );
     }
 
     public static function providerMethod()
     {
-        return [
-          [0, 0, 0],
-          [0, 1, 1],
-        ];
+        return array(
+          array(0, 0, 0),
+          array(0, 1, 1),
+        );
     }
 }

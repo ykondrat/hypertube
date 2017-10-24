@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,22 +8,21 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit\Util\TestDox;
-
-use PHPUnit\Framework\TestCase;
-
-class NamePrettifierTest extends TestCase
+/**
+ * @since      Class available since Release 2.1.0
+ */
+class Util_TestDox_NamePrettifierTest extends PHPUnit_Framework_TestCase
 {
-    /**
-     * @var NamePrettifier
-     */
-    private $namePrettifier;
+    protected $namePrettifier;
 
     protected function setUp()
     {
-        $this->namePrettifier = new NamePrettifier;
+        $this->namePrettifier = new PHPUnit_Util_TestDox_NamePrettifier;
     }
 
+    /**
+     * @covers PHPUnit_Util_TestDox_NamePrettifier::prettifyTestClass
+     */
     public function testTitleHasSensibleDefaults()
     {
         $this->assertEquals('Foo', $this->namePrettifier->prettifyTestClass('FooTest'));
@@ -32,6 +31,9 @@ class NamePrettifierTest extends TestCase
         $this->assertEquals('Foo', $this->namePrettifier->prettifyTestClass('Test\FooTest'));
     }
 
+    /**
+     * @covers PHPUnit_Util_TestDox_NamePrettifier::prettifyTestClass
+     */
     public function testCaterForUserDefinedSuffix()
     {
         $this->namePrettifier->setSuffix('TestCase');
@@ -42,6 +44,9 @@ class NamePrettifierTest extends TestCase
         $this->assertEquals('FooTest', $this->namePrettifier->prettifyTestClass('FooTest'));
     }
 
+    /**
+     * @covers PHPUnit_Util_TestDox_NamePrettifier::prettifyTestClass
+     */
     public function testCaterForUserDefinedPrefix()
     {
         $this->namePrettifier->setSuffix(null);
@@ -52,6 +57,9 @@ class NamePrettifierTest extends TestCase
         $this->assertEquals('XXX', $this->namePrettifier->prettifyTestClass('XXXXXX'));
     }
 
+    /**
+     * @covers PHPUnit_Util_TestDox_NamePrettifier::prettifyTestMethod
+     */
     public function testTestNameIsConvertedToASentence()
     {
         $this->assertEquals('This is a test', $this->namePrettifier->prettifyTestMethod('testThisIsATest'));
@@ -59,10 +67,10 @@ class NamePrettifierTest extends TestCase
         $this->assertEquals('This is a test', $this->namePrettifier->prettifyTestMethod('this_is_a_test'));
         $this->assertEquals('Foo for bar is 0', $this->namePrettifier->prettifyTestMethod('testFooForBarIs0'));
         $this->assertEquals('Foo for baz is 1', $this->namePrettifier->prettifyTestMethod('testFooForBazIs1'));
-        $this->assertEquals('', $this->namePrettifier->prettifyTestMethod('test'));
     }
 
     /**
+     * @covers PHPUnit_Util_TestDox_NamePrettifier::prettifyTestMethod
      * @ticket 224
      */
     public function testTestNameIsNotGroupedWhenNotInSequence()

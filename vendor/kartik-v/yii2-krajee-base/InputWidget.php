@@ -4,7 +4,7 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2017
- * @version   1.8.8
+ * @version   1.8.9
  */
 
 namespace kartik\base;
@@ -14,6 +14,7 @@ use yii\base\InvalidConfigException;
 use yii\helpers\FormatConverter;
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
+use yii\web\View;
 use yii\widgets\InputWidget as YiiInputWidget;
 
 /**
@@ -41,6 +42,14 @@ class InputWidget extends YiiInputWidget
     use WidgetTrait;
 
     const LOAD_PROGRESS = '<div class="kv-plugin-loading">&nbsp;</div>';
+
+    /**
+     * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
+     * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
+     * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
+     * children modules you can specify the module identifiers relative to the parent module (e.g. `admin/content`).
+     */
+    public $moduleId;
 
     /**
      * @var string the language configuration (e.g. 'fr-FR', 'zh-CN'). The format for the language/locale is
@@ -81,6 +90,17 @@ class InputWidget extends YiiInputWidget
     public $pluginName = '';
 
     /**
+     * @var array the default HTML attributes for the input tag.
+     * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
+     */
+    public $defaultOptions = [];
+
+    /**
+     * @var array widget plugin options.
+     */
+    public $defaultPluginOptions = [];
+
+    /**
      * @var array widget plugin options.
      */
     public $pluginOptions = [];
@@ -115,6 +135,13 @@ class InputWidget extends YiiInputWidget
      * @see http://php.net/manual/en/function.date.php
      */
     public $convertFormat = false;
+    
+    /**
+     * @var integer the position where the client JS hash variables for the input widget will be loaded. 
+     * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
+     * rendering the widget via `renderAjax`.
+     */
+    public $hashVarLoadPosition = View::POS_HEAD;
 
     /**
      * @var array the the internalization configuration for this widget.
@@ -168,6 +195,8 @@ class InputWidget extends YiiInputWidget
     public function init()
     {
         parent::init();
+        $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
+        $this->options = ArrayHelper::merge($this->defaultOptions, $this->options);
         $this->initDestroyJs();
         $this->initInputWidget();
     }
@@ -281,7 +310,6 @@ class InputWidget extends YiiInputWidget
         $input = $type;
         $checked = false;
         if ($type == 'radio' || $type == 'checkbox') {
-            $this->options['value'] = $this->value;
             $checked = ArrayHelper::remove($this->options, 'checked', '');
             if (empty($checked) && !empty($this->value)) {
                 $checked = ($this->value == 0) ? false : true;

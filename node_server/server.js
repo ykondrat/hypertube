@@ -7,7 +7,7 @@ const bodyParser    = require('body-parser');
 
 const app = express();
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -20,16 +20,25 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use(session({
-    secret: 'anyStringOfText',
-    saveUninitialized: true,
-    resave: true
+    secret: 'qwerqwerqwer',
+	resave: false,
+	saveUninitialized: true
 }));
 
-app.post('/get_info', (req,res) => {
-   console.log(req.body);
+// app.post('/get_info', (req,res) => {
+//    console.log(req.body);
+// });
+
+
+
+app.post('/get_info', (req, res) => {
+    console.log(req.body);
+
+    res.send('OK');
 });
 
 app.get('/', (req, res) => {
+	console.log(req.session);
     res.render('index');
 });
 

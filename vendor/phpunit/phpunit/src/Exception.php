@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit;
-
 /**
  * Marker interface for PHPUnit exceptions.
+ *
+ * @since      Interface available since Release 4.0.0
  */
-interface Exception
+interface PHPUnit_Exception
 {
 }

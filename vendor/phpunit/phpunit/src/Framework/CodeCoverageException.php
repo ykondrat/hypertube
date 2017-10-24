@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,8 +8,9 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit\Framework;
-
-class CodeCoverageException extends Exception
+/**
+ * @since Class available since Release 4.0.0
+ */
+class PHPUnit_Framework_CodeCoverageException extends PHPUnit_Framework_Exception
 {
 }

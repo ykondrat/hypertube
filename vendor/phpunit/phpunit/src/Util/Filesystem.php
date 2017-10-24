@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit\Util;
-
 /**
  * Filesystem helpers.
+ *
+ * @since Class available since Release 3.0.0
  */
-class Filesystem
+class PHPUnit_Util_Filesystem
 {
     /**
      * @var array
      */
-    protected static $buffer = [];
+    protected static $buffer = array();
 
     /**
      * Maps class names to source file names:
@@ -28,11 +28,13 @@ class Filesystem
      * @param string $className
      *
      * @return string
+     *
+     * @since  Method available since Release 3.4.0
      */
     public static function classNameToFilename($className)
     {
-        return \str_replace(
-            ['_', '\\'],
+        return str_replace(
+            array('_', '\\'),
             DIRECTORY_SEPARATOR,
             $className
         ) . '.php';

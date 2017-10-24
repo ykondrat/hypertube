@@ -44,3 +44,17 @@ function replaceString(str) {
 setInterval(() => {
     $.pjax.reload({ container: '#some_pjax_id', async: false });
 }, 1000);
+
+function sendTorrent(film) {
+    $.ajax({
+        url: 'send_to_node',
+        type: 'post',
+        data: { film_data: film },
+        dataType: 'json',
+        success: function (response) {
+            if (response === 'OK') {
+                location.href = 'http://localhost:3000';
+            }
+        }
+    })
+}

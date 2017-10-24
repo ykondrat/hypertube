@@ -4,13 +4,14 @@
  * @package   yii2-krajee-base
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
  * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2014 - 2017
- * @version   1.8.8
+ * @version   1.8.9
  */
 
 namespace kartik\base;
 
-use Yii;
 use yii\base\Widget as YiiWidget;
+use yii\helpers\ArrayHelper;
+use yii\web\View;
 
 /**
  * Base class for widgets extending [[YiiWidget]] used in Krajee extensions.
@@ -22,6 +23,19 @@ class Widget extends YiiWidget
 {
     use TranslationTrait;
     use WidgetTrait;
+
+    /**
+     * @var string the module identifier if this widget is part of a module. If not set, the module identifier will
+     * be auto derived based on the \yii\base\Module::getInstance method. This can be useful, if you are setting
+     * multiple module identifiers for the same module in your Yii configuration file. To specify children or grand
+     * children modules you can specify the module identifiers relative to the parent module (e.g. `admin/content`).
+     */
+    public $moduleId;
+
+    /**
+     * @var array default HTML attributes or other settings for widgets.
+     */
+    public $defaultOptions = [];
 
     /**
      * @var array HTML attributes or other settings for widgets.
@@ -37,6 +51,11 @@ class Widget extends YiiWidget
      * @var string the name of the jQuery plugin.
      */
     public $pluginName = '';
+
+    /**
+     * @var array widget plugin options.
+     */
+    public $defaultPluginOptions = [];
 
     /**
      * @var array widget plugin options.
@@ -65,6 +84,13 @@ class Widget extends YiiWidget
      * @var boolean enable pop state fix for pjax container on press of browser back & forward buttons.
      */
     public $enablePopStateFix = true;
+    
+    /**
+     * @var integer the position where the client JS hash variables for the widget will be loaded. 
+     * Defaults to `View::POS_HEAD`. This can be set to `View::POS_READY` for specific scenarios like when
+     * rendering the widget via `renderAjax`.
+     */
+    public $hashVarLoadPosition = View::POS_HEAD;
 
     /**
      * @var array the the internalization configuration for this widget.
@@ -103,6 +129,8 @@ class Widget extends YiiWidget
     public function init()
     {
         parent::init();
+        $this->pluginOptions = ArrayHelper::merge($this->defaultPluginOptions, $this->pluginOptions);
+        $this->options = ArrayHelper::merge($this->defaultOptions, $this->options);
         if (empty($this->options['id'])) {
             $this->options['id'] = $this->getId();
         }

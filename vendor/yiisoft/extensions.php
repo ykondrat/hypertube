@@ -3,49 +3,13 @@
 $vendorDir = dirname(__DIR__);
 
 return array (
-  'yiisoft/yii2-swiftmailer' => 
+  'linslin/yii2-curl' => 
   array (
-    'name' => 'yiisoft/yii2-swiftmailer',
-    'version' => '2.0.7.0',
+    'name' => 'linslin/yii2-curl',
+    'version' => '1.2.1.0',
     'alias' => 
     array (
-      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer',
-    ),
-  ),
-  'yiisoft/yii2-bootstrap' => 
-  array (
-    'name' => 'yiisoft/yii2-bootstrap',
-    'version' => '2.0.6.0',
-    'alias' => 
-    array (
-      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap',
-    ),
-  ),
-  'yiisoft/yii2-gii' => 
-  array (
-    'name' => 'yiisoft/yii2-gii',
-    'version' => '2.0.5.0',
-    'alias' => 
-    array (
-      '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
-    ),
-  ),
-  'yiisoft/yii2-faker' => 
-  array (
-    'name' => 'yiisoft/yii2-faker',
-    'version' => '2.0.3.0',
-    'alias' => 
-    array (
-      '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
-    ),
-  ),
-  'yiisoft/yii2-debug' => 
-  array (
-    'name' => 'yiisoft/yii2-debug',
-    'version' => '2.0.11.0',
-    'alias' => 
-    array (
-      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug',
+      '@linslin/yii2/curl' => $vendorDir . '/linslin/yii2-curl',
     ),
   ),
   'kop/yii2-scroll-pager' => 
@@ -57,10 +21,19 @@ return array (
       '@kop/y2sp' => $vendorDir . '/kop/yii2-scroll-pager',
     ),
   ),
+  'yiisoft/yii2-bootstrap' => 
+  array (
+    'name' => 'yiisoft/yii2-bootstrap',
+    'version' => '2.0.7.0',
+    'alias' => 
+    array (
+      '@yii/bootstrap' => $vendorDir . '/yiisoft/yii2-bootstrap',
+    ),
+  ),
   'kartik-v/yii2-krajee-base' => 
   array (
     'name' => 'kartik-v/yii2-krajee-base',
-    'version' => '1.8.8.0',
+    'version' => '1.8.9.0',
     'alias' => 
     array (
       '@kartik/base' => $vendorDir . '/kartik-v/yii2-krajee-base',
@@ -73,6 +46,15 @@ return array (
     'alias' => 
     array (
       '@kartik/slider' => $vendorDir . '/kartik-v/yii2-slider',
+    ),
+  ),
+  'yiisoft/yii2-gii' => 
+  array (
+    'name' => 'yiisoft/yii2-gii',
+    'version' => '2.0.5.0',
+    'alias' => 
+    array (
+      '@yii/gii' => $vendorDir . '/yiisoft/yii2-gii',
     ),
   ),
   'yiisoft/yii2-httpclient' => 
@@ -93,22 +75,13 @@ return array (
       '@yii/authclient' => $vendorDir . '/yiisoft/yii2-authclient',
     ),
   ),
-  'linslin/yii2-curl' => 
+  'yiisoft/yii2-swiftmailer' => 
   array (
-    'name' => 'linslin/yii2-curl',
-    'version' => '1.2.0.0',
+    'name' => 'yiisoft/yii2-swiftmailer',
+    'version' => '2.0.7.0',
     'alias' => 
     array (
-      '@linslin/yii2/curl' => $vendorDir . '/linslin/yii2-curl',
-    ),
-  ),
-  'yii-dream-team/yii2-upload-behavior' => 
-  array (
-    'name' => 'yii-dream-team/yii2-upload-behavior',
-    'version' => '1.1.1.0',
-    'alias' => 
-    array (
-      '@yiidreamteam/upload' => $vendorDir . '/yii-dream-team/yii2-upload-behavior/src',
+      '@yii/swiftmailer' => $vendorDir . '/yiisoft/yii2-swiftmailer',
     ),
   ),
   'dektrium/yii2-user' => 
@@ -121,22 +94,22 @@ return array (
     ),
     'bootstrap' => 'dektrium\\user\\Bootstrap',
   ),
-  'kartik-v/yii2-helpers' => 
+  'yiisoft/yii2-debug' => 
   array (
-    'name' => 'kartik-v/yii2-helpers',
-    'version' => '1.3.6.0',
+    'name' => 'yiisoft/yii2-debug',
+    'version' => '2.0.12.0',
     'alias' => 
     array (
-      '@kartik/helpers' => $vendorDir . '/kartik-v/yii2-helpers',
+      '@yii/debug' => $vendorDir . '/yiisoft/yii2-debug',
     ),
   ),
-  'sintret/yii2-chat-adminlte' => 
+  'yiisoft/yii2-faker' => 
   array (
-    'name' => 'sintret/yii2-chat-adminlte',
-    'version' => '9999999-dev',
+    'name' => 'yiisoft/yii2-faker',
+    'version' => '2.0.3.0',
     'alias' => 
     array (
-      '@sintret/chat' => $vendorDir . '/sintret/yii2-chat-adminlte',
+      '@yii/faker' => $vendorDir . '/yiisoft/yii2-faker',
     ),
   ),
 );

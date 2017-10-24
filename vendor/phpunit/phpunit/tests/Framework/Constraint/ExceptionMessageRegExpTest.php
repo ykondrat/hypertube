@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit\Framework\Constraint;
-
-use PHPUnit\Framework\TestCase;
-
-class ExceptionMessageRegExpTest extends TestCase
+/**
+ * @since      Class available since Release 4.3.0
+ * @covers     PHPUnit_Framework_Constraint_ExceptionMessageRegExp
+ */
+class ExceptionMessageRegExpTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Exception
@@ -20,7 +20,7 @@ class ExceptionMessageRegExpTest extends TestCase
      */
     public function testRegexMessage()
     {
-        throw new \Exception('A polymorphic exception message');
+        throw new Exception('A polymorphic exception message');
     }
 
     /**
@@ -29,7 +29,7 @@ class ExceptionMessageRegExpTest extends TestCase
      */
     public function testRegexMessageExtreme()
     {
-        throw new \Exception('A polymorphic exception message');
+        throw new Exception('A polymorphic exception message');
     }
 
     /**
@@ -40,17 +40,17 @@ class ExceptionMessageRegExpTest extends TestCase
      */
     public function testMessageXdebugScreamCompatibility()
     {
-        \ini_set('xdebug.scream', '1');
-
-        throw new \Exception('Screaming preg_match');
+        ini_set('xdebug.scream', '1');
+        throw new Exception('Screaming preg_match');
     }
 
     /**
+     * @coversNothing
      * @expectedException \Exception variadic
      * @expectedExceptionMessageRegExp /^A variadic \w+ message/
      */
     public function testSimultaneousLiteralAndRegExpExceptionMessage()
     {
-        throw new \Exception('A variadic exception message');
+        throw new Exception('A variadic exception message');
     }
 }

@@ -31,19 +31,7 @@ class MainController extends Controller
         echo sha1(file_get_contents('https://yts.ag/torrent/download/FFA501CDB8239F6975D8EAAB3D9C07B7A48E6D04'));
     }
 
-    public function actionGamno(){
-        $session = Yii::$app->session;
-        $user = User::find()->where(['user_email' => $session['loged_email']])->asArray()->one();
-        $film = Imdb::find()->where(['imdbID' => 'tt0103064'])->asArray()->one();
-        $torrent = Torrent::find()->orderBy(['seeds'=>SORT_DESC])->where(['imdbID' => 'tt0103064'])->asArray()->all();
-        $data = json_encode( array($user, $film, $torrent));
-
-        $curl = new curl\Curl();
-        $response = $curl->setPostParams([
-            'data' => $data,
-        ])
-            ->post('http://localhost:8000/get_info');
-    }
+    
 
     public function actionMain()
     {

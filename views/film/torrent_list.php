@@ -8,7 +8,7 @@
 ?>
 
 <div>
-    <a href="#" class="list-group-item list-group-item-action list-group-item-success"><?=$model->quality?> (<?=$model->size?> )<span class="sid">sid: <?=$model->seeds?></span> <span class="pid">pid: <?=$model->peers?></span></a>
+    <a href="javascript:void(0);" onclick='sendTorrent("<?=$model->imdbID?>,<?=$model->number?>")' class="list-group-item list-group-item-action list-group-item-success"><?=$model->quality?> (<?=$model->size?> )<span class="sid">sid: <?=$model->seeds?></span> <span class="pid">pid: <?=$model->peers?></span></a>
     <span class="play ready">Watch &#9658;</span>
 
 </div>

@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 /*
  * This file is part of PHPUnit.
  *
@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace PHPUnit\Framework\Constraint;
-
-use PHPUnit\Framework\TestCase;
-
-class ExceptionMessageTest extends TestCase
+/**
+ * @since      Class available since Release 4.0.20
+ * @covers     PHPUnit_Framework_Constraint_ExceptionMessage
+ */
+class ExceptionMessageTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @expectedException \Exception
@@ -20,33 +20,33 @@ class ExceptionMessageTest extends TestCase
      */
     public function testLiteralMessage()
     {
-        throw new \Exception('A literal exception message');
+        throw new Exception('A literal exception message');
     }
 
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage A partial
      */
-    public function testPartialMessageBegin()
+    public function testPatialMessageBegin()
     {
-        throw new \Exception('A partial exception message');
+        throw new Exception('A partial exception message');
     }
 
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage partial exception
      */
-    public function testPartialMessageMiddle()
+    public function testPatialMessageMiddle()
     {
-        throw new \Exception('A partial exception message');
+        throw new Exception('A partial exception message');
     }
 
     /**
      * @expectedException \Exception
      * @expectedExceptionMessage exception message
      */
-    public function testPartialMessageEnd()
+    public function testPatialMessageEnd()
     {
-        throw new \Exception('A partial exception message');
+        throw new Exception('A partial exception message');
     }
 }
