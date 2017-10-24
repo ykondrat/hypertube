@@ -4,6 +4,15 @@ const cookieParser  = require('cookie-parser');
 const session       = require('express-session');
 const path          = require('path');
 const bodyParser    = require('body-parser');
+const magnet 		= require('magnet-uri');
+const magnetLink 	= require('magnet-link');
+const WebTorrent 	= require('webtorrent');
+const client 		= new WebTorrent();
+
+let User = {};
+let Film = {};
+let Torrent = {};
+
 
 const app = express();
 
@@ -25,20 +34,30 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-// app.post('/get_info', (req,res) => {
-//    console.log(req.body);
-// });
-
-
-
 app.post('/get_info', (req, res) => {
-    console.log(req.body);
-
+    let info = JSON.parse(req.body.data);
+    User = info[0];
+    Film = info[1];
+    Torrent = info[2];
     res.send('OK');
 });
 
 app.get('/', (req, res) => {
-	console.log(req.session);
+	if (Torrent.hash) {
+		magnetLink(Torrent.url, function (err, link) {
+			client.add(link, { path: './' + Torrent.imdbID + Torrent.number }, function (torrent) {
+				torrent.on('done', function () {
+					console.log('torrent download finished')
+				});
+			});
+		});
+	} else {
+		client.add(Torrent.url, { path: './' + Torrent.imdbID + Torrent.number }, function (torrent) {
+			torrent.on('done', function () {
+				console.log('torrent download finished')
+			});
+		});
+	}
     res.render('index');
 });
 
