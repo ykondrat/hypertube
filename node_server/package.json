@@ -19,6 +19,7 @@
     "magnet-link": "^1.1.1",
     "magnet-uri": "^5.1.7",
     "morgan": "^1.9.0",
+    "torrent-stream": "^1.0.3",
     "webtorrent": "^0.98.20",
     "webtorrent-cli": "^1.10.1"
   }

@@ -1,0 +1,4 @@
+# Exclude everything except the main files
+**/*
+!video-quality-selector.css
+!video-quality-selector.js
