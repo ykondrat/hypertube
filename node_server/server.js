@@ -4,17 +4,15 @@ const cookieParser  = require('cookie-parser');
 const session       = require('express-session');
 const path          = require('path');
 const bodyParser    = require('body-parser');
-const magnet 		= require('magnet-uri');
 const magnetLink 	= require('magnet-link');
 const fs 			= require('fs');
 const torrentStream = require('torrent-stream');
-// const WebTorrent 	= require('webtorrent');
-// const client 		= new WebTorrent();
 
 let User = {};
 let Film = {};
 let Torrent = {};
-
+let Files = [];
+let streamFile = '';
 
 const app = express();
 
@@ -38,99 +36,66 @@ app.use(session({
 
 app.post('/get_info', (req, res) => {
     let info = JSON.parse(req.body.data);
+    var videos = 'public/videos';
     User = info[0];
     Film = info[1];
     Torrent = info[2];
+
+    if (fs.existsSync('films/' + Torrent.imdbID + Torrent.number)) {
+        if (Torrent.hash) {
+            magnetLink(Torrent.url, (err, link) => { 
+                var engine = torrentStream(link, {
+                    path: 'films/' + Torrent.imdbID + Torrent.number,
+                });
+
+                engine.on('ready', () => {
+                    engine.files.forEach((file) => {
+                        Files.push(file.name);
+                        var format = file.name.split('.').pop();
+
+                        if (format === 'mp4' || format === 'webm' || format === 'ogg' || format === 'mkv') {
+                            var stream = file.createReadStream();
+                            
+                            if (!fs.existsSync(videos)) {
+                                fs.mkdirSync(videos);
+                            }
+                            streamFile = '' + videos + '/' + file.name;
+                            streamFile = streamFile.substr(7);
+                            stream.pipe(fs.createWriteStream(videos + '/' + file.name));
+                        }
+                    });
+                });
+            });
+        } else {
+            var engine = torrentStream(Torrent.url, {
+                path: 'films/' + Torrent.imdbID + Torrent.number,
+            });
+            
+            engine.on('ready', () => {
+                engine.files.forEach((file) => {
+                    Files.push(file.name);
+                    var format = file.name.split('.').pop();
+
+                    if (format === 'mp4' || format === 'webm' || format === 'ogg' || format === 'mkv') {
+                        var stream = file.createReadStream();
+                        if (!fs.existsSync(videos)){
+                            fs.mkdirSync(videos);
+                        }
+                        streamFile = '' + videos + '/' + file.name;
+                        streamFile = streamFile.substr(7);
+                        stream.pipe(fs.createWriteStream(videos + '/' + file.name));
+                    }
+                });
+            });
+        }
+    } else {
+
+    }
     res.send('OK');
 });
 
 app.get('/', (req, res) => {
-	console.log(Film);
-	console.log(Torrent);
 
-    var videos = 'public/videos';
-
-    var count = 0;
-
-	if (Torrent.hash) {
-
-		magnetLink(Torrent.url, function (err, link) {
-			
-			var engine = torrentStream(link, {
-		        path: 'films/',
-		    });
-
-		    engine.on('ready', function () {
-		    	var s;
-        		engine.files.forEach(function (file) {
-            		var format = file.name.split('.').pop();
-
-		            if (format === 'mp4' || format === 'webm' || format === 'ogg' || format === 'mkv') {
-		                var stream = file.createReadStream();
-		                
-		                if (!fs.existsSync(videos)){
-		  
-		                    fs.mkdirSync(videos);
-		                }
-		                console.log('matching movie format');
-		                console.log('path is the following: ' + videos + '/' + file.name)
-		                s = '' + videos + '/' + file.name;
-		                s = s.substr(7);
-		                stream.pipe(fs.createWriteStream(videos + '/' + file.name));
-		                
-		            }
-        		});
-        		setTimeout(function(){
-        			res.render('index', { src: s });	
-        		}, 5000);
-    		});
-		});
-
-	} else {
-		var engine = torrentStream(Torrent.url, {
-        	path: 'films/',
-    	});
-    	
-		engine.on('ready', function () {
-        	engine.files.forEach(function (file) {
-            	var format = file.name.split('.').pop();
-
-            	console.log(file);
-            // filesNum = filesNum + 1;
-            // // console.log('filename:', file.name);
-            // if (format === 'mp4' || format === 'webm' || format === 'ogg' || format === 'mkv') {
-            //     var stream = file.createReadStream();
-            //     if (!fs.existsSync(videos)){
-            //         console.log('public/videos directory has been created');
-            //         fs.mkdirSync(videos);
-            //     }
-            //     console.log('matching movie format');
-            //     console.log('path is the following: ' + videos + '/' + file.name)
-            //     stream.pipe(fs.createWriteStream(videos + '/' + file.name));
-            // }
-            // else {
-            //     console.log('non-supported video format or other type of file');
-            // }
-        	})
-    	})
-	}
-
-    
-	// if (Torrent.hash) {
-	// 	magnetLink(Torrent.url, function (err, link) {
-	// 		client.add(link, { path: './' + Torrent.imdbID + Torrent.number }, function (torrent) {
-	// 			torrent.on('done', function () {
-	// 				console.log('torrent download finished')
-	// 			});
-	// 		});
-	// 	});
-	// } else {
-	// 	client.add(Torrent.url, { path: './' + Torrent.imdbID + Torrent.number }, function (torrent) {
-	// 		torrent.on('done', function () {
-	// 			console.log('torrent download finished')
-	// 		});
-	// 	});
-	// }
 });
 
 app.listen(port);

@@ -1,7 +1,16 @@
 body{
 	margin:0;
 	color:#6a6f8c;
-	background:#434343 !important;
+	/*background:#434343 !important;*/
+	background-image: url("http://mtdata.ru/u24/photoC983/20691484585-0/original.jpg");
+
+    /* Full height */
+    height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 	font:600 16px/18px 'Open Sans',sans-serif;
 }
 *,:after,:before{box-sizing:border-box}
