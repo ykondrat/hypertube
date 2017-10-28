@@ -9,20 +9,14 @@ $(document).ready(function(){
 });
 
 function changeLanguage(elem) {
-    //console.log(elem)
     if (!$(elem).hasClass('checked')) {
-        //$(".language-span").removeClass('checked');
-        //$(elem).addClass('checked');
         if (elem.innerHTML == 'UA') {
             sendLanguage('ua');
-            //$($('.language-span')[1]).removeClass('checked');
         } else {
             sendLanguage('en');
-            //$($('.language-span')[0]).removeClass('checked');
         }
     }
 }
-
 
 function sendLanguage(lan) {
     $.ajax({
@@ -54,7 +48,6 @@ $('#sendcomment').on('click', function(){
         $('#add').removeClass('active');
         $('.nav-item a[href="#comments"]').addClass('active');
         $('.nav-item a[href="#add"]').removeClass('active');
-
         $.pjax.reload({container: '#some_pjax_id', async: false});
     }
 });

@@ -5,15 +5,11 @@ let filter_value  = '';
 let genre = "All";
 
 function changeLanguage(elem) {
-
     if (!$(elem).hasClass('checked')) {
-
         if (elem.innerHTML == 'UA') {
             sendLanguage('ua');
-
         } else {
             sendLanguage('en');
-
         }
     }
 }
@@ -32,7 +28,6 @@ function sendLanguage(lan) {
 }
 
 $(document).ready(function(){
-
     if ($('#search-film')[0].placeholder != 'Search..' ) {
         $('#ua').addClass('checked');
         $('#en').removeClass('checked');
@@ -179,6 +174,7 @@ function setGenre(Genre) {
     $('.next').css('display', 'block');
     sort_value = '';
     filter_value = '';
+    searchValue = '';
     limit = 1;
     genre = Genre.dataset.ganre;
     sendData(genre, '', limit, sort_value, filter_value);
@@ -190,7 +186,6 @@ function setGenre(Genre) {
         filter_value: filter_value
     };
     sendDataAndGet('main/sort_filter', data);
-
 }
 
 
@@ -227,8 +222,6 @@ function setFilter() {
     sendDataAndGet('main/sort_filter', data);
 }
 
-
-
 /** Sender function */
 
 function sendDataAndGet(url, data) {
@@ -254,7 +247,6 @@ function sendDataAndGet(url, data) {
 }
 
 /** End of Sender */
-
 
 /** Support function */
 
@@ -292,7 +284,6 @@ function openNav() {
 function closeNav() {
     $("#search-nav").css('width', '0');
 }
-
 
 function addMovie(movie){
     if (movie) {
