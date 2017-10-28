@@ -185,6 +185,7 @@ function setGenre(Genre) {
         sort_value: sort_value,
         filter_value: filter_value
     };
+    console.log(data);
     sendDataAndGet('main/sort_filter', data);
 }
 
@@ -225,25 +226,28 @@ function setFilter() {
 /** Sender function */
 
 function sendDataAndGet(url, data) {
-    $.ajax({
-        url: url,
-        type: 'post',
-        data: data,
-        dataType: 'json',
-        success: function(response) {
-            let end = response[response.length - 1];
+    setTimeout(() => {
+        $.ajax({
+            url: url,
+            type: 'post',
+            data: data,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+                let end = response[response.length - 1];
 
-            if (end == "END") {
-                $('.next').css('display', 'none');
-            } else {
-                $('.next').css('display', 'block');
+                if (end == "END") {
+                    $('.next').css('display', 'none');
+                } else {
+                    $('.next').css('display', 'block');
+                }
+                let movies = response.slice(0, response.length - 1);
+                movies.forEach(movie => {
+                    addMovie(movie);
+                });
             }
-            let movies = response.slice(0, response.length - 1);
-            movies.forEach(movie => {
-                addMovie(movie);
-            });
-        }
-    });
+        });
+    }, 500);
 }
 
 /** End of Sender */
