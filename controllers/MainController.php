@@ -177,7 +177,10 @@ class MainController extends Controller
                     else{
                         $user->user_avatar = $user->user_avatar2;
                     }
-
+                    $user->user_name = str_replace('<', '&lt;',$user->user_name );
+                    $user->user_name = str_replace('>', '&gt;',$user->user_name );
+                    $user->user_secondname = str_replace('<', '&lt;',$user->user_secondname );
+                    $user->user_secondname = str_replace('>', '&gt;',$user->user_secondname );
                     $session['loged_email'] = $user->user_email;
                     $user->save(false);
                     return $this->refresh();
