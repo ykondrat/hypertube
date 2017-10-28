@@ -89,6 +89,11 @@ function sendTorrent(elem, film) {
         });
     } else {
         $.ajax({
+            url: 'set_done',
+            type: 'post',
+            data: { done: film } 
+        });
+        $.ajax({
             url: 'send_to_node',
             type: 'post',
             data: { film_data: film },

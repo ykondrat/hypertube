@@ -190,14 +190,6 @@ class SiteController extends Controller
         ');
         $genre_table->query();
 
-        /**         CREATE TABLE "GENRE_ua"       */
-
-        $genre_table = Yii::$app->db->createCommand('
-          CREATE TABLE IF NOT EXISTS `genre_ua` (
-          `genre` VARCHAR (100) NOT NULL ,
-          PRIMARY KEY (`genre`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
-        ');
-        $genre_table->query();
 
 /**         CREATE TABLE "TORRENT_LINK" */
 
@@ -214,6 +206,7 @@ class SiteController extends Controller
           `size_bytes` VARCHAR (20),
           `date_uploaded` VARCHAR (100) NOT NULL ,
           `date_uploaded_unix` VARCHAR (100)  ,
+          `torent_done` VARCHAR (20) DEFAULT NULL,
           PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $torrent_link_table->query();

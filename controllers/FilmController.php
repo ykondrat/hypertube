@@ -111,6 +111,13 @@ class FilmController extends Controller
 
     }
 
+    public function actionSet_done(){
+        $post = Yii::$app->request->post('done');
+        $data = explode(',', $post);
+        $torrent = Torrent::find()->where(['imdbID' => $data[0]])->andWhere(['number' => $data[1]])->one();
+        $torrent->torent_done = 'done';
+        $torrent->save();
+    }
 
 
 
