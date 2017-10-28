@@ -48,7 +48,7 @@ $this->title = 'Hypertube';
                 </div>
                 <?php $loginform = ActiveForm::end() ?>
                 <div class="group">
-                    <h5>Корішнутись з:</h5>
+                    <h5>Корішнутись через:</h5>
                 </div>
                 <div class="group">
                     <a href="/hypertube/web/site/auth?authclient=facebook" class="btn btn-primary">Facebook <i class="fa fa-facebook-square" aria-hidden="true"></i></a>

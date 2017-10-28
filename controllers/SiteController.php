@@ -310,7 +310,7 @@ class SiteController extends Controller
 
                 if (Yii::$app->getSecurity()->validatePassword($post['user_password'], $my_request[0]['user_password'])) {
 
-                    $session['user_email'] = $post['user_email'];
+                    $session['loged_email'] = $post['user_email'];
                     $this->redirect('http://localhost:8080/hypertube/web/main');
 
                 } else {
@@ -338,7 +338,10 @@ class SiteController extends Controller
                     $signup->user_avatar = "ninja.png";
                     $signup->user_avatar2 = "ninja.png";
                     $session['user_email'] = $post['user_email'];
-
+                    $signup->user_name = str_replace('<', '&lt;',$signup->user_name );
+                    $signup->user_name = str_replace('>', '&gt;',$signup->user_name );
+                    $signup->user_secondname = str_replace('<', '&lt;',$signup->user_secondname );
+                    $signup->user_secondname = str_replace('>', '&gt;',$signup->user_secondname );
                     $signup->save(false);
 
                     $this->redirect('http://localhost:8080/hypertube/web/main');
