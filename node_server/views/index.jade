@@ -4,31 +4,33 @@ html
         meta(http-equiv='cache-control', content='no-cache')
         meta(http-equiv='expires', content='0')
         meta(http-equiv='pragma', content='no-cache')
+        title= film.Title
+        link(href='images/favicon.png', rel='icon', type='image/svg')
         link(href='//vjs.zencdn.net/4.12/video-js.css', rel='stylesheet')
         script(src='//vjs.zencdn.net/4.12/video.js')
+        link(href='stylesheets/style.css', rel='stylesheet', type='text/css')
         link(href='videojs-resolution-selector/video-quality-selector.css', rel='stylesheet', type='text/css')
         script(src='videojs-resolution-selector/video-quality-selector.js')
         script(src='//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.10.1/videojs-contrib-hls.min.js')
-        style.
-            .controls button[data-state="subtitles"] {
-                height:85%;
-                text-indent:0;
-                font-size:16px;
-                font-size:1rem;
-                font-weight:bold;
-                color:#666;
-                background:#000;
-                border-radius:2px;
-            }
     body
-        video#my-player.video-js.vjs-default-skin(controls='', width='1280', height='720', data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "720" } } }')
-            source(src= src, type='video/mp4', data-res='720')
-            source(src= src, type='video/mp4', data-res='1080')
-            track(label='English', kind='subtitles', srclang='en', src='', default='')
-            track(label='Français', kind='subtitles', srclang='fr', src='')
-            track(label='Русский', kind='subtitles', srclang='ru', src='')
-            p.vjs-no-js
-                | To view this video please enable JavaScript, and consider upgrading to a
-                | web browser that
-                a(href='http://videojs.com/html5-video-support/', target='_blank')
-                    | supports HTML5 video
+        .container
+            h1.header= film.Title
+        
+            video#my-player.video-js.vjs-default-skin(controls='', width='1280', height='720', data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "720" } } }')
+                source(src= src, type='video/mp4', data-res='720')
+                source(src= src, type='video/mp4', data-res='1080')
+                track(label='English', kind='subtitles', srclang='en', src='', default='')
+                track(label='Français', kind='subtitles', srclang='fr', src='')
+                track(label='Русский', kind='subtitles', srclang='ru', src='')
+                p.vjs-no-js
+                    | To view this video please enable JavaScript, and consider upgrading to a
+                    | web browser that
+                    a(href='http://videojs.com/html5-video-support/', target='_blank')
+                        | supports HTML5 video
+
+            .wrapper
+                h3.fim-plot Plot:
+                div
+                    p.plot= film.Plot
+                div
+                    img.img-poster(src= film.Poster alt='film poster')

@@ -42,7 +42,7 @@ class FilmController extends Controller
         $response = $curl->setPostParams([
             'data' => $data,
         ])
-            ->post('http://localhost:3000/get_info');
+            ->post('http://localhost:8000/get_info');
         if ($response == 'OK'){
             echo json_encode('OK');
         } else{

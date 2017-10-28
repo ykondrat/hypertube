@@ -51,6 +51,7 @@ use yii\widgets\Pjax;
             </div>
             <div class="torrent-list">
                 <p class="lead ">Click on link to start download and watch film</p>
+                <p class="download-info"></p>
                 <div class="list-group">
                     <?php Pjax::begin() ?>
                     <?= ListView::widget([

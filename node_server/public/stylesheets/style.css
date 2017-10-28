@@ -1,0 +1,55 @@
+body {
+	margin:0;
+	background-image: url("http://mtdata.ru/u24/photoC983/20691484585-0/original.jpg");
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	font:600 16px/18px 'Open Sans',sans-serif;
+}
+.header {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	color: #55E2CD;
+	padding: 6px;
+	font-weight: bold;
+	font-size: 3em;
+}
+.container {
+	text-align: center;
+}
+.wrapper {
+	margin-top: 40px;
+	margin-bottom: 40px;
+	margin-left: 10px;
+	margin-right: 10px;
+	width: 100%;
+}
+.fim-plot {
+	color: #55E2CD;
+	text-shadow: 1px 1px #fff;
+}
+.wrapper * {
+	display: inline-block;
+}
+.img-poster {
+	margin-left: 10px;
+	width: 200px;
+}
+.plot {
+	width: 50%;
+	color: white;
+	font-weight: 400;
+	text-shadow: 1px 1px #55E2CD;
+}
+#my-player {
+	margin-left: auto;
+	margin-right: auto;
+}
+.video-js {
+	text-align: center !important;
+}
+.vjs-default-skin .vjs-big-play-button {
+	left: 18em;
+    top: 10em;
+}

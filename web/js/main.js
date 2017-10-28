@@ -10,8 +10,6 @@ $(document).ready(function(){
         type: 'post',
         dataType: 'json',
         success: function (response) {
-            console.log(response);
-
             if (response[2].searchValue != "") {
                 $('#search-film').val(response[2].searchValue);
                 searchValue = response[2].searchValue;

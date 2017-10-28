@@ -45,16 +45,36 @@ setInterval(() => {
     $.pjax.reload({ container: '#some_pjax_id', async: false });
 }, 1000);
 
-function sendTorrent(film) {
-    $.ajax({
-        url: 'send_to_node',
-        type: 'post',
-        data: { film_data: film },
-        dataType: 'json',
-        success: function (response) {
-            if (response === 'OK') {
-                location.href = 'http://localhost:3000';
+function sendTorrent(elem, film) {
+    if ($(elem)[0].children[2].innerHTML) {
+        $.ajax({
+            url: 'send_to_node',
+            type: 'post',
+            data: { film_data: film },
+            dataType: 'json',
+            success: function (response) {
+                if (response === 'OK') {
+                    $('.download-info')[0].innerHTML = 'You will be redirected in a few seconds';
+                    location.href = 'http://localhost:8000';
+                }
             }
-        }
-    })
+        });
+    } else {
+        $.ajax({
+            url: 'send_to_node',
+            type: 'post',
+            data: { film_data: film },
+            dataType: 'json',
+            success: function (response) {
+                if (response === 'OK') {
+                    $('.download-info')[0].innerHTML = 'Start download...';
+
+                    setTimeout(() => {
+                         $(elem)[0].children[2].innerHTML = 'done';
+                         $('.download-info')[0].innerHTML = 'ready to stream';               
+                    }, 5000);
+                }
+            }
+        });
+    }
 }

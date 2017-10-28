@@ -47,6 +47,9 @@
     cursor: pointer;
     font-weight: bold;
 }
+.done {
+    margin-left: 10px;
+}
 .sid {
     margin-left: 10px;
     color: #FC72A8;
@@ -75,7 +78,11 @@
     margin-bottom: 10px;
     border-radius: 7px;
 }
-
+.download-info {
+    color: #55E2CD;
+    font-weight: bold;
+    font-size: 18px;   
+}
 #bar {
     width: 20%;
     height: 30px;
