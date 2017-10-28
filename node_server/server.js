@@ -16,7 +16,7 @@ let streamFile = '';
 
 const app = express();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -41,11 +41,11 @@ app.post('/get_info', (req, res) => {
     Film = info[1];
     Torrent = info[2];
 
-    if (fs.existsSync('films/' + Torrent.imdbID + Torrent.number)) {
+    if (!fs.existsSync('public/films/' + Torrent.imdbID + Torrent.number)) {
         if (Torrent.hash) {
             magnetLink(Torrent.url, (err, link) => { 
                 var engine = torrentStream(link, {
-                    path: 'films/' + Torrent.imdbID + Torrent.number,
+                    path: 'public/films/' + Torrent.imdbID + Torrent.number,
                 });
 
                 engine.on('ready', () => {
@@ -68,7 +68,7 @@ app.post('/get_info', (req, res) => {
             });
         } else {
             var engine = torrentStream(Torrent.url, {
-                path: 'films/' + Torrent.imdbID + Torrent.number,
+                path: 'public/films/' + Torrent.imdbID + Torrent.number,
             });
             
             engine.on('ready', () => {
@@ -89,13 +89,28 @@ app.post('/get_info', (req, res) => {
             });
         }
     } else {
+        fs.readdir('public/films/' + Torrent.imdbID + Torrent.number, (err, files) => {
+            var dir = 'public/films/' + Torrent.imdbID + Torrent.number + '/' + files;
+            fs.readdir(dir, (err, files) => {
+                files.forEach(file => {
+                    var format = file.split('.').pop();
+                    Files.push(file);
 
+                    if (format === 'mp4' || format === 'webm' || format === 'ogg' || format === 'mkv') {
+                        streamFile = dir + '/' + file;
+                        streamFile = streamFile.substr(7);
+                    }
+                });
+            });
+        });
     }
     res.send('OK');
 });
 
 app.get('/', (req, res) => {
-
+    setTimeout(()=> {
+        res.render('index', { film: Film, src: streamFile });
+    }, 5000);
 });
 
 app.listen(port);
@@ -103,25 +118,5 @@ app.listen(port);
 console.log('\x1b[33m%s\x1b[0m', '========= hypertube server =========');
 console.log('\x1b[32m%s\x1b[0m', `server is runing on port: ${port}`);
 console.log('\x1b[33m%s\x1b[0m', '=================================');
-console.log('\x1b[35m%s\x1b[0m', 'Dev: Yevhen Kondratyev');
-console.log('\x1b[35m%s\x1b[0m', 'Email: kondratyev.yevhen@gmail.com');
-
-/** Film
-{ number: '3',
-  imdbID: 'tt0468569',
-  Title: 'The Dark Knight',
-  Year: '2008',
-  Runtime: '152 min',
-  Released: '18 Jul 2008',
-  Genre: 'Action, Crime, Drama',
-  Director: 'Christopher Nolan',
-  Writer: 'Jonathan Nolan (screenplay), Christopher Nolan (screenplay), Christopher Nolan (story), David S. Goyer (story), Bob Kane (characters)',
-  Actors: 'Christian Bale, Heath Ledger, Aaron Eckhart, Michael Caine',
-  Plot: 'When the menace known as the Joker emerges from his mysterious past, he wreaks havoc and chaos on the people of Gotham, the Dark Knight must accept one of the greatest psychological and physical tests of his ability to fight injustice.',
-  Language: 'English, Mandarin',
-  Country: 'USA, UK',
-  Awards: 'Won 2 Oscars. Another 151 wins & 154 nominations.',
-  Poster: 'https://images-na.ssl-images-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_SX300.jpg',
-  Metascore: '82',
-  imdbRating: '9.0',
-  Production: 'Warner Bros. Pictures/Legendary' } **/
+console.log('\x1b[35m%s\x1b[0m', 'Dev: ykondrat, sandruse, mvorona, egaragul');
+console.log('\x1b[35m%s\x1b[0m', `Jolly Roger's Team`);
