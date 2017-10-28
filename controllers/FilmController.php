@@ -116,6 +116,8 @@ class FilmController extends Controller
         $data = explode(',', $post);
         $torrent = Torrent::find()->where(['imdbID' => $data[0]])->andWhere(['number' => $data[1]])->one();
         $torrent->torent_done = 'done';
+        $torrent->time_upload = time();
+        $torrent->torrent_path = $data[2].$data[0].$data[1];
         $torrent->save();
     }
 

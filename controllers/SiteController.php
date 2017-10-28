@@ -28,6 +28,7 @@ use DOMXPath;
 
 class SiteController extends Controller
 {
+
     public function behaviors()
     {
         return [
@@ -208,6 +209,8 @@ class SiteController extends Controller
           `date_uploaded` VARCHAR (100) NOT NULL ,
           `date_uploaded_unix` VARCHAR (100)  ,
           `torent_done` VARCHAR (20) DEFAULT NULL,
+          `torrent_path` VARCHAR (500) DEFAULT NULL,
+          `time_upload` BIGINT (20) DEFAULT \'0\',
           PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $torrent_link_table->query();

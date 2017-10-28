@@ -14,6 +14,7 @@ use app\models\Imdb;
 use app\models\Login;
 use app\models\Settings;
 use app\models\Signup;
+use app\models\Torrent;
 use app\models\User;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -26,6 +27,24 @@ use MatthiasNoback\MicrosoftTranslator\MicrosoftTranslator;
 
 class FunctionController extends Controller
 {
+
+    public function actionGamno(){
+        $t = time();
+        $condition = ['and',
+            ['<', 'time_upload', $t ],
+            ['torent_done' => 'done'],
+        ];
+        $torrent_path = (new \yii\db\Query())
+            ->select(['torrent_path'])
+            ->from('torrent_link')
+            ->where(['torent_done' => 'done'])
+            ->andWhere(['<', 'time_upload', $t ])
+            ->all();
+
+        Torrent::updateAll(['time_upload' => 0, 'torent_done' => NULL , 'torrent_path' => NULL], $condition);
+
+
+    }
 
     public function actionLanguage(){
         $session = Yii::$app->session;

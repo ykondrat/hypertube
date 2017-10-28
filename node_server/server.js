@@ -9,6 +9,7 @@ const fs 			= require('fs');
 const torrentStream = require('torrent-stream');
 const schedule      = require('node-schedule');
 const http          = require("http");
+var requestify = require('requestify');
 
 let User = {};
 let Film = {};
@@ -36,29 +37,12 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-schedule.scheduleJob('0 0 * * *', () => {
-    let data = 'delete me';
-    
-    let options = {
-        host: "http://localhost:8080",
-        path: "/hypertube/web/function/gamno",
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-            "Authorization": "Bearer token"
-        }
-    };
-    let httpreq = http.request(options, function (response) {
-        response.setEncoding('utf8');
-        response.on('data', function (chunk) {
-            console.log("body: " + chunk);
-        });
-        response.on('end', function() {
-            res.send('ok');
-        })
+schedule.scheduleJob('*/1 * * * *', () => {
+    console.log(1)
+    requestify.get('http://localhost:8080/hypertube/web/function/gamno')
+    .then(function(response) {
+        response.getBody();
     });
-    httpreq.write(data);
-    httpreq.end();
 });
 
 app.post('/get_info', (req, res) => {
