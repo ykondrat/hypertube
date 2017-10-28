@@ -123,6 +123,7 @@ class SiteController extends Controller
           `user_avatar2` VARCHAR (255),
           `user_facebook_id` BIGINT (30) UNSIGNED,
           `user_google_id` VARCHAR (30) ,
+          `user_intra_id` VARCHAR (30) ,
           `user_password` VARCHAR (1000) ,
           `user_rep_password` VARCHAR (1000),
           PRIMARY KEY (`user_id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
@@ -307,16 +308,22 @@ class SiteController extends Controller
             $my_request = Login::find()->asArray()->where(['user_email' => $post['user_email']])->all();
 
             if ($my_request) {
+                if ($my_request[0]['user_password'] != NULL) {
+                    if (Yii::$app->getSecurity()->validatePassword($post['user_password'], $my_request[0]['user_password'])) {
 
-                if (Yii::$app->getSecurity()->validatePassword($post['user_password'], $my_request[0]['user_password'])) {
+                        $session['loged_email'] = $post['user_email'];
+                        $this->redirect('http://localhost:8080/hypertube/web/main');
 
-                    $session['loged_email'] = $post['user_email'];
-                    $this->redirect('http://localhost:8080/hypertube/web/main');
-
-                } else {
-                    Yii::$app->session->setFlash('error', 'The password you entered is invalid. Please try again');
+                    } else {
+                        Yii::$app->session->setFlash('error', 'The password you entered is invalid. Please try again');
+                    }
+                } elseif ($my_request[0]['user_facebook_id'] != NULL){
+                    Yii::$app->session->setFlash('error', 'Please sign in with Facebook');
+                }elseif ($my_request[0]['user_google_id'] != NULL){
+                    Yii::$app->session->setFlash('error', 'Please sign in with Google');
+                }elseif ($my_request[0]['user_intra_id'] != NULL){
+                    Yii::$app->session->setFlash('error', 'Please sign in with Intra');
                 }
-
             } else {
                 Yii::$app->session->setFlash('error', 'No such registered email address');
             }
@@ -430,7 +437,7 @@ class SiteController extends Controller
                 $user->user_email = $data->email;
                 $user->user_avatar = $data->image_url;
                 $user->user_avatar2 = $data->image_url;
-
+                $user->user_intra_login = 1;
                 $user->save(false);
             }
             $session['loged_email'] = $data->email;
