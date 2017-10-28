@@ -28,7 +28,7 @@ if (isset($session['filter_value']) && $session['filter_value'] != '') {
 ?>
 <div id="search-nav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <h4>Film Genres</h4>
+    <h4>Порода фільма</h4>
     <div class="film-genres">
         <ul>
             <?php Pjax::begin();
@@ -42,20 +42,20 @@ if (isset($session['filter_value']) && $session['filter_value'] != '') {
             Pjax::end();?>
         </ul>
     </div>
-    <h4>Sort Film</h4>
+    <h4>Потасувати фільми</h4>
     <div class="film-sort">
         <ul>
-            <li class="sort-list">Year <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('Year,asc')" aria-hidden="true"></i> <i onclick="setSort('Year,desc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
+            <li class="sort-list">Коли сі був знятий <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('Year,asc')" aria-hidden="true"></i> <i onclick="setSort('Year,desc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
             <hr />
-            <li class="sort-list">Rating <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('imdbRating,desc')" aria-hidden="true"></i>  <i onclick="setSort('imdbRating,asc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
+            <li class="sort-list">По уважусі <i class="fa fa-sort-numeric-asc sort-btn" onclick="setSort('imdbRating,desc')" aria-hidden="true"></i>  <i onclick="setSort('imdbRating,asc')" class="fa fa-sort-numeric-desc sort-btn" aria-hidden="true"></i></li>
             <hr />
-            <li class="sort-list">Alphabetical <i class="fa fa-sort-alpha-asc sort-btn" onclick="setSort('Title,asc')" aria-hidden="true"></i> <i onclick="setSort('Title,desc')" class="fa fa-sort-alpha-desc sort-btn" aria-hidden="true"></i></li>
+            <li class="sort-list">По абетці<i class="fa fa-sort-alpha-asc sort-btn" onclick="setSort('Title,asc')" aria-hidden="true"></i> <i onclick="setSort('Title,desc')" class="fa fa-sort-alpha-desc sort-btn" aria-hidden="true"></i></li>
         </ul>
     </div>
-    <h4>Filter Film</h4>
+    <h4>Просіяти фільми</h4>
     <div class="film-sort">
         <ul>
-            <li>Year </li>
+            <li>Рік</li>
 
             <?php echo kartik\slider\Slider::widget([
                 'name'=>'Year',
@@ -69,7 +69,7 @@ if (isset($session['filter_value']) && $session['filter_value'] != '') {
                     'tooltip'=>'always'
                 ]]);?>
             <hr />
-            <li>Rating </li>
+            <li>Уважуха</li>
             <?php echo kartik\slider\Slider::widget([
                 'name'=>'Rating',
                 'value'=>"$rat_from,$rat_to",
@@ -82,7 +82,7 @@ if (isset($session['filter_value']) && $session['filter_value'] != '') {
                     'tooltip'=>'always'
                 ]]);?>
             <li class="sort-list filter-btn" onclick="setFilter()">
-                Filter
+                Просіяти
             </li>
         </ul>
     </div>
@@ -90,14 +90,14 @@ if (isset($session['filter_value']) && $session['filter_value'] != '') {
 <nav class="navbar navbar-inverse bg-inverse">
     <div class="nav-container">
         <span style="font-size:30px;cursor:pointer; margin-top: 10px" onclick="openNav()" class="open-nav">&#9776;</span>
-        <input type="text" style="background-image: url('search-icon.png');" name="search" id="search-film" placeholder="Search..">
+        <input type="text" style="background-image: url('search-icon.png');" name="search" id="search-film" placeholder="ВИ́НИШПОРИТИ..">
         <div class="right-nav">
             <a class="user-login dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?php echo $user->user_name; ?></a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <img src="<?= $user->user_avatar?>" alt="user_avatar" class="avatar-drop img-fluid" />
                 <p class="dropdown-item"><?= $user->user_name." ".$user->user_secondname?></p>
-                <a class="dropdown-item" href="settings">Settings <i class="fa fa-wrench" aria-hidden="true"></i></a>
-                <a class="dropdown-item" href="logout">Logout <i class="fa fa-power-off" aria-hidden="true"></i></a>
+                <a class="dropdown-item" href="settings">Підправити фейс <i class="fa fa-wrench" aria-hidden="true"></i></a>
+                <a class="dropdown-item" href="logout">Дати драла <i class="fa fa-power-off" aria-hidden="true"></i></a>
             </div>
             <span class="language-span" id='ua' onclick="changeLanguage(this)">UA</span><span id='en' class="language-span" onclick="changeLanguage(this)">EN</span>
         </div>
@@ -109,7 +109,7 @@ if (isset($session['filter_value']) && $session['filter_value'] != '') {
 
     </div>
     <div class="col-sm-12 col-md-12 col-lg-12 col-xl-12 pag-btn">
-        <button class="btn prev"><i class="fa fa-chevron-left" aria-hidden="true"></i> Prev</button>
-        <button class="btn next">Next <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+        <button class="btn prev"><i class="fa fa-chevron-left" aria-hidden="true"></i> Назад</button>
+        <button class="btn next">Далі <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
     </div>
 </div>

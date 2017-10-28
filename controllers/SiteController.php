@@ -388,6 +388,9 @@ class SiteController extends Controller
             }
         }
 
+        if ($session['language'] == 'ua'){
+            return $this->render('index_ua', compact('login', 'signup', 'forgot'));
+        }
         return $this->render('index', compact('login', 'signup', 'forgot'));
     }
 

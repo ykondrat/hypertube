@@ -4,7 +4,42 @@ let sort_value = '';
 let filter_value  = '';
 let genre = "All";
 
+function changeLanguage(elem) {
+
+    if (!$(elem).hasClass('checked')) {
+
+        if (elem.innerHTML == 'UA') {
+            sendLanguage('ua');
+
+        } else {
+            sendLanguage('en');
+
+        }
+    }
+}
+
+function sendLanguage(lan) {
+    $.ajax({
+        url: 'function/language',
+        type: 'post',
+        data: {language: lan},
+        success: function(response) {
+            if (response === 'ok'){
+                location.reload()
+            }
+        }
+    });
+}
+
 $(document).ready(function(){
+
+    if ($('#search-film')[0].placeholder != 'Search..' ) {
+        $('#ua').addClass('checked');
+        $('#en').removeClass('checked');
+    } else {
+        $('#en').addClass('checked');
+        $('#ua').removeClass('checked');
+    }
     $.ajax({
         url: 'main/get_look_for',
         type: 'post',
@@ -147,10 +182,9 @@ function setGenre(Genre) {
     sort_value = '';
     filter_value = '';
     limit = 1;
-    genre = Genre.innerHTML;
+    genre = Genre.dataset.ganre;
     sendData(genre, '', limit, sort_value, filter_value);
     $('#search-film').val('');
-    // console.log(Genre.innerHTML)
     var data = {
         Genre: Genre.innerHTML,
         limit: limit - 1,
@@ -261,16 +295,6 @@ function closeNav() {
     $("#search-nav").css('width', '0');
 }
 
-function changeLanguage(elem) {
-    if (!$(elem).hasClass('checked')) {
-        $(elem).addClass('checked');
-        if (elem.innerHTML == 'UA') {
-            $($('.language-span')[1]).removeClass('checked');
-        } else {
-            $($('.language-span')[0]).removeClass('checked');
-        }
-    }
-}
 
 function addMovie(movie){
     if (movie) {

@@ -27,8 +27,15 @@ use MatthiasNoback\MicrosoftTranslator\MicrosoftTranslator;
 class FunctionController extends Controller
 {
 
+    public function actionLanguage(){
+        $session = Yii::$app->session;
+        $post = Yii::$app->request->post('language');
+        $session['language'] = $post;
+        echo 'ok';
+    }
 
-    public function actionTest(){
+
+    public function Test(){
         $browser = new Browser();
 
         $azureKey = '797be17c8efd43c4b5bb0277db5b8fc9';

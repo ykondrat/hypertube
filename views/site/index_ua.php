@@ -9,7 +9,6 @@ use yii\bootstrap\ActiveForm;
 $this->title = 'Hypertube';
 ?>
 
-
 <div class="right-nav">
     <span class="language-span" id='ua' onclick="changeLanguage(this)">UA</span><span id='en' class="language-span" onclick="changeLanguage(this)">EN</span>
 </div>
@@ -17,8 +16,8 @@ $this->title = 'Hypertube';
 
     <div class="login-html">
 
-        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Sign In</label>
-        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Sign Up</label>
+        <input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Вломитись</label>
+        <input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Прописатись</label>
         <div class="login-form">
 
             <div class="sign-in-htm">
@@ -36,20 +35,20 @@ $this->title = 'Hypertube';
                     </div>
                 <?php endif; ?>
                 <div class="group">
-                    <label for="user" class="label">Email Address</label>
+                    <label for="user" class="label">Адреса голубиної пошти</label>
                     <?= $loginform->field($login, 'user_email')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="pass" class="label">Password</label>
+                    <label for="pass" class="label">Ключ</label>
                     <?= $loginform->field($login, 'user_password')->passwordInput(['class' => 'input'])->label(false); ?>
 
                 </div>
                 <div class="group">
-                    <?= Html::submitButton('Sign In', ['class' => 'button', 'id' => 'loginSubmit']) ?>
+                    <?= Html::submitButton('Вломитись', ['class' => 'button', 'id' => 'loginSubmit']) ?>
                 </div>
                 <?php $loginform = ActiveForm::end() ?>
                 <div class="group">
-                    <h5>Continue with:</h5>
+                    <h5>Корішнутись з:</h5>
                 </div>
                 <div class="group">
                     <a href="/hypertube/web/site/auth?authclient=facebook" class="btn btn-primary">Facebook <i class="fa fa-facebook-square" aria-hidden="true"></i></a>
@@ -60,40 +59,40 @@ $this->title = 'Hypertube';
                 <div class="hr"></div>
                 <div class="foot-lnk">
                     <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#forgot-password">
-                        Forgot Password? <i class="fa fa-key" aria-hidden="true"></i>
+                        Завтикав ключ? <i class="fa fa-key" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
             <div class="sign-up-htm">
                 <?php $signupform = ActiveForm::begin() ?>
                 <div class="group">
-                    <label for="username-signup" class="label">User name</label>
+                    <label for="username-signup" class="label">Як ти сі називаєш?</label>
                     <?= $signupform->field($signup, 'user_name')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="usersecondname-signup" class="label">User Second name</label>
+                    <label for="usersecondname-signup" class="label">Ім'я роду твого</label>
                     <?= $signupform->field($signup, 'user_secondname')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="email-signup" class="label">Email Address</label>
+                    <label for="email-signup" class="label">Адреса голубиної пошти</label>
                     <?= $signupform->field($signup, 'user_email')->textInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="pass-signup" class="label">Password</label>
+                    <label for="pass-signup" class="label">Ключ</label>
                     <?= $signupform->field($signup, 'user_password')->passwordInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <label for="pass-rep" class="label">Repeat Password</label>
+                    <label for="pass-rep" class="label">Дублікат ключа</label>
                     <?= $signupform->field($signup, 'user_rep_password')->passwordInput(['class' => 'input'])->label(false); ?>
                 </div>
                 <div class="group">
-                    <?= Html::submitButton('Sign Up', ['class' => 'button', 'id' => 'signupSubmit']) ?>
+                    <?= Html::submitButton('Прописатись', ['class' => 'button', 'id' => 'signupSubmit']) ?>
                 </div>
                 <?php $signupform = ActiveForm::end() ?>
 
                 <div class="hr"></div>
                 <div class="foot-lnk">
-                    <label for="tab-1">Already Member?</label>
+                    <label for="tab-1">Вже прописався?</label>
                 </div>
             </div>
         </div>
@@ -103,19 +102,19 @@ $this->title = 'Hypertube';
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-label">Forgot Password?</h5>
+                <h5 class="modal-title" id="modal-label">Завтикав ключ?</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
             <?php $forgotform = ActiveForm::begin() ?>
             <div class="modal-body">
 
                 <div class="group">
-                    <label for="email-forgot" class="label">Email Address</label>
+                    <label for="email-forgot" class="label">Адреса голубиної пошти</label>
                     <?= $forgotform->field($forgot, 'user_email')->textInput(['class' => 'input'])->label(false) ?>
                 </div>
             </div>
             <div class="modal-footer">
-                <?= Html::submitButton('Send new password<i class="fa fa-paper-plane" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'id' => 'forgotSubmit']) ?>
+                <?= Html::submitButton('Зробити новий ключ<i class="fa fa-paper-plane" aria-hidden="true"></i>', ['class' => 'btn btn-success', 'id' => 'forgotSubmit']) ?>
 
             </div>
             <?php $forgotform = ActiveForm::end() ?>

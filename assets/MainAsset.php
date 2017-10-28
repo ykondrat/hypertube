@@ -23,7 +23,7 @@ class MainAsset extends AssetBundle
         'css/film_page.css'
     ];
     public $js = [
-        'js/site.js',
+
         'js/main.js',
     ];
     public $depends = [

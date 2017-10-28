@@ -45,7 +45,9 @@ class MainController extends Controller
                 'allModels' => $this->get_Genre(),
                 'pagination' => false,
             ]);
-
+            if ($session['language'] == 'ua'){
+                return $this->render('main_ua', compact('user', 'dataProvider'));
+            }
             return $this->render('main', compact('user', 'dataProvider'));
         }
     }
@@ -124,12 +126,11 @@ class MainController extends Controller
     /** RETURN ARRAY OF ALL GENRE */
 
     public function get_Genre(){
-        $genre_array = array();
-        $genres = Genre::find()->asArray()->all();
-        foreach ($genres as $genre){
-            $genre_array[] = $genre['genre'];
-        }
-        array_unshift($genre_array, "All");
+        $genre_array =   [
+         ['All', 'Всьо'] ,['Action', 'Бойовик курва'],['Adventure', 'Пригодницький'],['Animation', 'Мультяшки'],['Biography', 'Біографічний' ],['Comedy', 'Ржака'],['Crime', 'Бандюганський'],['Documentary', 'Документальний'],['Drama', 'Драма'],
+         ['Family', 'Сімейний'],['Fantasy', 'Шото анріал'],['Film-Noir','Чорний фільм'],['History', 'Історичний'],['Horror', 'Страшний'],['Music', 'Музикальний'],['Musical', 'Мюзикл'],['Mystery', 'Таємничий'],['Romance', 'Соплі'],['Sci-Fi', 'Ботанський'],['Sport', 'На спортіку'],['Thriller','Трилер'],
+         ['War', 'Войнушки'],['Western', 'Ковбойські']];
+
         return $genre_array;
     }
 
@@ -193,7 +194,9 @@ class MainController extends Controller
         else {
             $user->user_password = '';
         }
-
+        if ($session['language'] == 'ua'){
+            return $this->render('settings_ua',compact('user'));
+        }
         return $this->render('settings',compact('user'));
     }
 

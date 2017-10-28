@@ -12,6 +12,7 @@ use app\controllers\SiteController;
 use app\models\Comment;
 use app\models\Forgot;
 use app\models\Imdb;
+use app\models\Imdb_ua;
 use app\models\Login;
 use app\models\Settings;
 use app\models\Signup;
@@ -95,8 +96,14 @@ class FilmController extends Controller
 
         if (Imdb::find()->where(['imdbID' => $id])->one()){
 
-            $film = Imdb::find()->where(['imdbID' => $id])->one();
-            return $this->render('film_page', compact('film', 'user', 'comments', 'torrents'));
+
+            if ($session['language'] == 'ua'){
+                $film = Imdb_ua::find()->where(['imdbID' => $id])->one();
+                return $this->render('film_page_ua', compact('film', 'user', 'comments', 'torrents'));
+            }else {
+                $film = Imdb::find()->where(['imdbID' => $id])->one();
+                return $this->render('film_page', compact('film', 'user', 'comments', 'torrents'));
+            }
         }
         else {
             return $this->render('//error/404');
