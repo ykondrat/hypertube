@@ -81,10 +81,11 @@ function sendTorrent(elem, film) {
             }
         });
     } else {
+        
         $.ajax({
             url: 'set_done',
             type: 'post',
-            data: { done: film } 
+            data: { done: film + ',node_server/public/films/' } 
         });
         $.ajax({
             url: 'send_to_node',
