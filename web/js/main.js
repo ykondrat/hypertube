@@ -89,6 +89,7 @@ function sendData(genre, search, limit, sort_value, filter_value) {
 }
 
 $('#search-film').on('keyup', function(event){
+
     if (event.keyCode == 13) {
         $('#movies div').remove();
         searchValue = this.value;
