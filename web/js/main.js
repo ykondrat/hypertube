@@ -89,8 +89,7 @@ function sendData(genre, search, limit, sort_value, filter_value) {
 }
 
 $('#search-film').on('keyup', function(event){
-
-    if (event.keyCode == 13) {
+    if (event.keyCode == 13 && this.value != searchValue) {
         $('#movies div').remove();
         searchValue = this.value;
         limit = 1;
@@ -186,7 +185,6 @@ function setGenre(Genre) {
         sort_value: sort_value,
         filter_value: filter_value
     };
-    console.log(data);
     sendDataAndGet('main/sort_filter', data);
 }
 
@@ -234,7 +232,6 @@ function sendDataAndGet(url, data) {
             data: data,
             dataType: 'json',
             success: function(response) {
-                console.log(response);
                 let end = response[response.length - 1];
 
                 if (end == "END") {
