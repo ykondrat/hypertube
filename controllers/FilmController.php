@@ -8,7 +8,6 @@
 
 namespace app\controllers;
 use \Done\Subtitles\Subtitles;
-use Captioning\Format\SBVFile;
 use app\models\Comment;
 use app\models\Imdb;
 use app\models\Imdb_ua;
@@ -18,7 +17,6 @@ use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
 use linslin\yii2\curl;
-use Captioning\Format\SubripFile;
 use yii\helpers\FileHelper;
 
 class FilmController extends Controller
