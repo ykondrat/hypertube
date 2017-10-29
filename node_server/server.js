@@ -38,7 +38,6 @@ app.use(session({
 }));
 
 schedule.scheduleJob('*/1 * * * *', () => {
-    console.log(1)
     requestify.get('http://localhost:8080/hypertube/web/function/gamno')
     .then(function(response) {
         response.getBody();
@@ -54,7 +53,7 @@ app.post('/get_info', (req, res) => {
 
     if (!fs.existsSync('public/films/' + Torrent.imdbID + Torrent.number)) {
         if (Torrent.hash) {
-            magnetLink(Torrent.url, (err, link) => { 
+            magnetLink(Torrent.url, (err, link) => {
                 var engine = torrentStream(link, {
                     path: 'public/films/' + Torrent.imdbID + Torrent.number,
                 });
@@ -66,7 +65,7 @@ app.post('/get_info', (req, res) => {
 
                         if (format === 'mp4' || format === 'webm' || format === 'ogg' || format === 'mkv') {
                             var stream = file.createReadStream();
-                            
+
                             if (!fs.existsSync(videos)) {
                                 fs.mkdirSync(videos);
                             }
@@ -81,7 +80,7 @@ app.post('/get_info', (req, res) => {
             var engine = torrentStream(Torrent.url, {
                 path: 'public/films/' + Torrent.imdbID + Torrent.number,
             });
-            
+
             engine.on('ready', () => {
                 engine.files.forEach((file) => {
                     Files.push(file.name);
