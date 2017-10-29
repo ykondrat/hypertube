@@ -7,9 +7,9 @@ html
         title= film.Title
         link(href='images/favicon.png', rel='icon', type='image/svg')
         link(href='//vjs.zencdn.net/4.12/video-js.css', rel='stylesheet')
-        script(src='//vjs.zencdn.net/4.12/video.js')
         link(href='stylesheets/style.css', rel='stylesheet', type='text/css')
         link(href='videojs-resolution-selector/video-quality-selector.css', rel='stylesheet', type='text/css')
+        script(src='//vjs.zencdn.net/4.12/video.js')
         script(src='videojs-resolution-selector/video-quality-selector.js')
         script(src='//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.10.1/videojs-contrib-hls.min.js')
         script(src='videojs-resolution-selector/videosub.js')
@@ -21,8 +21,8 @@ html
                 source(src= src, type='video/mp4', data-res='720')
                 source(src= src, type='video/mp4', data-res='1080')
                 track(label='English', kind='subtitles', srclang="en-US", src= subtitles)
-                track(label='Français', kind='subtitles', srclang='fr', src='')
-                track(label='Русский', kind='subtitles', srclang='ru', src='')
+                track(label='Français', kind='subtitles', srclang='fr', src= subtitles)
+                track(label='Русский', kind='subtitles', srclang='ru', src= subtitles)
                 p.vjs-no-js
                     | To view this video please enable JavaScript, and consider upgrading to a
                     | web browser that

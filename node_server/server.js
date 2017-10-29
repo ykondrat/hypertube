@@ -5,12 +5,10 @@ const session       = require('express-session');
 const path          = require('path');
 const bodyParser    = require('body-parser');
 const magnetLink 	= require('magnet-link');
-const srt2vtt       = require('srt-to-vtt')
 const fs 			= require('fs');
 const torrentStream = require('torrent-stream');
 const schedule      = require('node-schedule');
-const http          = require("http");
-var requestify = require('requestify');
+const requestify    = require('requestify');
 
 let User = {};
 let Film = {};
