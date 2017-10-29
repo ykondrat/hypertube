@@ -7,6 +7,7 @@ use app\models\Genre;
 use app\models\Imdb;
 use app\models\Login;
 use app\models\Signup;
+use app\models\Subtitle;
 use app\models\Torrent;
 use Yii;
 use yii\filters\AccessControl;
@@ -275,6 +276,11 @@ class SiteController extends Controller
             $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['number', 'imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $torrents1)->execute();
             $posts = Yii::$app->db->createCommand()->batchInsert('torrent_link', ['number', 'imdbID' ,'url','hash','quality','seeds','peers','size','size_bytes','date_uploaded','date_uploaded_unix'], $torrents2)->execute();
 
+        }
+
+        if (Subtitle::find()->asArray()->all() == NULL){
+            require_once Yii::$app->basePath . '/web/db_data/subtitle.php';
+            $sub = Yii::$app->db->createCommand()->batchInsert('subtitle', ['number' ,'imdb_id','language','path_url','path_folder'], $subtitle)->execute();
         }
 
     }
