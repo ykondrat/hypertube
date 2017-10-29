@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "4a7a6e701213c7a05f310998ecccd8af",
+    "content-hash": "ae63b6a700523ba12eb35037d5047375",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -206,6 +206,57 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "captioning/captioning",
+            "version": "2.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/captioning/captioning.git",
+                "reference": "541c3a94667cb8d6c13be3d185444e488e3e2714"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/captioning/captioning/zipball/541c3a94667cb8d6c13be3d185444e488e3e2714",
+                "reference": "541c3a94667cb8d6c13be3d185444e488e3e2714",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.4.*@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Captioning": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Julien Villetorte",
+                    "email": "j.villetorte@gmail.com",
+                    "homepage": "http://www.delphiki.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A collection of tools to manipulate subtitles",
+            "keywords": [
+                "ass",
+                "srt",
+                "ssa",
+                "subrip",
+                "substation",
+                "subtitle",
+                "vtt",
+                "webvtt"
+            ],
+            "time": "2017-10-19T11:37:28+00:00"
         },
         {
             "name": "cebe/markdown",
@@ -1016,6 +1067,33 @@
             "time": "2017-10-23T07:43:10+00:00"
         },
         {
+            "name": "mantas-done/subtitles",
+            "version": "0.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mantas-done/subtitles.git",
+                "reference": "13519b1a0c429c8cc12f57b38eec7af32e1c4979"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mantas-done/subtitles/zipball/13519b1a0c429c8cc12f57b38eec7af32e1c4979",
+                "reference": "13519b1a0c429c8cc12f57b38eec7af32e1c4979",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Subtitle converter and generator for PHP",
+            "time": "2017-10-21T07:10:50+00:00"
+        },
+        {
             "name": "mashape/unirest-php",
             "version": "v3.0.4",
             "source": {
@@ -1251,16 +1329,16 @@
         },
         {
             "name": "yii-dream-team/yii2-upload-behavior",
-            "version": "1.1.1",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yii-dream-team/yii2-upload-behavior.git",
-                "reference": "0bfbb77dd7dc7ea57560572aa87db9d154c6c90f"
+                "reference": "cdb45e68014476765188c387fafcb7fd30d2ad0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yii-dream-team/yii2-upload-behavior/zipball/0bfbb77dd7dc7ea57560572aa87db9d154c6c90f",
-                "reference": "0bfbb77dd7dc7ea57560572aa87db9d154c6c90f",
+                "url": "https://api.github.com/repos/yii-dream-team/yii2-upload-behavior/zipball/cdb45e68014476765188c387fafcb7fd30d2ad0a",
+                "reference": "cdb45e68014476765188c387fafcb7fd30d2ad0a",
                 "shasum": ""
             },
             "require": {
@@ -1296,7 +1374,7 @@
                 "thumb",
                 "upload"
             ],
-            "time": "2016-03-25T05:52:20+00:00"
+            "time": "2017-10-26T15:44:40+00:00"
         },
         {
             "name": "yiisoft/yii2",

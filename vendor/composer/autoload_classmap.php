@@ -6,6 +6,15 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Done\\Subtitles\\ConverterContract' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/ConverterContract.php',
+    'Done\\Subtitles\\Helpers' => $vendorDir . '/mantas-done/subtitles/src/code/Helpers.php',
+    'Done\\Subtitles\\SbvConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/SbvConverter.php',
+    'Done\\Subtitles\\SrtConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/SrtConverter.php',
+    'Done\\Subtitles\\StlConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/StlConverter.php',
+    'Done\\Subtitles\\SubConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/SubConverter.php',
+    'Done\\Subtitles\\SubtitleContract' => $vendorDir . '/mantas-done/subtitles/src/Subtitles.php',
+    'Done\\Subtitles\\Subtitles' => $vendorDir . '/mantas-done/subtitles/src/Subtitles.php',
+    'Done\\Subtitles\\VttConverter' => $vendorDir . '/mantas-done/subtitles/src/code/Converters/VttConverter.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
@@ -178,7 +187,7 @@ return array(
     'PHPUnit_Util_TestDox_ResultPrinter_Text' => $vendorDir . '/phpunit/phpunit/src/Util/TestDox/ResultPrinter/Text.php',
     'PHPUnit_Util_TestSuiteIterator' => $vendorDir . '/phpunit/phpunit/src/Util/TestSuiteIterator.php',
     'PHPUnit_Util_Type' => $vendorDir . '/phpunit/phpunit/src/Util/Type.php',
-    'PHPUnit_Util_XML' => $vendorDir . '/phpunit/phpunit/src/Util/XML.php',
+    'PHPUnit_Util_XML' => $vendorDir . '/phpunit/phpunit/src/Util/Xml.php',
     'PHP_CodeCoverage' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage.php',
     'PHP_CodeCoverage_Driver' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Driver.php',
     'PHP_CodeCoverage_Driver_HHVM' => $vendorDir . '/phpunit/php-code-coverage/src/CodeCoverage/Driver/HHVM.php',

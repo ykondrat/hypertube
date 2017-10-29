@@ -8,23 +8,14 @@ use app\models\Imdb;
 use app\models\Login;
 use app\models\Signup;
 use app\models\Torrent;
-use DOMDocument;
-use phpDocumentor\Reflection\Location;
-use Symfony\Component\BrowserKit\Request;
 use Yii;
-use yii\authclient\OAuth2;
 use yii\filters\AccessControl;
 use yii\web\Controller;
-use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\User;
-use yii\authclient\AuthAction;
-use yii\helpers\Url;
 use linslin\yii2\curl;
-use Unirest;
 use yii\helpers\FileHelper;
-use Composer\Autoload;
-use DOMXPath;
+
 
 class SiteController extends Controller
 {

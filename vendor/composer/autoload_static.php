@@ -325,6 +325,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
             array (
                 0 => __DIR__ . '/..' . '/codeception/specify/src',
             ),
+            'Captioning' => 
+            array (
+                0 => __DIR__ . '/..' . '/captioning/captioning/src',
+            ),
         ),
         'B' => 
         array (
@@ -336,6 +340,15 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
     );
 
     public static $classMap = array (
+        'Done\\Subtitles\\ConverterContract' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/ConverterContract.php',
+        'Done\\Subtitles\\Helpers' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Helpers.php',
+        'Done\\Subtitles\\SbvConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/SbvConverter.php',
+        'Done\\Subtitles\\SrtConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/SrtConverter.php',
+        'Done\\Subtitles\\StlConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/StlConverter.php',
+        'Done\\Subtitles\\SubConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/SubConverter.php',
+        'Done\\Subtitles\\SubtitleContract' => __DIR__ . '/..' . '/mantas-done/subtitles/src/Subtitles.php',
+        'Done\\Subtitles\\Subtitles' => __DIR__ . '/..' . '/mantas-done/subtitles/src/Subtitles.php',
+        'Done\\Subtitles\\VttConverter' => __DIR__ . '/..' . '/mantas-done/subtitles/src/code/Converters/VttConverter.php',
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
@@ -508,7 +521,7 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         'PHPUnit_Util_TestDox_ResultPrinter_Text' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/TestDox/ResultPrinter/Text.php',
         'PHPUnit_Util_TestSuiteIterator' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/TestSuiteIterator.php',
         'PHPUnit_Util_Type' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Type.php',
-        'PHPUnit_Util_XML' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/XML.php',
+        'PHPUnit_Util_XML' => __DIR__ . '/..' . '/phpunit/phpunit/src/Util/Xml.php',
         'PHP_CodeCoverage' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage.php',
         'PHP_CodeCoverage_Driver' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage/Driver.php',
         'PHP_CodeCoverage_Driver_HHVM' => __DIR__ . '/..' . '/phpunit/php-code-coverage/src/CodeCoverage/Driver/HHVM.php',

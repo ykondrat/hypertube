@@ -98,7 +98,9 @@ function sendTorrent(elem, film) {
 
                     setTimeout(() => {
                          $(elem)[0].children[2].innerHTML = 'done';
-                         $('.download-info')[0].innerHTML = 'ready to stream';               
+                         $('.download-info')[0].innerHTML = 'ready to stream';
+
+
                     }, 5000);
                 }
             }

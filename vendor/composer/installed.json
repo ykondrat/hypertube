@@ -1306,57 +1306,6 @@
         ]
     },
     {
-        "name": "yii-dream-team/yii2-upload-behavior",
-        "version": "1.1.1",
-        "version_normalized": "1.1.1.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/yii-dream-team/yii2-upload-behavior.git",
-            "reference": "0bfbb77dd7dc7ea57560572aa87db9d154c6c90f"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/yii-dream-team/yii2-upload-behavior/zipball/0bfbb77dd7dc7ea57560572aa87db9d154c6c90f",
-            "reference": "0bfbb77dd7dc7ea57560572aa87db9d154c6c90f",
-            "shasum": ""
-        },
-        "require": {
-            "masterexploder/phpthumb": "*",
-            "php": ">=5.4.0",
-            "yiisoft/yii2": "*"
-        },
-        "time": "2016-03-25T05:52:20+00:00",
-        "type": "yii2-extension",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "yiidreamteam\\upload\\": "./src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Alexey Samoylov",
-                "email": "alexey.samoylov@gmail.com",
-                "homepage": "http://yiidreamteam.com/team/alexey",
-                "role": "Developer"
-            }
-        ],
-        "description": "Yii2 file/image upload behavior for ActiveRecord",
-        "homepage": "http://yiidreamteam.com/yii2/upload-behavior",
-        "keywords": [
-            "Behavior",
-            "file",
-            "image",
-            "resize",
-            "thumb",
-            "upload"
-        ]
-    },
-    {
         "name": "mashape/unirest-php",
         "version": "v3.0.4",
         "version_normalized": "3.0.4.0",
@@ -2075,55 +2024,6 @@
         "keywords": [
             "curl",
             "http client"
-        ]
-    },
-    {
-        "name": "matthiasnoback/microsoft-translator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/matthiasnoback/microsoft-translator.git",
-            "reference": "291b91e4cb11c59b0e2597549f971b5dfa554d1e"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/matthiasnoback/microsoft-translator/zipball/291b91e4cb11c59b0e2597549f971b5dfa554d1e",
-            "reference": "291b91e4cb11c59b0e2597549f971b5dfa554d1e",
-            "shasum": ""
-        },
-        "require": {
-            "doctrine/common": "~2.2",
-            "kriswallsmith/buzz": "0.*"
-        },
-        "require-dev": {
-            "phpunit/phpunit": "~4.3"
-        },
-        "time": "2017-01-30T14:12:32+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-0": {
-                "MatthiasNoback": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Matthias Noback",
-                "email": "matthiasnoback@gmail.com",
-                "homepage": "http://php-and-symfony.matthiasnoback.nl"
-            }
-        ],
-        "description": "Library for making calls to the Microsoft Translator V2 API",
-        "homepage": "http://github.com/matthiasnoback/microsoft-translator",
-        "keywords": [
-            "Microsoft Translator",
-            "bing",
-            "translate"
         ]
     },
     {
@@ -3534,56 +3434,6 @@
         ]
     },
     {
-        "name": "kop/yii2-scroll-pager",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kop/yii2-scroll-pager.git",
-            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/9b9727ce441fbfc487044535ab6ce0b7694d810b",
-            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.4.0",
-            "webcreate/jquery-ias": "^2.2.1",
-            "yiisoft/yii2": "*"
-        },
-        "time": "2016-07-06T19:56:33+00:00",
-        "type": "yii2-extension",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "kop\\y2sp\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Ivan Koptiev",
-                "email": "ivan.koptiev@codex.systems",
-                "role": "Developer"
-            }
-        ],
-        "description": "Infinite AJAX scrolling for Yii2 ListView widget",
-        "homepage": "http://kop.github.io/yii2-scroll-pager/",
-        "keywords": [
-            "pager",
-            "pagination",
-            "scroll",
-            "scrolling",
-            "yii",
-            "yii2"
-        ]
-    },
-    {
         "name": "yiisoft/yii2-bootstrap",
         "version": "2.0.7",
         "version_normalized": "2.0.7.0",
@@ -3628,108 +3478,6 @@
         "description": "The Twitter Bootstrap extension for the Yii framework",
         "keywords": [
             "bootstrap",
-            "yii2"
-        ]
-    },
-    {
-        "name": "kartik-v/yii2-krajee-base",
-        "version": "v1.8.9",
-        "version_normalized": "1.8.9.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kartik-v/yii2-krajee-base.git",
-            "reference": "0cafe6376780cedcd00f52c9d82b172d5851f6b0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/0cafe6376780cedcd00f52c9d82b172d5851f6b0",
-            "reference": "0cafe6376780cedcd00f52c9d82b172d5851f6b0",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2-bootstrap": "@dev"
-        },
-        "time": "2017-09-29T06:18:14+00:00",
-        "type": "yii2-extension",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "1.8.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "kartik\\base\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD-3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Kartik Visweswaran",
-                "email": "kartikv2@gmail.com",
-                "homepage": "http://www.krajee.com/"
-            }
-        ],
-        "description": "Base library and foundation components for all Yii2 Krajee extensions.",
-        "homepage": "https://github.com/kartik-v/yii2-krajee-base",
-        "keywords": [
-            "base",
-            "extension",
-            "foundation",
-            "krajee",
-            "widget",
-            "yii2"
-        ]
-    },
-    {
-        "name": "kartik-v/yii2-slider",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/kartik-v/yii2-slider.git",
-            "reference": "4f04cf8f4c1549fbd17e8b246c6cfe56bb777e44"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/kartik-v/yii2-slider/zipball/4f04cf8f4c1549fbd17e8b246c6cfe56bb777e44",
-            "reference": "4f04cf8f4c1549fbd17e8b246c6cfe56bb777e44",
-            "shasum": ""
-        },
-        "require": {
-            "kartik-v/yii2-krajee-base": "*"
-        },
-        "time": "2017-08-24T10:17:47+00:00",
-        "type": "yii2-extension",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "kartik\\slider\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "BSD 3-Clause"
-        ],
-        "authors": [
-            {
-                "name": "Kartik Visweswaran",
-                "email": "kartikv2@gmail.com",
-                "homepage": "http://www.krajee.com/"
-            }
-        ],
-        "description": "An advanced slider input for Yii Framework 2 for both touch enabled and desktop devices based on bootstrap-slider.",
-        "homepage": "https://github.com/kartik-v/yii2-slider",
-        "keywords": [
-            "bootstrap",
-            "bootstrap 3",
-            "extension",
-            "range",
-            "slider",
-            "widget",
             "yii2"
         ]
     },
@@ -3944,66 +3692,6 @@
         ]
     },
     {
-        "name": "dektrium/yii2-user",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/dektrium/yii2-user.git",
-            "reference": "73e1c3b247b276b8b0071f4888cffabc15443d04"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/73e1c3b247b276b8b0071f4888cffabc15443d04",
-            "reference": "73e1c3b247b276b8b0071f4888cffabc15443d04",
-            "shasum": ""
-        },
-        "require": {
-            "yiisoft/yii2": "^2.0.0",
-            "yiisoft/yii2-authclient": "^2.1.0",
-            "yiisoft/yii2-bootstrap": "^2.0.0",
-            "yiisoft/yii2-swiftmailer": "^2.0.0"
-        },
-        "require-dev": {
-            "codeception/specify": "^0.4.3",
-            "codeception/verify": "^0.3.1",
-            "yiisoft/yii2-codeception": "^2.0.0"
-        },
-        "time": "2017-05-10T19:06:29+00:00",
-        "type": "yii2-extension",
-        "extra": {
-            "bootstrap": "dektrium\\user\\Bootstrap",
-            "branch-alias": {
-                "dev-master": "0.9.x-dev",
-                "dev-develop": "1.0.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "dektrium\\user\\": ""
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Dmitry Erofeev",
-                "email": "dmeroff@gmail.com",
-                "homepage": "http://dmeroff.ru"
-            }
-        ],
-        "description": "Flexible user registration and authentication module for Yii2",
-        "keywords": [
-            "User management",
-            "dektrium",
-            "yii2",
-            "yii2-user"
-        ]
-    },
-    {
         "name": "yiisoft/yii2-debug",
         "version": "2.0.12",
         "version_normalized": "2.0.12.0",
@@ -4100,5 +3788,399 @@
             "faker",
             "yii2"
         ]
+    },
+    {
+        "name": "yii-dream-team/yii2-upload-behavior",
+        "version": "1.2.3",
+        "version_normalized": "1.2.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/yii-dream-team/yii2-upload-behavior.git",
+            "reference": "cdb45e68014476765188c387fafcb7fd30d2ad0a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/yii-dream-team/yii2-upload-behavior/zipball/cdb45e68014476765188c387fafcb7fd30d2ad0a",
+            "reference": "cdb45e68014476765188c387fafcb7fd30d2ad0a",
+            "shasum": ""
+        },
+        "require": {
+            "masterexploder/phpthumb": "*",
+            "php": ">=5.4.0",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2017-10-26T15:44:40+00:00",
+        "type": "yii2-extension",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "yiidreamteam\\upload\\": "./src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Alexey Samoylov",
+                "email": "alexey.samoylov@gmail.com",
+                "homepage": "http://yiidreamteam.com/team/alexey",
+                "role": "Developer"
+            }
+        ],
+        "description": "Yii2 file/image upload behavior for ActiveRecord",
+        "homepage": "http://yiidreamteam.com/yii2/upload-behavior",
+        "keywords": [
+            "Behavior",
+            "file",
+            "image",
+            "resize",
+            "thumb",
+            "upload"
+        ]
+    },
+    {
+        "name": "kop/yii2-scroll-pager",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kop/yii2-scroll-pager.git",
+            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kop/yii2-scroll-pager/zipball/9b9727ce441fbfc487044535ab6ce0b7694d810b",
+            "reference": "9b9727ce441fbfc487044535ab6ce0b7694d810b",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.4.0",
+            "webcreate/jquery-ias": "^2.2.1",
+            "yiisoft/yii2": "*"
+        },
+        "time": "2016-07-06T19:56:33+00:00",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "kop\\y2sp\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Ivan Koptiev",
+                "email": "ivan.koptiev@codex.systems",
+                "role": "Developer"
+            }
+        ],
+        "description": "Infinite AJAX scrolling for Yii2 ListView widget",
+        "homepage": "http://kop.github.io/yii2-scroll-pager/",
+        "keywords": [
+            "pager",
+            "pagination",
+            "scroll",
+            "scrolling",
+            "yii",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-krajee-base",
+        "version": "v1.8.9",
+        "version_normalized": "1.8.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-krajee-base.git",
+            "reference": "0cafe6376780cedcd00f52c9d82b172d5851f6b0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-krajee-base/zipball/0cafe6376780cedcd00f52c9d82b172d5851f6b0",
+            "reference": "0cafe6376780cedcd00f52c9d82b172d5851f6b0",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2-bootstrap": "@dev"
+        },
+        "time": "2017-09-29T06:18:14+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.8.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "kartik\\base\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "Base library and foundation components for all Yii2 Krajee extensions.",
+        "homepage": "https://github.com/kartik-v/yii2-krajee-base",
+        "keywords": [
+            "base",
+            "extension",
+            "foundation",
+            "krajee",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "kartik-v/yii2-slider",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kartik-v/yii2-slider.git",
+            "reference": "4f04cf8f4c1549fbd17e8b246c6cfe56bb777e44"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kartik-v/yii2-slider/zipball/4f04cf8f4c1549fbd17e8b246c6cfe56bb777e44",
+            "reference": "4f04cf8f4c1549fbd17e8b246c6cfe56bb777e44",
+            "shasum": ""
+        },
+        "require": {
+            "kartik-v/yii2-krajee-base": "*"
+        },
+        "time": "2017-08-24T10:17:47+00:00",
+        "type": "yii2-extension",
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "kartik\\slider\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD 3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kartik Visweswaran",
+                "email": "kartikv2@gmail.com",
+                "homepage": "http://www.krajee.com/"
+            }
+        ],
+        "description": "An advanced slider input for Yii Framework 2 for both touch enabled and desktop devices based on bootstrap-slider.",
+        "homepage": "https://github.com/kartik-v/yii2-slider",
+        "keywords": [
+            "bootstrap",
+            "bootstrap 3",
+            "extension",
+            "range",
+            "slider",
+            "widget",
+            "yii2"
+        ]
+    },
+    {
+        "name": "dektrium/yii2-user",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dektrium/yii2-user.git",
+            "reference": "73e1c3b247b276b8b0071f4888cffabc15443d04"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/dektrium/yii2-user/zipball/73e1c3b247b276b8b0071f4888cffabc15443d04",
+            "reference": "73e1c3b247b276b8b0071f4888cffabc15443d04",
+            "shasum": ""
+        },
+        "require": {
+            "yiisoft/yii2": "^2.0.0",
+            "yiisoft/yii2-authclient": "^2.1.0",
+            "yiisoft/yii2-bootstrap": "^2.0.0",
+            "yiisoft/yii2-swiftmailer": "^2.0.0"
+        },
+        "require-dev": {
+            "codeception/specify": "^0.4.3",
+            "codeception/verify": "^0.3.1",
+            "yiisoft/yii2-codeception": "^2.0.0"
+        },
+        "time": "2017-05-10T19:06:29+00:00",
+        "type": "yii2-extension",
+        "extra": {
+            "bootstrap": "dektrium\\user\\Bootstrap",
+            "branch-alias": {
+                "dev-master": "0.9.x-dev",
+                "dev-develop": "1.0.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "autoload": {
+            "psr-4": {
+                "dektrium\\user\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Dmitry Erofeev",
+                "email": "dmeroff@gmail.com",
+                "homepage": "http://dmeroff.ru"
+            }
+        ],
+        "description": "Flexible user registration and authentication module for Yii2",
+        "keywords": [
+            "User management",
+            "dektrium",
+            "yii2",
+            "yii2-user"
+        ]
+    },
+    {
+        "name": "matthiasnoback/microsoft-translator",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/matthiasnoback/microsoft-translator.git",
+            "reference": "291b91e4cb11c59b0e2597549f971b5dfa554d1e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/matthiasnoback/microsoft-translator/zipball/291b91e4cb11c59b0e2597549f971b5dfa554d1e",
+            "reference": "291b91e4cb11c59b0e2597549f971b5dfa554d1e",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/common": "~2.2",
+            "kriswallsmith/buzz": "0.*"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "~4.3"
+        },
+        "time": "2017-01-30T14:12:32+00:00",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "MatthiasNoback": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Matthias Noback",
+                "email": "matthiasnoback@gmail.com",
+                "homepage": "http://php-and-symfony.matthiasnoback.nl"
+            }
+        ],
+        "description": "Library for making calls to the Microsoft Translator V2 API",
+        "homepage": "http://github.com/matthiasnoback/microsoft-translator",
+        "keywords": [
+            "Microsoft Translator",
+            "bing",
+            "translate"
+        ]
+    },
+    {
+        "name": "captioning/captioning",
+        "version": "2.5.4",
+        "version_normalized": "2.5.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/captioning/captioning.git",
+            "reference": "541c3a94667cb8d6c13be3d185444e488e3e2714"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/captioning/captioning/zipball/541c3a94667cb8d6c13be3d185444e488e3e2714",
+            "reference": "541c3a94667cb8d6c13be3d185444e488e3e2714",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "4.4.*@dev"
+        },
+        "time": "2017-10-19T11:37:28+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Captioning": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Julien Villetorte",
+                "email": "j.villetorte@gmail.com",
+                "homepage": "http://www.delphiki.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A collection of tools to manipulate subtitles",
+        "keywords": [
+            "ass",
+            "srt",
+            "ssa",
+            "subrip",
+            "substation",
+            "subtitle",
+            "vtt",
+            "webvtt"
+        ]
+    },
+    {
+        "name": "mantas-done/subtitles",
+        "version": "0.3.3",
+        "version_normalized": "0.3.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/mantas-done/subtitles.git",
+            "reference": "13519b1a0c429c8cc12f57b38eec7af32e1c4979"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/mantas-done/subtitles/zipball/13519b1a0c429c8cc12f57b38eec7af32e1c4979",
+            "reference": "13519b1a0c429c8cc12f57b38eec7af32e1c4979",
+            "shasum": ""
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^6.0"
+        },
+        "time": "2017-10-21T07:10:50+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "description": "Subtitle converter and generator for PHP"
     }
 ]

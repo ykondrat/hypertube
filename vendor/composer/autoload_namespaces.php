@@ -18,5 +18,6 @@ return array(
     'Doctrine\\Common\\Annotations\\' => array($vendorDir . '/doctrine/annotations/lib'),
     'Diff' => array($vendorDir . '/phpspec/php-diff/lib'),
     'Codeception\\' => array($vendorDir . '/codeception/specify/src'),
+    'Captioning' => array($vendorDir . '/captioning/captioning/src'),
     'Behat\\Gherkin' => array($vendorDir . '/behat/gherkin/src'),
 );

@@ -7,25 +7,24 @@
  */
 
 namespace app\controllers;
-
-use app\controllers\SiteController;
+use \Done\Subtitles\Subtitles;
+use Captioning\Format\SBVFile;
 use app\models\Comment;
-use app\models\Forgot;
 use app\models\Imdb;
 use app\models\Imdb_ua;
-use app\models\Login;
-use app\models\Settings;
-use app\models\Signup;
 use app\models\Torrent;
 use app\models\User;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
-use DOMDocument;
 use linslin\yii2\curl;
+use Captioning\Format\SubripFile;
+use yii\helpers\FileHelper;
+
 class FilmController extends Controller
 {
+
+
     public $layout = 'film';
 
     /** OPEN PAGE OF FILM */
@@ -45,10 +44,13 @@ class FilmController extends Controller
         ])
             ->post('http://localhost:8000/get_info');
         if ($response == 'OK'){
+            $this->Down_sub($post[0].$post[1], $post[0]);
             echo json_encode('OK');
+
         } else{
             echo json_encode('GAMNO');
         }
+
     }
 
     public function actionAddcomment(){
@@ -76,8 +78,6 @@ class FilmController extends Controller
     public function get_torrents($id){
         return    Torrent::find()->orderBy(['seeds'=>SORT_DESC])->where(['imdbID' => $id])->all();
     }
-
-
 
     public function actionFilm_page($id)
     {
@@ -111,6 +111,59 @@ class FilmController extends Controller
 
     }
 
+    public function Down_sub($tt, $imdb){
+
+        sleep(3);
+        $path = '../node_server/public/films/'.$tt;
+        $results = scandir($path);
+        $folder = '';
+        foreach ($results as $result) {
+            if ($result === '.' or $result === '..') continue;
+
+            if (is_dir($path . '/' . $result)) {
+                $folder = $tt.'/'.$result;
+            }
+        }
+
+        $sub_path = (new \yii\db\Query())->select(['path_url'])->from('subtitle')->where(['imdb_id' => $imdb])->all();
+        $zip_pas = '../node_server/public/films/' . $folder . '/test.zip';
+
+        foreach ($sub_path as $path) {
+
+            $src = fopen($path['path_url'], 'r');
+            $dest1 = fopen('../node_server/public/films/' . $folder . '/test.zip', 'w');
+
+            stream_copy_to_stream($src, $dest1);
+
+            $zip = new \ZipArchive();
+            $res = $zip->open('../node_server/public/films/' . $folder . '/test.zip');
+            if ($res === TRUE) {
+                $zip->extractTo('../node_server/public/films/' . $folder . '/');
+                $zip->close();
+            }
+            unlink($zip_pas);
+
+        }
+        $srt=FileHelper::findFiles('../node_server/public/films/'.$folder.'/', ['only'=>['*.srt']]);
+        $sub_s = FileHelper::findFiles('../node_server/public/films/'.$folder.'/', ['only'=>['*.sub']]);
+        foreach ($srt as $sub) {
+            try{
+
+                Subtitles::convert($sub, substr($sub, 0, -4) . '.vtt');
+
+            } catch(\Exception $e) {
+
+            }
+            unlink($sub);
+
+        }
+        foreach ($sub_s as $sub) {
+            unlink($sub);
+        }
+
+
+    }
+
     public function actionSet_done(){
         $post = Yii::$app->request->post('done');
         $data = explode(',', $post);
@@ -119,6 +172,7 @@ class FilmController extends Controller
         $torrent->time_upload = time();
         $torrent->torrent_path = $data[2].$data[0].$data[1];
         $torrent->save();
+
     }
 
 

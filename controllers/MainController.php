@@ -8,20 +8,14 @@
 
 namespace app\controllers;
 
-use app\models\Forgot;
-use app\models\Genre;
 use app\models\Imdb;
-use app\models\Login;
 use app\models\Settings;
-use app\models\Signup;
 use app\models\User;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use Yii;
 use yii\data\ArrayDataProvider;
-use linslin\yii2\curl;
 use yii\web\UploadedFile;
-use app\models\Torrent;
+
 
 class MainController extends Controller
 {

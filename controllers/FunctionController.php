@@ -8,18 +8,11 @@
 
 namespace app\controllers;
 
-use app\controllers\SiteController;
-use app\models\Forgot;
+use yii\helpers\FileHelper;
 use app\models\Imdb;
-use app\models\Login;
-use app\models\Settings;
-use app\models\Signup;
 use app\models\Torrent;
-use app\models\User;
-use yii\filters\AccessControl;
 use yii\web\Controller;
 use Yii;
-use yii\data\ArrayDataProvider;
 use DOMDocument;
 use Buzz\Browser;
 use MatthiasNoback\MicrosoftOAuth\AzureTokenProvider;
@@ -28,8 +21,15 @@ use MatthiasNoback\MicrosoftTranslator\MicrosoftTranslator;
 class FunctionController extends Controller
 {
 
+
+    public function deleteFolder($path){
+        foreach ($path as $p){
+            FileHelper::removeDirectory('../'.$p['torrent_path']);
+        }
+    }
+
     public function actionGamno(){
-        $t = time();
+        $t = time() - 2592000;
         $condition = ['and',
             ['<', 'time_upload', $t ],
             ['torent_done' => 'done'],
@@ -41,8 +41,8 @@ class FunctionController extends Controller
             ->andWhere(['<', 'time_upload', $t ])
             ->all();
 
+        $this->deleteFolder($torrent_path);
         Torrent::updateAll(['time_upload' => 0, 'torent_done' => NULL , 'torrent_path' => NULL], $condition);
-
 
     }
 
@@ -53,8 +53,7 @@ class FunctionController extends Controller
         echo 'ok';
     }
 
-
-    public function Test(){
+    public function Microsoft_translate(){
         $browser = new Browser();
 
         $azureKey = '797be17c8efd43c4b5bb0277db5b8fc9';
@@ -151,7 +150,7 @@ class FunctionController extends Controller
 
     /** PARSE YIFY FOR SUBTITLE AND ADD TO TABLE IN DATABASE */
 
-    public function actionAdd_subtitle(){
+    public function Add_subtitle(){
 
         $ids = unserialize(file_get_contents('db_data/id(top 1000).php'));
         foreach ($ids as $id) {
