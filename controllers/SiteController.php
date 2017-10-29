@@ -152,7 +152,7 @@ class SiteController extends Controller
           `Poster` VARCHAR (500),
           `Metascore` VARCHAR (5),
           `imdbRating` VARCHAR (10),
-          `Production` VARCHAR (1000),         
+          `Production` VARCHAR (1000),
           PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $imdb_id_table->query();
@@ -178,7 +178,7 @@ class SiteController extends Controller
           `Poster` VARCHAR (500),
           `Metascore` VARCHAR (5),
           `imdbRating` VARCHAR (10),
-          `Production` VARCHAR (1000),         
+          `Production` VARCHAR (1000),
           PRIMARY KEY (`number`)) ENGINE=InnoDB DEFAULT CHARSET=utf8
         ');
         $imdb_id_table->query();
@@ -434,13 +434,13 @@ class SiteController extends Controller
 
             if (!(Signup::findOne(['user_email' => $data->email]))) {
                 $user = new Signup();
-                $user->user_login = $data->login;
+                //$user->user_login = $data->login;
                 $user->user_name = $data->first_name;
                 $user->user_secondname = $data->last_name;
                 $user->user_email = $data->email;
                 $user->user_avatar = $data->image_url;
                 $user->user_avatar2 = $data->image_url;
-                $user->user_intra_login = 1;
+                $user->user_intra_id = 1;
                 $user->save(false);
             }
             $session['loged_email'] = $data->email;

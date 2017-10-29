@@ -12,6 +12,7 @@ html
         link(href='videojs-resolution-selector/video-quality-selector.css', rel='stylesheet', type='text/css')
         script(src='videojs-resolution-selector/video-quality-selector.js')
         script(src='//cdnjs.cloudflare.com/ajax/libs/videojs-contrib-hls/5.10.1/videojs-contrib-hls.min.js')
+        script(src='videojs-resolution-selector/videosub.js')
     body
         .container
             h1.header= film.Title
@@ -19,7 +20,7 @@ html
             video#my-player.video-js.vjs-default-skin(controls='', width='1280', height='720', data-setup='{ "plugins" : { "resolutionSelector" : { "default_res" : "720" } } }')
                 source(src= src, type='video/mp4', data-res='720')
                 source(src= src, type='video/mp4', data-res='1080')
-                track(label='English', kind='subtitles', srclang='en', src='', default='')
+                track(label='English', kind='subtitles', srclang="en-US", src= subtitles)
                 track(label='Français', kind='subtitles', srclang='fr', src='')
                 track(label='Русский', kind='subtitles', srclang='ru', src='')
                 p.vjs-no-js
@@ -27,7 +28,6 @@ html
                     | web browser that
                     a(href='http://videojs.com/html5-video-support/', target='_blank')
                         | supports HTML5 video
-
             .wrapper
                 h3.fim-plot Plot:
                 div

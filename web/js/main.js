@@ -185,6 +185,7 @@ function setGenre(Genre) {
         sort_value: sort_value,
         filter_value: filter_value
     };
+    openPrev();
     sendDataAndGet('main/sort_filter', data);
 }
 
@@ -245,7 +246,7 @@ function sendDataAndGet(url, data) {
                 });
             }
         });
-    }, 500);
+    }, 300);
 }
 
 /** End of Sender */
